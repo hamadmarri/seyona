@@ -3,9 +3,10 @@ angular.module('phonertcdemo')
 .controller('TackPictureCtrl', function($scope, $http, $state, signaling, ContactsService) {
 
   $scope.domain = "http://192.168.100.6:8080/EvitagenB";
-  $scope.loginName = "android" + Math.floor(Math.random() * 1000000000);
+  $scope.loginName = "a" + Math.floor(Math.random() * 1000000000);
 
   $scope.sendPhoto = function() {
+
   	var person;
   	person = {
   		webRtcId : $scope.loginName,
