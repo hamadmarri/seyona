@@ -8,21 +8,29 @@ angular.module('phonertcdemo', ['ionic',
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
 
-      .state('takepicture', {
-        url: '/takepicture',
-        views: {
-          '': {
-            templateUrl: 'templates/takepicture.html',
-            controller: 'TackPictureCtrl'
-          }
-        }
-      })
+
 
       .state('app', {
         url: '/app',
         abstract: true,
         templateUrl: 'templates/app.html'
       })
+
+
+      .state('app.takepicture', {
+        url: '/takepicture',
+        controller: 'TakePictureCtrl',
+        templateUrl: 'templates/takepicture.html'
+      })
+
+      .state('app.search', {
+        url: '/search/:negative?',
+        controller: 'SearchCtrl',
+        templateUrl: 'templates/search.html'
+        // params: { negative: 'false' }
+      })
+
+
       .state('app.login', {
         url: '/login',
         controller: 'LoginCtrl',
@@ -40,7 +48,7 @@ angular.module('phonertcdemo', ['ionic',
       });
 
     // $urlRouterProvider.otherwise('/app/login');
-    $urlRouterProvider.otherwise('/takepicture');
+    $urlRouterProvider.otherwise('app/takepicture');
 
   })
 

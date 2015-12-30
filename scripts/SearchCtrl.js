@@ -1,11 +1,9 @@
 angular.module('phonertcdemo')
 
-.controller('ContactsCtrl', function ($scope, ContactsService, SchedulingService) {
+.controller('SearchCtrl', function ($scope, $stateParams, ContactsService, SchedulingService) {
 	$scope.contacts = ContactsService.onlineUsers;
 	$scope.currentName = ContactsService.currentName;
-
-	SchedulingService.updatewebrtcid();
-
+	$scope.negative = $stateParams.negative === 'true';
 
 	$scope.onlineUsersCount = function() {
 		return  ContactsService.onlineUsers.length + 1;
@@ -13,6 +11,9 @@ angular.module('phonertcdemo')
 
 	$scope.show = function() {
 		alert(ContactsService.onlineUsers.length);
+		alert($scope.negative);
 	};
 
+
+	// SchedulingService.updatewebrtcid();
 });

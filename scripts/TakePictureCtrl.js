@@ -1,8 +1,9 @@
 angular.module('phonertcdemo')
 
-.controller('TackPictureCtrl', function($scope, $http, $state, signaling, ContactsService) {
+.controller('TakePictureCtrl', function($scope, $http, $state, signaling, ContactsService, ENV) {
 
-  $scope.domain = "http://192.168.100.6:8080/EvitagenB";
+  // $scope.domain = "http://192.168.100.6:8080/EvitagenB";
+
   $scope.loginName = "a" + Math.floor(Math.random() * 1000000000);
 
   $scope.sendPhoto = function() {
@@ -21,10 +22,9 @@ angular.module('phonertcdemo')
    // alert(data);
 
 
-   $http.post($scope.domain + '/people', data, config)
+   $http.post(ENV.apiEndpoint + '/people', data, config)
    .then(function(response) {
-          // $scope.status = response.status;
-          // $scope.data = response.data;
+
           alert(response.status + " " + response.data);
 
           // login
@@ -45,7 +45,7 @@ angular.module('phonertcdemo')
 
  signaling.on('login_successful', function (users) {
   ContactsService.setOnlineUsers(users, $scope.loginName);
-  $state.go('app.contacts');
+  $state.go('app.search', { negative: true });
 });
 
 
