@@ -57,6 +57,24 @@ angular.module('phonertcdemo')
     }
   };
 
+
+  service.removeCrrentCallingIdFromMatches = function() {
+
+    alert("removeCrrentCallingIdFromMatches " + currentCallingId);
+
+    var i = -1;
+    $.each(matches, function(index, item) {
+      if (item.id == currentCallingId) {
+        i = index;
+      }
+    });
+
+    // if is not there
+    if (i != -1) {
+      matches.splice(i, 1);
+    }
+  };
+
   return service;
 
   });

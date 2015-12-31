@@ -66,8 +66,8 @@ angular.module('phonertcdemo')
     }
 
     if ($scope.isCalling) {
-      alert(MatchService.getCrrentCallingId());
-      
+      // alert(MatchService.getCrrentCallingId());
+
       signaling.emit('sendMessage', $stateParams.contactName, { type: 'call', matchId: MatchService.getCrrentCallingId() });
     }
 
@@ -85,6 +85,8 @@ angular.module('phonertcdemo')
       Object.keys($scope.contacts).forEach(function (contact) {
         $scope.contacts[contact].close();
         delete $scope.contacts[contact];
+
+        MatchService.removeCrrentCallingIdFromMatches();
       });
     };
 
@@ -174,9 +176,11 @@ angular.module('phonertcdemo')
             }
 
             if (Object.keys($scope.contacts).length === 0) {
+              MatchService.removeCrrentCallingIdFromMatches();
               $state.go('app.search');
             }
           } else {
+            MatchService.removeCrrentCallingIdFromMatches();
             $state.go('app.search');
           }
 

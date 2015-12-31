@@ -96,7 +96,7 @@ angular.module('phonertcdemo')
 		$scope.maxTryToCall--;
 
 		// if exceed waiting limit then move to ask for new picture page
-		if ($scope.maxTryToCall == 0 || MatchService.getMatches().length == 0) {
+		if ($scope.maxTryToCall == 0 && MatchService.getMatches().length == 0) {
 			// TODO ask if want to take another picture or use old one
 			// TODO: if already called all matches, then get other top ten
 

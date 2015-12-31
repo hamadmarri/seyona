@@ -74,7 +74,7 @@ angular.module('phonertcdemo', ['ionic',
           
           MatchService.setCrrentCallingId(message.matchId);
 
-          alert(MatchService.getCrrentCallingId());
+          // alert(MatchService.getCrrentCallingId());
 
           $state.go('app.call', { isCalling: false, contactName: name });
           break;
