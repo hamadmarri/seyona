@@ -1,6 +1,6 @@
 angular.module('phonertcdemo')
 
-  .controller('CallCtrl', function ($scope, $state, $rootScope, $timeout, $ionicModal, $stateParams, signaling, ContactsService) {
+  .controller('CallCtrl', function ($scope, $state, $rootScope, $timeout, $ionicModal, $stateParams, signaling, ContactsService, MatchService) {
     var duplicateMessages = [];
 
     $scope.callInProgress = false;
@@ -66,7 +66,9 @@ angular.module('phonertcdemo')
     }
 
     if ($scope.isCalling) {
-      signaling.emit('sendMessage', $stateParams.contactName, { type: 'call' });
+      alert(MatchService.getCrrentCallingId());
+      
+      signaling.emit('sendMessage', $stateParams.contactName, { type: 'call', matchId: MatchService.getCrrentCallingId() });
     }
 
     $scope.ignore = function () {

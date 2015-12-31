@@ -161,6 +161,8 @@ angular.module('phonertcdemo')
 
 				alert("go");
 
+				MatchService.setCrrentCallingId(id);
+
 				$state.go('app.call', { isCalling: true, contactName: webrtcid });
 				// window.location.replace("call.html?" + "username=" + username
 				// 		+ "&id=" + id + "&matches=" + JSON.stringify(matches));

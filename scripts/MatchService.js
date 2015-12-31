@@ -3,6 +3,7 @@ angular.module('phonertcdemo')
 
   var negative = false;
   var matches = null;
+  var currentCallingId;
 
   var service = {};
 
@@ -33,6 +34,14 @@ angular.module('phonertcdemo')
     }
   };
 
+
+  service.getCrrentCallingId = function() {
+    return currentCallingId;
+  };
+
+  service.setCrrentCallingId = function(c) {
+    currentCallingId = c;
+  };
 
   service.removeFromMatches = function(id) {
     var i = -1;

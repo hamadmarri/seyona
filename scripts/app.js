@@ -66,12 +66,16 @@ angular.module('phonertcdemo', ['ionic',
     });
   })
 
-  .run(function ($state, signaling) {
+  .run(function ($state, signaling, MatchService) {
     signaling.on('messageReceived', function (name, message) {
       switch (message.type) {
         case 'call':
           if ($state.current.name === 'app.call') { return; }
           
+          MatchService.setCrrentCallingId(message.matchId);
+
+          alert(MatchService.getCrrentCallingId());
+
           $state.go('app.call', { isCalling: false, contactName: name });
           break;
       }
