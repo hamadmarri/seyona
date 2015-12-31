@@ -56,7 +56,7 @@ angular.module('phonertcdemo')
 
         if (Object.keys($scope.contacts).length === 0) {
           signaling.emit('sendMessage', contactName, { type: 'ignore' });
-          $state.go('app.contacts');
+          $state.go('app.search');
         }
       });
 
@@ -75,7 +75,7 @@ angular.module('phonertcdemo')
         $scope.contacts[contactNames[0]].disconnect();
       } else {
         signaling.emit('sendMessage', $stateParams.contactName, { type: 'ignore' });
-        $state.go('app.contacts');
+        $state.go('app.search');
       }
     };
 
@@ -172,10 +172,10 @@ angular.module('phonertcdemo')
             }
 
             if (Object.keys($scope.contacts).length === 0) {
-              $state.go('app.contacts');
+              $state.go('app.search');
             }
           } else {
-            $state.go('app.contacts');
+            $state.go('app.search');
           }
 
           break;

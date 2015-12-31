@@ -29,8 +29,14 @@ angular.module('phonertcdemo')
 		});
 	}
 
+	$scope.getMatches = function() {
+		return MatchService.getMatches();
+	};
+
 
 	$scope.loadMatches = function() {
+
+		alert("loadMatches");
 
 		var urlString = ENV.apiEndpoint + "/match/gettoptenmatchesfor";
 
@@ -44,7 +50,12 @@ angular.module('phonertcdemo')
 				url : urlString,
 				success : function(data, textStatus, jQxhr) {
 
+
 					MatchService.setMatches(data);
+
+
+					alert("loadMatches success " + MatchService.getMatches());
+
 
 					// if stil null then exit, there must be an error
 					if (MatchService.getMatches() == null) {
@@ -81,7 +92,7 @@ angular.module('phonertcdemo')
 		}
 
 
-		rand = Math.floor((Math.random() * 10) % matches.length);
+		rand = Math.floor((Math.random() * 10) % MatchService.getMatches().length);
 		$scope.maxTryToCall--;
 
 		// if exceed waiting limit then move to ask for new picture page
