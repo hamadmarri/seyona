@@ -60,7 +60,7 @@ angular.module('phonertcdemo')
 
   service.removeCrrentCallingIdFromMatches = function() {
 
-    alert("removeCrrentCallingIdFromMatches " + currentCallingId);
+    // alert("removeCrrentCallingIdFromMatches " + currentCallingId);
 
     var i = -1;
     $.each(matches, function(index, item) {

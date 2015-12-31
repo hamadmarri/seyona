@@ -1,6 +1,6 @@
 angular.module('phonertcdemo')
 
-  .controller('CallCtrl', function ($scope, $state, $rootScope, $timeout, $ionicModal, $stateParams, signaling, ContactsService, MatchService) {
+  .controller('CallCtrl', function ($scope, $state, $rootScope, $timeout, $ionicModal, $stateParams, signaling, ContactsService, MatchService, ENV) {
     var duplicateMessages = [];
 
     $scope.callInProgress = false;
@@ -90,7 +90,21 @@ angular.module('phonertcdemo')
         $scope.contacts[contact].close();
         delete $scope.contacts[contact];
 
+        $.ajax({
+            method : "POST",
+            url : ENV.apiEndpoint + "/call/end",
+            data : "id=" + MatchService.getCrrentCallingId(),
+            success : function(data, textStatus, jQxhr) {
+            },
+            error : function(jqXhr, textStatus, errorThrown) {
+              // console.log("endCall(): " + errorThrown);
+              // alert("!");
+              // window.location.replace("error.html");
+            }
+          });
+
         MatchService.removeCrrentCallingIdFromMatches();
+
       });
     };
 
