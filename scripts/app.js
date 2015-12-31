@@ -24,10 +24,9 @@ angular.module('phonertcdemo', ['ionic',
       })
 
       .state('app.search', {
-        url: '/search/:negative?',
+        url: '/search',
         controller: 'SearchCtrl',
         templateUrl: 'templates/search.html'
-        // params: { negative: 'false' }
       })
 
 

@@ -2,7 +2,7 @@ angular.module('phonertcdemo')
 .factory('SchedulingService', function ($http, $timeout, ENV, ContactsService) {
 
   var loginName;
-  var updateWebRtcIdInterval = 5000; // = 55000; // 55s
+  var updateWebRtcIdInterval = 55000; // 55s
   var service = {};
 
 
