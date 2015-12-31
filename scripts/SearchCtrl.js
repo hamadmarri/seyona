@@ -36,7 +36,7 @@ angular.module('phonertcdemo')
 
 	$scope.loadMatches = function() {
 
-		alert("loadMatches");
+		// alert("loadMatches");
 
 		var urlString = ENV.apiEndpoint + "/match/gettoptenmatchesfor";
 
@@ -54,7 +54,7 @@ angular.module('phonertcdemo')
 					MatchService.setMatches(data);
 
 
-					alert("loadMatches success " + MatchService.getMatches());
+					// alert("loadMatches success " + MatchService.getMatches());
 
 
 					// if stil null then exit, there must be an error
@@ -100,17 +100,22 @@ angular.module('phonertcdemo')
 			// TODO ask if want to take another picture or use old one
 			// TODO: if already called all matches, then get other top ten
 
-			window.location.replace("askfornewpic.html");
+			alert("askfornewpic");
+			// window.location.replace("askfornewpic.html");
 
 			return;
 		}
 
-		$scope.getOtherStatus(MatchService.getMatches()[rand].id, MatchService.getMatches()[rand].username);
+		$scope.getOtherStatus(
+			MatchService.getMatches()[rand].id, 
+			MatchService.getMatches()[rand].username,
+			MatchService.getMatches()[rand].webrtcid
+		);
 	}
 
 
 
-	$scope.getOtherStatus = function(id, username) {
+	$scope.getOtherStatus = function(id, username, webrtcid) {
 		$.ajax({
 			method : "POST",
 			url : ENV.apiEndpoint + "/people/getstatusfor",
@@ -130,7 +135,7 @@ angular.module('phonertcdemo')
 					$timeout($scope.pickRandom, $scope.waitBeforePick);
 
 				} else if (otherStatus == "SEARCHING") {
-					$scope.gotoCall(id, username);
+					$scope.gotoCall(id, webrtcid);
 
 				} else {
 					// not searching yet
@@ -145,7 +150,7 @@ angular.module('phonertcdemo')
 		});
 	};
 
-	$scope.gotoCall = function(id, username) {
+	$scope.gotoCall = function(id, webrtcid) {
 
 		$.ajax({
 			method : "POST",
@@ -156,7 +161,7 @@ angular.module('phonertcdemo')
 
 				alert("go");
 
-				$state.go('app.call', { isCalling: true, contactName: username });
+				$state.go('app.call', { isCalling: true, contactName: webrtcid });
 				// window.location.replace("call.html?" + "username=" + username
 				// 		+ "&id=" + id + "&matches=" + JSON.stringify(matches));
 
