@@ -1,6 +1,6 @@
 angular.module('phonertcdemo')
 
-.controller('TakePictureCtrl', function($scope, $http, $state, signaling, ContactsService, ENV) {
+.controller('TakePictureCtrl', function($scope, $http, $state, signaling, ContactsService, MatchService, ENV) {
 
   // $scope.domain = "http://192.168.100.6:8080/EvitagenB";
 
@@ -45,7 +45,9 @@ angular.module('phonertcdemo')
 
  signaling.on('login_successful', function (users) {
   ContactsService.setOnlineUsers(users, $scope.loginName);
-  $state.go('app.search', { negative: true });
+
+  MatchService.setNegative(false);
+  $state.go('app.search');
 });
 
 

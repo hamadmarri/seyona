@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 .factory('MatchService', function ($http, $timeout, ENV) {
 
-  var negative;
+  var negative = false;
   var matches = null;
 
   var service = {};
