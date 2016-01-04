@@ -23,6 +23,12 @@ angular.module('phonertcdemo', ['ionic',
         templateUrl: 'templates/takepicture.html'
       })
 
+      .state('app.positiveOrNegative', {
+        url: '/positiveornegative',
+        controller: 'PositiveOrNegativeCtrl',
+        templateUrl: 'templates/positiveornegative.html'
+      })
+
       .state('app.search', {
         url: '/search',
         controller: 'SearchCtrl',

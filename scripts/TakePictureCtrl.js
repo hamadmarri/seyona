@@ -22,6 +22,7 @@ angular.module('phonertcdemo')
   $scope.showStatusTitleDots = "";
   $scope.loginName = "a" + Math.floor(Math.random() * 1000000000);
 
+
   $scope.sendPhoto = function($event) {
 
     $scope.status = 2; // photo synchronizing
@@ -77,7 +78,8 @@ angular.module('phonertcdemo')
 
   MatchService.setNegative(false);
   
-  $timeout(function(){$state.go('app.search');}, 2000);
+  // $timeout(function(){$state.go('app.search');}, 2000);
+  $timeout(function(){$state.go('app.positiveOrNegative');}, 2000);
 });
 
 

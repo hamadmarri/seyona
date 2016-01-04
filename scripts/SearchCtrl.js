@@ -11,6 +11,11 @@ angular.module('phonertcdemo')
 		return  ContactsService.onlineUsers.length + 1;
 	};
 
+	// $scope.getNegative = function() {
+	// 	return MatchService.getNegative();
+	// };
+
+
 	$scope.show = function() {
 		alert(ContactsService.onlineUsers.length);
 		alert(MatchService.negative);
