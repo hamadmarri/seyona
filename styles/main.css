@@ -92,7 +92,27 @@ p {
 	/*font-weight: bold;*/
 	padding: 20% 20% 0 20%;
 	line-height: 34px;
-	text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, .15);
 	letter-spacing: .03em;
 	word-spacing: .25em;
 }
+
+
+.spinner svg {
+  width: 19% !important;
+  height: 85px !important;
+}
+
+/*.item-icon-left ion-spinner {
+  float: left;
+  margin-left: -3.2em;
+  margin-right: 1em;
+  margin-top: -0.2em;
+ }
+
+.spinner svg {
+  width: 28px !important;
+  height: 28px !important;
+  stroke: #999;
+  fill: #999;
+}*/

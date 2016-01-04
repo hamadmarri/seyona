@@ -1,11 +1,17 @@
 angular.module('phonertcdemo')
 
-.controller('SearchCtrl', function ($scope, $state, $timeout, ContactsService, SchedulingService, MatchService, ENV) {
+.controller('SearchCtrl', function ($scope, $state, $timeout, $interval, ContactsService, 
+		SchedulingService, MatchService, ENV) {
+
 	$scope.contacts = ContactsService.onlineUsers;
 	$scope.currentName = ContactsService.currentName;
 
 	$scope.waitBeforePick = 10000;
 	$scope.maxTryToCall = 55;
+	var tipsDelay = 2100;
+
+
+
 
 	$scope.onlineUsersCount = function() {
 		return  ContactsService.onlineUsers.length + 1;
@@ -181,8 +187,51 @@ angular.module('phonertcdemo')
 	};
 
 
-	$timeout($scope.setAsSearching, 1000);
-	$timeout($scope.loadMatches, 2000);
+	function changeTip() {
+		var r = Math.floor(Math.random() * 10);  // * 100) % 11;
+		
 
-	SchedulingService.updatewebrtcid();
+		switch (r) {
+		case 0:
+			$scope.tip = "If you are waiting for so long time, it is because the number of online users connected is small. Please be patient.";
+			break;
+		case 1:
+			$scope.tip = "Take a picture in a bright place for better results";
+			break;
+		case 2:
+			$scope.tip = "If you are waiting for so long time, it is because most of online users are busy with other calls. Please be patient.";
+			break;
+		case 3:
+			$scope.tip = "Be the first who says Hi!";
+			break;
+		case 4:
+			$scope.tip = "Seyona is a tool to help you find your look-alike person";
+			break;
+		case 5:
+			$scope.tip = "Don't forget to rate me in Google Play/App Store :D";
+			break;
+		case 6:
+			$scope.tip = "Through HELP button, you can contact us and write your suggestions.";
+			break;
+		case 7:
+			$scope.tip = "SMILE :)";
+			break;
+		case 8:
+			$scope.tip = "End Call button will end your call and connect you with another user.";
+			break;
+		case 9:
+			// TODO: change
+			$scope.tip = "NEGATIVE switch is available in CAPTURE page.";
+			break;
+		// case 10:
+		// 	tip += 'See your lucky ads from <a id="ads" data-role="button" target="_blank" href="//go.ad2up.com/afu.php?id=450710" rel="external">here!</a>';
+		// 	break;
+		}
+	}
+
+	$interval(changeTip, tipsDelay);
+	// $timeout($scope.setAsSearching, 1000);
+	// $timeout($scope.loadMatches, 2000);
+
+	// SchedulingService.updatewebrtcid();
 });
