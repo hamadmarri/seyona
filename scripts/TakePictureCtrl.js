@@ -1,12 +1,32 @@
 angular.module('phonertcdemo')
 
-.controller('TakePictureCtrl', function($scope, $http, $state, signaling, ContactsService, MatchService, ENV) {
+.controller('TakePictureCtrl', function($scope, $http, $state, $ionicPopup, $ionicPopover, $timeout,
+   signaling, ContactsService, MatchService, ENV) {
 
-  // $scope.domain = "http://192.168.100.6:8080/EvitagenB";
 
+  // .fromTemplate() method
+  var template = '<ion-popover-view><ion-header-bar> <h1 class="title">Processing</h1> </ion-header-bar> <ion-content style="padding: 25px;"> {{showStatusTitle + showStatusTitleDots}} </ion-content></ion-popover-view>';
+
+  // $scope.popover = $ionicPopover.fromTemplate(template, {
+  //   scope: $scope
+  // });
+
+  $scope.popover = $ionicPopover.fromTemplateUrl('my-popover.html', {
+    scope: $scope
+  }).then(function(popover) {
+    $scope.popover = popover;
+  });
+
+  $scope.status = 0;
+  $scope.showStatusTitle = "";
+  $scope.showStatusTitleDots = "";
   $scope.loginName = "a" + Math.floor(Math.random() * 1000000000);
 
-  $scope.sendPhoto = function() {
+  $scope.sendPhoto = function($event) {
+
+    $scope.status = 2; // photo synchronizing
+    $scope.showStatus($event);
+
 
   	var person;
   	person = {
@@ -21,22 +41,31 @@ angular.module('phonertcdemo')
 
    // alert(data);
 
-
    $http.post(ENV.apiEndpoint + '/people', data, config)
-   .then(function(response) {
+   .then(function(response) { // SUCCESS
 
-          alert(response.status + " " + response.data);
+        $scope.status = 3; // face detecting
+
+         // alert(response.status + " " + response.data);
 
           // login
           signaling.emit('login', $scope.loginName);
 
-        }, function(response) {
-         alert(response.status + " " + response.data);
+        }, function(response) { // ERROR
+         // alert(response.status + " " + response.data);
+         $scope.status = 5; // error
+
+         // response.status + " "
+         $scope.showStatusTitle = "ERROR: " + response.data;
+         $scope.showStatusTitleDots = "";
        });
  };
 
 
  signaling.on('login_error', function (message) {
+
+  scope.closePopover();
+
   var alertPopup = $ionicPopup.alert({
     title: 'Error',
     template: message
@@ -47,12 +76,70 @@ angular.module('phonertcdemo')
   ContactsService.setOnlineUsers(users, $scope.loginName);
 
   MatchService.setNegative(false);
-  $state.go('app.search');
+  
+  $timeout(function(){$state.go('app.search');}, 2000);
 });
 
 
+$scope.openPopover = function($event) {
+     $scope.popover.show($event);
+   };
+$scope.closePopover = function() {
+     $scope.popover.hide();
+     $scope.status = 4; // canceled
+   };
+
+   $scope.$on('$destroy', function() {
+       $scope.popover.remove();
+     });
+
+$scope.showStatus = function($event) {
+
+  $scope.popover.show($event);
+
+  $scope.processingEffect();
+};
+
+$scope.processingEffect = function() {
+
+  if ($scope.status == 2) {
+    $scope.showStatusTitle = "Synchronizing photo";
+
+  } else if ($scope.status == 3) {
+    $scope.showStatusTitle = "Face detecting";
+
+  } else if ($scope.status == 5) { // error
+    // $scope.showStatusTitle = "Face detecting";
+    $scope.showStatusTitleDots = "";
+    $scope.$apply();
+    return;
+  } 
+
+  if ($scope.showStatusTitleDots.length % 5 == 0) {
+    $scope.showStatusTitleDots = "";
+  }
+
+  $scope.showStatusTitleDots += ".";
+  $scope.$apply();
+
+  $timeout(function() {
+
+    if ($scope.status == 2 || $scope.status == 3) {
+      $scope.processingEffect();
+    }
+
+    //  else {
+    //   $("#processing").text("");
+    //   gotoSearch();
+    // }
+
+  }, 150);
+};
+
 
  $scope.getPhoto = function() {
+
+  // $scope.status = 1;
 
   navigator.camera.getPicture(onSuccess, onFail, 
   {
@@ -80,10 +167,15 @@ angular.module('phonertcdemo')
   function onSuccess(imageData) {
     var image = $("#photo")[0];
     image.src = "data:image/jpeg;base64," + imageData;
+
+    $scope.status = 1;
+    $scope.$apply();
   }
 
   function onFail(message) {
-    alert('Failed because: ' + message);
+    // $scope.status = 0;
+    // $scope.$apply();
+    // alert('Failed because: ' + message);
   }
 
 
