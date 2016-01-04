@@ -4,17 +4,20 @@
 		
 		<img id="photo">
 
-		<p ng-if="status == 0">To have a video call with your match, seyona needs you to have a picture in order to read your face features and find who looks like you!</p>
+		<p ng-if="status == 0">Have a video call with your match by taking a photo, Seyona will read your face's features and find who looks like you!</p>
 
-		<button ng-click="getPhoto()" class="button button-block button-primary icon-right ion-camera">
-			<span ng-if="status == 0">Take a Photo</span>
-			<span ng-if="status != 0">Take another one</span>
+		<div style="text-align: center">
+			<button ng-if="status == 0" ng-click="getPhoto()" class="button button-size button-royal icon-right ion-camera">
+				Take a Photo
+			</button>
 
-		</button>
+			<button ng-if="status != 0" ng-click="getPhoto()" class="button button-size icon-right ion-camera">
+				Take another one
+			</button>
 
-		<!-- ng-if="status == 1" -->
-		<button ng-if="status != 0" ng-click="sendPhoto($event)" class="button button-block icon-right ion-arrow-right-c">Use this photo</button>
-
+			<!-- ng-if="status != 0" -->
+			<button ng-if="status != 0" ng-click="sendPhoto($event)" class="button button-size button-balanced icon-right ion-arrow-right-c">Use this photo</button>
+		</div>
 
 		<script id="my-popover.html" type="text/ng-template">
 		  <ion-popover-view>

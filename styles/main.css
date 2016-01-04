@@ -78,3 +78,18 @@
 	min-width: 80%;
 	max-height: 80%;
 }
+
+.button-size {
+	width: 61%;
+	margin-top: 15px;
+}
+
+p {
+	font-family: Ubuntu Mono;
+	color: #333;
+	font-size: 155%;
+	/*font-weight: bold;*/
+	padding: 20% 20% 0 20%;
+	line-height: 34px;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+}
