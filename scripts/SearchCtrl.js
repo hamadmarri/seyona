@@ -182,7 +182,7 @@ angular.module('phonertcdemo')
 
 				$timeout(function() {
 					$state.go('app.call', { isCalling: true, contactName: webrtcid });	
-				}, 5000);
+				}, 10000);
 				
 				// window.location.replace("call.html?" + "username=" + username
 				// 		+ "&id=" + id + "&matches=" + JSON.stringify(matches));
@@ -235,7 +235,7 @@ angular.module('phonertcdemo')
 
 
 	function animateSearchingDots() {
-		if ($scope.dots.length % 5 == 0) {
+		if ($scope.dots.length % 3 == 0) {
 		  $scope.dots = "";
 		}
 
@@ -281,9 +281,9 @@ angular.module('phonertcdemo')
 
 	changeTip();
 	$interval(changeTip, tipsDelay);
-	$interval(animateSearchingDots, 500);
-	// $timeout($scope.setAsSearching, 1000);
-	// $timeout($scope.loadMatches, 2000);
+	$interval(animateSearchingDots, 400);
+	$timeout($scope.setAsSearching, 1000);
+	$timeout($scope.loadMatches, 2000);
 
-	// SchedulingService.updatewebrtcid();
+	SchedulingService.updatewebrtcid();
 });
