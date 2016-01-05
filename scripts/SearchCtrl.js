@@ -12,15 +12,15 @@ angular.module('phonertcdemo')
 	$scope.dots = "";
 	$scope.searchingMargin = ((window.innerWidth / 2) - 80) + "px";
 
-	$scope.img1 = "0001";
-	$scope.img2 = "0001";
-	$scope.img3 = "0001";
-	$scope.img4 = "0001";
+	$scope.img1 = "0404";
+	$scope.img2 = "0406";
+	$scope.img3 = "0407";
+	$scope.img4 = "0408";
 
 
 
 	$scope.onlineUsersCount = function() {
-		return  ContactsService.onlineUsers.length + 1;
+		return  ContactsService.onlineUsers.length + 1 ;
 	};
 
 	// $scope.getNegative = function() {
@@ -204,7 +204,7 @@ angular.module('phonertcdemo')
 			$scope.tip = "If you are waiting for so long time, it is because the number of online users connected is small. Please be patient.";
 			break;
 		case 1:
-			$scope.tip = "Take a picture in a bright place for better results";
+			$scope.tip = "Take a picture in a bright place for better results.";
 			break;
 		case 2:
 			$scope.tip = "If you are waiting for so long time, it is because most of online users are busy with other calls. Please be patient.";
@@ -213,7 +213,7 @@ angular.module('phonertcdemo')
 			$scope.tip = "Be the first who says Hi!";
 			break;
 		case 4:
-			$scope.tip = "Seyona is a tool to help you find your look-alike person";
+			$scope.tip = "Seyona is a tool to help you find your look-alike person.";
 			break;
 		case 5:
 			$scope.tip = "Don't forget to rate me in Google Play/App Store :D";
@@ -282,6 +282,8 @@ angular.module('phonertcdemo')
 	changeTip();
 	$interval(changeTip, tipsDelay);
 	$interval(animateSearchingDots, 400);
+	
+
 	$timeout($scope.setAsSearching, 1000);
 	$timeout($scope.loadMatches, 2000);
 

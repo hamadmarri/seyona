@@ -17,6 +17,13 @@ angular.module('phonertcdemo', ['ionic',
       })
 
 
+      .state('app.testpage', {
+        url: '/testpage',
+        controller: 'TestPageCtrl',
+        templateUrl: 'templates/testpage.html'
+      })
+
+
       .state('app.takepicture', {
         url: '/takepicture',
         controller: 'TakePictureCtrl',
@@ -52,8 +59,9 @@ angular.module('phonertcdemo', ['ionic',
         templateUrl: 'templates/call.html'
       });
 
-    // $urlRouterProvider.otherwise('/app/login');
-    $urlRouterProvider.otherwise('app/takepicture');
+
+    $urlRouterProvider.otherwise('app/login');
+    // $urlRouterProvider.otherwise('app/takepicture');
 
   })
 

@@ -23,27 +23,39 @@
 }
 
 
-/*@media screen and (min-width: 1024px) {
+
+@media screen and (min-width: 1024px) {
 	.video-container {
 		width: 700px; 
 		height: 700px; 
 	}
-}*/
-
-
- /* #### iPhone 6 and 6 plus Portrait or Landscape #### */
-/*@media (min-device-height: 667px) and (min-device-width: 375px) and (-webkit-min-device-pixel-ratio: 3) {	
-	.video-container {
-		width: 300px; 
-		height: 300px; 
-	}
 }
-*/
+
+
+
+
+
+
+
+/* ----------- Galaxy S3 ----------- */
+
+/* Portrait and Landscape */
+@media screen and (min-device-width: 320px) and (max-device-width: 360px) and (-webkit-device-pixel-ratio: 2) {
+
+  	.video-container {
+  		width: 400px; 
+  		height: 400px; 
+  	}
+}
+
+
+
+
+
+
 .video-container {
-	width: 300px; 
-	height: 300px;
-	/*width: 70%; 
-	height: 70%;*/
+	/*width: 300px; 
+	height: 300px;*/
 	background-color: #000; 
 	margin-bottom: 20px;
 	margin-right: auto;
@@ -102,20 +114,6 @@ p {
   width: 100% !important;
   height: 50% !important;
 }
-
-/*.item-icon-left ion-spinner {
-  float: left;
-  margin-left: -3.2em;
-  margin-right: 1em;
-  margin-top: -0.2em;
- }
-
-.spinner svg {
-  width: 28px !important;
-  height: 28px !important;
-  stroke: #999;
-  fill: #999;
-}*/
 
 
 .center {

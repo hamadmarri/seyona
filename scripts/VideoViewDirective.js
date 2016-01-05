@@ -16,9 +16,14 @@ angular.module('phonertcdemo')
     //   width = height = 50;
     // }
 
+    var width = window.innerWidth - 20;
+
+    var style = "width:" + width + "px;height:" + width +"px;background-color: #000;margin-bottom: 20px;" +
+        "margin-right: auto;margin-left: auto;margin-top: 20px;z-index: -999 !important;";
+
     return {
       restrict: 'E',
-      template: '<div class="video-container"></div>',
+      template: '<div style="' + style + '"></div>',  // class="video-container"
       replace: true,
       link: function (scope, element, attrs) {
         function updatePosition() {

@@ -4,15 +4,15 @@ angular.module('phonertcdemo')
 	$scope.contacts = ContactsService.onlineUsers;
 	$scope.currentName = ContactsService.currentName;
 
-	SchedulingService.updatewebrtcid();
+	// SchedulingService.updatewebrtcid();
 
 
-	$scope.onlineUsersCount = function() {
-		return  ContactsService.onlineUsers.length + 1;
-	};
+	// $scope.onlineUsersCount = function() {
+	// 	return  ContactsService.onlineUsers.length + 1;
+	// };
 
-	$scope.show = function() {
-		alert(ContactsService.onlineUsers.length);
-	};
+	// $scope.show = function() {
+	// 	alert(ContactsService.onlineUsers.length);
+	// };
 
 });

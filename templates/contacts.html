@@ -1,6 +1,7 @@
 <ion-view title="Contacts" hide-back-button="true">
   <ion-content>
-    <h3>{{currentName}}</h3>
+
+
     <h4>{{onlineUsersCount()}}</h4>
     <ul class="list">
       <li class="item item-button-right" ng-repeat="contact in contacts">
@@ -13,6 +14,5 @@
       </li>
     </ul>
 
-    <button class="button button-block" ng-click="show()">show</button>
   </ion-content>
 </ion-view>
