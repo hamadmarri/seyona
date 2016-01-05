@@ -1,14 +1,26 @@
 <ion-view title="Search" hide-back-button="true" hide-nav-bar="true">
   <ion-content>
-    
+          
 
-  <p>
-        <ion-spinner icon="ripple" class="spinner-royal"></ion-spinner>
-  </p>
+    <h4 class="center ubuntu">Online users: {{onlineUsersCount()}}</h4>
+
+    <h2 style="margin-left: {{searchingMargin}};" class="ubuntu toplettlePadding">Searching{{dots}}</h2>
 
 
-    <h4>online users: {{onlineUsersCount()}}</h4>
-    <h4>Tips: {{tip}}</h4>
+    <div class="center topBottomIsolatePadding">
+      
+      <button class="button button-energized" ng-click="smileysLuck()">See your emoji luck</button>
+      
+      <div class="row toplettlePadding">
+        <div class="col"><img ng-src="emoji/{{img1}}.svg" /></div>
+        <div class="col"><img ng-src="emoji/{{img2}}.svg" /></div>
+        <div class="col"><img ng-src="emoji/{{img3}}.svg" /></div>
+        <div class="col"><img ng-src="emoji/{{img4}}.svg" /></div>
+      </div>
+
+    </div>
+
+    <h4 class="ubuntu lettlePadding toplettlePadding">Tips: {{tip}}</h4>
     
     <ul class="list">
       <li class="item item-button-right" ng-repeat="contact in contacts">
@@ -23,3 +35,4 @@
 
   </ion-content>
 </ion-view>
+

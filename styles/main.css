@@ -99,8 +99,8 @@ p {
 
 
 .spinner svg {
-  width: 19% !important;
-  height: 85px !important;
+  width: 100% !important;
+  height: 50% !important;
 }
 
 /*.item-icon-left ion-spinner {
@@ -116,3 +116,27 @@ p {
   stroke: #999;
   fill: #999;
 }*/
+
+
+.center {
+	text-align: center;
+}
+
+.ubuntu {
+	font-family: Ubuntu Mono;
+}
+
+.lettlePadding {
+	padding-left: 10%;
+	padding-right: 13%;
+}
+
+.toplettlePadding {
+	padding-top: 25px;
+}
+
+
+.topBottomIsolatePadding {
+	padding-top: 55px;
+	padding-bottom: 55px;
+}

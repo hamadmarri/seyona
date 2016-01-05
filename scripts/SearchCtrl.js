@@ -8,8 +8,14 @@ angular.module('phonertcdemo')
 
 	$scope.waitBeforePick = 10000;
 	$scope.maxTryToCall = 55;
-	var tipsDelay = 2100;
+	var tipsDelay = 21000;
+	$scope.dots = "";
+	$scope.searchingMargin = ((window.innerWidth / 2) - 80) + "px";
 
+	$scope.img1 = "0001";
+	$scope.img2 = "0001";
+	$scope.img3 = "0001";
+	$scope.img4 = "0001";
 
 
 
@@ -174,7 +180,10 @@ angular.module('phonertcdemo')
 
 				MatchService.setCrrentCallingId(id);
 
-				$state.go('app.call', { isCalling: true, contactName: webrtcid });
+				$timeout(function() {
+					$state.go('app.call', { isCalling: true, contactName: webrtcid });	
+				}, 5000);
+				
 				// window.location.replace("call.html?" + "username=" + username
 				// 		+ "&id=" + id + "&matches=" + JSON.stringify(matches));
 
@@ -190,7 +199,6 @@ angular.module('phonertcdemo')
 	function changeTip() {
 		var r = Math.floor(Math.random() * 10);  // * 100) % 11;
 		
-
 		switch (r) {
 		case 0:
 			$scope.tip = "If you are waiting for so long time, it is because the number of online users connected is small. Please be patient.";
@@ -220,16 +228,60 @@ angular.module('phonertcdemo')
 			$scope.tip = "End Call button will end your call and connect you with another user.";
 			break;
 		case 9:
-			// TODO: change
-			$scope.tip = "NEGATIVE switch is available in CAPTURE page.";
+			$scope.tip = "Share Seyona with your friends. The more online people, the more chance to find your twin.";
 			break;
-		// case 10:
-		// 	tip += 'See your lucky ads from <a id="ads" data-role="button" target="_blank" href="//go.ad2up.com/afu.php?id=450710" rel="external">here!</a>';
-		// 	break;
 		}
 	}
 
+
+	function animateSearchingDots() {
+		if ($scope.dots.length % 5 == 0) {
+		  $scope.dots = "";
+		}
+
+		$scope.dots += ".";
+		// $scope.$apply();
+	}
+
+
+	$scope.smileysLuck = function() {
+		runLuckFor(21);
+	};
+
+
+	function runLuckFor(manyTimes) {
+
+		if (manyTimes == 0) {
+			return;
+		}
+
+		manyTimes--;
+
+		var r1 = (Math.floor(Math.random() * 10000) % 1625) + 1;
+		var r2 = (Math.floor(Math.random() * 10000) % 1625) + 1;
+		var r3 = (Math.floor(Math.random() * 10000) % 1625) + 1;
+		var r4 = (Math.floor(Math.random() * 10000) % 1625) + 1;
+
+		$scope.img1 = pad(r1, 4);
+		$scope.img2 = pad(r2, 4);
+		$scope.img3 = pad(r3, 4);
+		$scope.img4 = pad(r4, 4);
+
+		$scope.$apply();
+
+		$timeout(function(){runLuckFor(manyTimes);}, 80);
+	}
+
+
+	function pad(n, width, z) {
+	  z = z || '0';
+	  n = n + '';
+	  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+	}
+
+	changeTip();
 	$interval(changeTip, tipsDelay);
+	$interval(animateSearchingDots, 500);
 	// $timeout($scope.setAsSearching, 1000);
 	// $timeout($scope.loadMatches, 2000);
 
