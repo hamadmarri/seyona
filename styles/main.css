@@ -36,23 +36,6 @@
 
 
 
-
-/* ----------- Galaxy S3 ----------- */
-
-/* Portrait and Landscape */
-@media screen and (min-device-width: 320px) and (max-device-width: 360px) and (-webkit-device-pixel-ratio: 2) {
-
-  	.video-container {
-  		width: 400px; 
-  		height: 400px; 
-  	}
-}
-
-
-
-
-
-
 .video-container {
 	/*width: 300px; 
 	height: 300px;*/

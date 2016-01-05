@@ -1,25 +1,27 @@
 angular.module('phonertcdemo')
   .directive('videoView', function ($rootScope, $timeout) {
 
-    // var width, height, x, y;
+      var footer = document.getElementById("foot");
+      var width = min(window.innerWidth, window.innerHeight) - footer.offsetHeight;
 
-    // x = y = 10;
+      var style = "width:" + width + "px;height:" + width +"px;background-color: #000;" +
+          "margin-top:" + marginTop() + "px; margin-right: auto;margin-left: auto;z-index: -999 !important;";
 
 
-    // alert(window.innerWidth + " " + window.innerWidth);
+      function min(a, b) {
+        
+        if (a < b) {
+          return a;
+        } else {
+          return b;
+        }
+      }
 
-    // if (window.innerWidth >= 1024) {
-    //   width = height = 300;
-    // } else if (window.innerWidth < 1024 && window.innerWidth >= 667) {
-    //   width = height = 100;
-    // } else {
-    //   width = height = 50;
-    // }
+      function marginTop() {
+        alert((window.innerHeight - footer.offsetHeight - width) / 2);
+        return (window.innerHeight - footer.offsetHeight - width) / 2;
+      }
 
-    var width = window.innerWidth - 20;
-
-    var style = "width:" + width + "px;height:" + width +"px;background-color: #000;margin-bottom: 20px;" +
-        "margin-right: auto;margin-left: auto;margin-top: 20px;z-index: -999 !important;";
 
     return {
       restrict: 'E',
