@@ -1,7 +1,7 @@
 
 <ion-view title="TestPage" hide-back-button="true" hide-nav-bar="true">
 
-  <ion-content>
+  <ion-content style="background-color: #111;">
 
     <div style="{{style}}"></div>
 
@@ -15,7 +15,7 @@
     <h1 class="title">30%</h1>
     
     <div style="padding-right:5px;" class="buttons">
-      <h5 style="color: white;">6:00</h5>
+      <h5 style="color: white;">{{callTime() | date:'mm:ss'}}</h5>
     </div>
 
   </ion-footer-bar>

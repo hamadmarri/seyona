@@ -1,6 +1,6 @@
 angular.module('phonertcdemo')
 
-  .controller('CallCtrl', function ($scope, $state, $rootScope, $timeout, $ionicModal, $stateParams, signaling, ContactsService, MatchService, ENV) {
+  .controller('CallCtrl', function ($scope, $state, $rootScope, $timeout, $interval, $ionicModal, $stateParams, signaling, ContactsService, MatchService, ENV) {
     var duplicateMessages = [];
 
     $scope.callInProgress = false;
@@ -12,6 +12,16 @@ angular.module('phonertcdemo')
     $scope.contacts = {};
     $scope.hideFromContactList = [$scope.contactName];
     $scope.muted = false;
+
+    var timeRemaining = 15; //360; // 6 min
+    
+    $scope.percentage = MatchService.getMatch(MatchService.getCrrentCallingId()).matchingPercent;
+
+
+    $scope.callTime = function() {
+      return new Date(1970, 0, 1).setSeconds(timeRemaining);
+    };
+
 
     $ionicModal.fromTemplateUrl('templates/select_contact.html', {
       scope: $scope,
@@ -85,7 +95,7 @@ angular.module('phonertcdemo')
       }
     };
 
-    $scope.end = function () {
+    end() = function () {
       Object.keys($scope.contacts).forEach(function (contact) {
         $scope.contacts[contact].close();
         delete $scope.contacts[contact];
@@ -237,4 +247,17 @@ angular.module('phonertcdemo')
     $scope.$on('$destroy', function() { 
       signaling.removeListener('messageReceived', onMessageReceive);
     });
+
+
+
+
+    $interval(function() {
+
+      if (timeRemaining =< 0) {
+        $scope.end();
+      }
+
+      timeRemaining--;
+    }, 1000);
+
   });

@@ -58,6 +58,18 @@ angular.module('phonertcdemo')
   };
 
 
+  service.getMatch = function(id) {
+    var i = -1;
+    $.each(matches, function(index, item) {
+      if (item.id == id) {
+        i = index;
+      }
+    });
+
+    return matches[i];
+  };
+
+
   service.removeCrrentCallingIdFromMatches = function() {
 
     // alert("removeCrrentCallingIdFromMatches " + currentCallingId);

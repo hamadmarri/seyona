@@ -13,7 +13,7 @@
 </ion-nav-buttons> -->
 
 
-<ion-content on-scroll="updateVideoPosition()" on-scroll-complete="updateVideoPosition()">
+<ion-content on-scroll="updateVideoPosition()" on-scroll-complete="updateVideoPosition()" style="background-color: #111;">
 
 <!-- <div class="calling-container" ng-if="isCalling && !callInProgress">
  
@@ -37,15 +37,15 @@
   </button>
 </div>
 
-<div class="calling-container" ng-if="callInProgress">
- <!--  <p>
+<!--<div class="calling-container" ng-if="callInProgress">
+   <p>
     Call in progress...
   </p>
 
   <button class="button button-assertive" ng-click="end()">
     End
-  </button> -->
-</div>
+  </button> 
+</div> -->
 
 
 <!-- <div class="controllersContainer1">
@@ -63,10 +63,10 @@
     <button class="button button-assertive" ng-click="end()">End Call</button>
   </div>
 
-  <h1 class="title">30%</h1>
+  <h1 class="title">{{percentage}}%</h1>
   
   <div style="padding-right:5px;" class="buttons">
-    <h5 style="color: white;">6:00</h5>
+    <h5 style="color: white;">{{callTime() | date:'mm:ss'}}</h5>
   </div>
 
 </ion-footer-bar>
