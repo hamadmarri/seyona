@@ -5,12 +5,14 @@ angular.module('phonertcdemo')
 
 
     var service = {
-      onlineUsersCounter: onlineUsersCounter
+      onlineUsersCounter: onlineUsersCounter,
+      currentName: ''
     };
 
 
-    service.setOnlineUsers = function (usersCounter) {
+    service.setOnlineUsers = function (usersCounter, currentName) {
       this.onlineUsersCounter = usersCounter;
+      this.currentName = currentName;
     };
 
 

@@ -18,7 +18,7 @@ angular.module('phonertcdemo')
     });
 
     signaling.on('login_successful', function (users) {
-      ContactsService.setOnlineUsers(users.length);
+      ContactsService.setOnlineUsers(users.length, $scope.data.name);
       $state.go('app.contacts');
     });
   });

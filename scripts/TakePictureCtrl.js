@@ -75,7 +75,7 @@ angular.module('phonertcdemo')
 
  signaling.on('login_successful', function (users) {
   // ContactsService.setOnlineUsers(users, $scope.loginName);
-  ContactsService.setOnlineUsers(users.length);
+  ContactsService.setOnlineUsers(users.length, $scope.loginName);
 
   MatchService.setNegative(false);
   

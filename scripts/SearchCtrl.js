@@ -3,8 +3,7 @@ angular.module('phonertcdemo')
 .controller('SearchCtrl', function ($scope, $state, $timeout, $interval, ContactsService, 
 		SchedulingService, MatchService, ENV) {
 
-	$scope.contacts = ContactsService.onlineUsers;
-	$scope.currentName = ContactsService.currentName;
+
 
 	$scope.waitBeforePick = 10000;
 	$scope.maxTryToCall = 55;
@@ -21,17 +20,6 @@ angular.module('phonertcdemo')
 
 	$scope.onlineUsersCount = function() {
 		return  ContactsService.onlineUsersCounter;
-	};
-
-
-	// $scope.getNegative = function() {
-	// 	return MatchService.getNegative();
-	// };
-
-
-	$scope.show = function() {
-		alert(ContactsService.onlineUsers.length);
-		alert(MatchService.negative);
 	};
 
 
@@ -181,9 +169,9 @@ angular.module('phonertcdemo')
 
 				MatchService.setCrrentCallingId(id);
 
-				$timeout(function() {
+				// $timeout(function() {
 					$state.go('app.call', { isCalling: true, contactName: webrtcid });	
-				}, 10);
+				// }, 10);
 				
 				// window.location.replace("call.html?" + "username=" + username
 				// 		+ "&id=" + id + "&matches=" + JSON.stringify(matches));

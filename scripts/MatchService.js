@@ -25,7 +25,6 @@ angular.module('phonertcdemo')
   service.setMatches = function(m) {
     matches = m;
 
-
     // convert to negative value if negative is true
     if (matches != null && matches.length > 0 && negative == true) {
       $.each(matches, function(i, item) {
@@ -44,6 +43,11 @@ angular.module('phonertcdemo')
   };
 
   service.removeFromMatches = function(id) {
+
+    if (matches == null) {
+      return;
+    }
+
     var i = -1;
     $.each(matches, function(index, item) {
       if (item.id == id) {
@@ -59,6 +63,10 @@ angular.module('phonertcdemo')
 
 
   service.getMatch = function(id) {
+    if (matches == null) {
+      return;
+    }
+
     var i = -1;
     $.each(matches, function(index, item) {
       if (item.id == id) {
@@ -72,6 +80,10 @@ angular.module('phonertcdemo')
 
   service.removeCrrentCallingIdFromMatches = function() {
 
+    if (matches == null) {
+      return;
+    }
+    
     // alert("removeCrrentCallingIdFromMatches " + currentCallingId);
 
     var i = -1;

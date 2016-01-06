@@ -8,14 +8,14 @@ angular.module('phonertcdemo')
     $scope.isCalling = $stateParams.isCalling === 'true';
     $scope.contactName = $stateParams.contactName;
 
-    $scope.allContacts = ContactsService.onlineUsers;
+
     $scope.contacts = {};
     $scope.hideFromContactList = [$scope.contactName];
     $scope.muted = false;
 
     var timeRemaining = 360; // 6 min
     
-    $scope.percentage = "20"; // MatchService.getMatch(MatchService.getCrrentCallingId()).matchingPercent;
+    $scope.percentage = 20; // MatchService.getMatch(MatchService.getCrrentCallingId()).matchingPercent;
 
 
     $scope.callTime = function() {
