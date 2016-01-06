@@ -13,7 +13,7 @@ angular.module('phonertcdemo')
     $scope.hideFromContactList = [$scope.contactName];
     $scope.muted = false;
 
-    var timeRemaining = 15; //360; // 6 min
+    var timeRemaining = 360; // 6 min
     
     $scope.percentage = MatchService.getMatch(MatchService.getCrrentCallingId()).matchingPercent;
 
@@ -95,7 +95,7 @@ angular.module('phonertcdemo')
       }
     };
 
-    end() = function () {
+    $scope.end = function () {
       Object.keys($scope.contacts).forEach(function (contact) {
         $scope.contacts[contact].close();
         delete $scope.contacts[contact];
@@ -253,7 +253,7 @@ angular.module('phonertcdemo')
 
     $interval(function() {
 
-      if (timeRemaining =< 0) {
+      if (timeRemaining <= 0) {
         $scope.end();
       }
 
