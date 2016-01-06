@@ -15,7 +15,7 @@ angular.module('phonertcdemo')
 
     var timeRemaining = 360; // 6 min
     
-    $scope.percentage = MatchService.getMatch(MatchService.getCrrentCallingId()).matchingPercent;
+    $scope.percentage = "20"; // MatchService.getMatch(MatchService.getCrrentCallingId()).matchingPercent;
 
 
     $scope.callTime = function() {

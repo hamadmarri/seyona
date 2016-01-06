@@ -177,13 +177,13 @@ angular.module('phonertcdemo')
 			success : function(data, textStatus, jQxhr) {
 				
 
-				alert("go");
+				// alert("go");
 
 				MatchService.setCrrentCallingId(id);
 
 				$timeout(function() {
 					$state.go('app.call', { isCalling: true, contactName: webrtcid });	
-				}, 10000);
+				}, 10);
 				
 				// window.location.replace("call.html?" + "username=" + username
 				// 		+ "&id=" + id + "&matches=" + JSON.stringify(matches));
