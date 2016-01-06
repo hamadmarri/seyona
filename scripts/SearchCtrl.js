@@ -20,8 +20,9 @@ angular.module('phonertcdemo')
 
 
 	$scope.onlineUsersCount = function() {
-		return  ContactsService.onlineUsers.length + 1 ;
+		return  ContactsService.onlineUsersCounter;
 	};
+
 
 	// $scope.getNegative = function() {
 	// 	return MatchService.getNegative();
@@ -182,7 +183,7 @@ angular.module('phonertcdemo')
 
 				$timeout(function() {
 					$state.go('app.call', { isCalling: true, contactName: webrtcid });	
-				}, 10);
+				}, 10000);
 				
 				// window.location.replace("call.html?" + "username=" + username
 				// 		+ "&id=" + id + "&matches=" + JSON.stringify(matches));
