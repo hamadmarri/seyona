@@ -60,8 +60,8 @@ angular.module('phonertcdemo', ['ionic',
       });
 
 
-    // $urlRouterProvider.otherwise('app/login');
-    $urlRouterProvider.otherwise('app/takepicture');
+    $urlRouterProvider.otherwise('app/login');
+    // $urlRouterProvider.otherwise('app/takepicture');
 
   })
 

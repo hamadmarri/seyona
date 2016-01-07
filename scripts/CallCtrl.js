@@ -13,7 +13,7 @@ angular.module('phonertcdemo')
     $scope.hideFromContactList = [$scope.contactName];
     $scope.muted = false;
 
-    var timeRemaining = 360; // 6 min
+    var timeRemaining = 120; // 2min
     
     $scope.percentage;
 
