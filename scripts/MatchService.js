@@ -3,9 +3,11 @@ angular.module('phonertcdemo')
 
   var negative = false;
   var matches = null;
-  var currentCallingId;
+  var currentCallingId = -1;
 
   var service = {};
+
+  var currentMatchPercent = -1;
 
 
   service.getNegative = function() {
@@ -21,6 +23,14 @@ angular.module('phonertcdemo')
     return matches;
   };
 
+
+  service.setCurrentMatchPercent = function(p) {
+    currentMatchPercent = p;
+  };
+
+  service.getCurrentMatchPercent = function() {
+    return currentMatchPercent;
+  };
 
   service.setMatches = function(m) {
     matches = m;
@@ -63,8 +73,9 @@ angular.module('phonertcdemo')
 
 
   service.getMatch = function(id) {
-    if (matches == null) {
-      return;
+    if (matches == null || id == -1) {
+      var m = {matchingPercent: "-1"};
+      return m;
     }
 
     var i = -1;

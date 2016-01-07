@@ -15,7 +15,7 @@ angular.module('phonertcdemo')
 
     var timeRemaining = 360; // 6 min
     
-    $scope.percentage = MatchService.getMatch(MatchService.getCrrentCallingId()).matchingPercent;
+    $scope.percentage;
 
 
     $scope.callTime = function() {
@@ -80,7 +80,11 @@ angular.module('phonertcdemo')
     if ($scope.isCalling) {
       // alert(MatchService.getCrrentCallingId());
 
-      signaling.emit('sendMessage', $stateParams.contactName, { type: 'call', matchId: MatchService.getCrrentCallingId() });
+      $scope.percentage = MatchService.getMatch(MatchService.getCrrentCallingId()).matchingPercent;
+
+      signaling.emit('sendMessage', $stateParams.contactName, { type: 'call', matchId: MatchService.getCrrentCallingId(), percentage: $scope.percentage });
+    } else {
+      $scope.percentage = MatchService.getCurrentMatchPercent();
     }
 
     $scope.ignore = function () {

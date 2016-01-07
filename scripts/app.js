@@ -60,8 +60,8 @@ angular.module('phonertcdemo', ['ionic',
       });
 
 
+    // $urlRouterProvider.otherwise('app/login');
     $urlRouterProvider.otherwise('app/takepicture');
-    // $urlRouterProvider.otherwise('app/takepicture');
 
   })
 
@@ -87,6 +87,7 @@ angular.module('phonertcdemo', ['ionic',
           if ($state.current.name === 'app.call') { return; }
           
           MatchService.setCrrentCallingId(message.matchId);
+          MatchService.setCurrentMatchPercent(message.percentage);
 
           // alert(MatchService.getCrrentCallingId());
 
