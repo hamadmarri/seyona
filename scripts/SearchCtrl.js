@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 
 .controller('SearchCtrl', function ($scope, $state, $timeout, $interval, ContactsService, 
-		SchedulingService, MatchService, ENV) {
+		SchedulingService, MatchService, ENV, DeleteService) {
 
 
 
@@ -106,7 +106,7 @@ angular.module('phonertcdemo')
 			// TODO ask if want to take another picture or use old one
 			// TODO: if already called all matches, then get other top ten
 
-			alert("askfornewpic");
+			// alert("askfornewpic");
 			// window.location.replace("askfornewpic.html");
 
 			return;
@@ -268,13 +268,20 @@ angular.module('phonertcdemo')
 	  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 	}
 
+
+	$scope.back = function() {
+		DeleteService.deleteAllUserDataOnServer();
+		$state.go('app.takepicture');
+	};
+
+
 	changeTip();
-	$interval(changeTip, tipsDelay);
-	$interval(animateSearchingDots, 400);
-	
+	// $interval(changeTip, tipsDelay);
+	// $interval(animateSearchingDots, 400);
 
-	$timeout($scope.setAsSearching, 1000);
-	$timeout($scope.loadMatches, 2000);
+	// $timeout($scope.setAsSearching, 1000);
+	// $timeout($scope.loadMatches, 2000);
 
-	SchedulingService.updatewebrtcid();
+	// SchedulingService.updatewebrtcid();
+
 });
