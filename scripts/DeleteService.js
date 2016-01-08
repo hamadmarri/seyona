@@ -1,5 +1,5 @@
 angular.module('phonertcdemo')
-  .factory('DeleteService', function ($http, ENV) {
+  .factory('DeleteService', function ($http, ENV, signaling) {
     
     var service = {};
 
@@ -14,6 +14,7 @@ angular.module('phonertcdemo')
           method : "GET",
           url : ENV.apiEndpoint + "/people/deletemedisconnected",
           success : function(data, textStatus, jQxhr) {
+            signaling.disconnect();
           },
           error : function(jqXhr, textStatus, errorThrown) {
             // console.log(errorThrown);

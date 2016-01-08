@@ -276,12 +276,12 @@ angular.module('phonertcdemo')
 
 
 	changeTip();
-	// $interval(changeTip, tipsDelay);
-	// $interval(animateSearchingDots, 400);
+	$interval(changeTip, tipsDelay);
+	$interval(animateSearchingDots, 400);
 
-	// $timeout($scope.setAsSearching, 1000);
-	// $timeout($scope.loadMatches, 2000);
+	$timeout($scope.setAsSearching, 1000);
+	$timeout($scope.loadMatches, 2000);
 
-	// SchedulingService.updatewebrtcid();
+	SchedulingService.updatewebrtcid();
 
 });

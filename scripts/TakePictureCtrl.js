@@ -57,7 +57,7 @@ angular.module('phonertcdemo')
          $scope.status = 5; // error
 
          // response.status + " "
-         $scope.showStatusTitle = "ERROR: " + response.data;
+         $scope.showStatusTitle = "ERROR: " + response.status + " " + response.data;
          $scope.showStatusTitleDots = "";
        });
  };
