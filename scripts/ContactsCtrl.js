@@ -2,6 +2,10 @@ angular.module('phonertcdemo')
 
 .controller('ContactsCtrl', function ($scope, $state, signaling, ContactsService) {
 	
+
+	// var session = new cordova.plugins.phonertc.Session(config);
+
+
 	$scope.onlineUsersCounter = function() {
 		return ContactsService.onlineUsersCounter;
 	};
@@ -16,4 +20,9 @@ angular.module('phonertcdemo')
 		signaling.disconnect();
 	};
 	
+
+	signaling.on('disconnect', function () {
+	  // alert("disconnect");
+	});
+
 });
