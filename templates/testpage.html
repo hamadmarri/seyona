@@ -2,16 +2,26 @@
 <ion-view title="TestPage" hide-back-button="true" hide-nav-bar="true">
   
  
+  <ion-content> <!--   style="background-color: #111;" -->
+
+  <!--   <button ui-sref="app.search">Search</button> -->
+
+<!--     <div style="{{style}}"></div> -->
   
-  <ion-content style="background-color: #111;">
+  <input type="text" ng-model="search" placeholder="Search" />
 
-    <button ui-sref="app.search">Search</button>
+  <div class="list">
+    <a class="item item-avatar" ng-repeat="c in countries | orderBy:'-online' | filter: search">
+      <img ng-src="emoji/{{c.flag}}.svg">
+      <h2>{{c.name}}</h2>
+       <p>{{c.code}}, <span class="positive"><strong>{{c.online | number}}</strong></span> online</p>
+    </a>
+  </ul>
 
-    <div style="{{style}}"></div>
 
   </ion-content>
 
-  <ion-footer-bar id="foot" class="bar-dark">
+<!--   <ion-footer-bar id="foot" class="bar-dark">
     <div class="buttons">
       <button class="button button-assertive">End Call</button>
     </div>
@@ -22,6 +32,6 @@
       <h5 style="color: white;">{{callTime() | date:'mm:ss'}}</h5>
     </div>
 
-  </ion-footer-bar>
+  </ion-footer-bar> -->
 
 </ion-view>
