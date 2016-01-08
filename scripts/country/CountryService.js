@@ -117,123 +117,130 @@ angular.module('phonertcdemo')
        
 
 
+
+
+
+
+
+
+
+
+
+
+       {name: 'Kyrgyzstan', code: 'KG', flag: '0153', online: 0},
+       {name: 'Laos', code: 'LA', flag: '0163', online: 0},
+       {name: 'Latvia', code: 'LV', flag: '0172', online: 0},
+       {name: 'Lebanon', code: 'LB', flag: '0164', online: 0},
+       {name: 'Lesotho', code: 'LS', flag: '0169', online: 0},
+       {name: 'Liberia', code: 'LR', flag: '0168', online: 0},
+       {name: 'Libya', code: 'LY', flag: '0173', online: 0},
+       {name: 'Liechtenstein', code: 'LI', flag: '0166', online: 0},
+       {name: 'Lithuania', code: 'LT', flag: '0170', online: 0},
+       {name: 'Luxembourg', code: 'LU', flag: '0171', online: 0},
+       {name: 'Macau', code: 'MO', flag: '0185', online: 0},
+       {name: 'Macedonia', code: 'MK', flag: '0181', online: 0},
+       {name: 'Madagascar', code: 'MG', flag: '0179', online: 0},
+       {name: 'Malawi', code: 'MW', flag: '0193', online: 0},
+       {name: 'Malaysia', code: 'MY', flag: '0195', online: 0},
+       {name: 'Maldives', code: 'MV', flag: '0192', online: 0},
+       {name: 'Mali', code: 'ML', flag: '0182', online: 0},
+       {name: 'Malta', code: 'MT', flag: '0190', online: 0},
+       {name: 'Marshall Islands', code: 'MH', flag: '0180', online: 0},
+       {name: 'Martinique', code: 'MQ', flag: '0187', online: 0},
+       {name: 'Mauritania', code: 'MR', flag: '0188', online: 0},
+       {name: 'Mauritius', code: 'MU', flag: '0191', online: 0},
+       {name: 'Mexico', code: 'MX', flag: '0194', online: 0},
+       {name: 'Federated States of Micronesia', code: 'FM', flag: '0109', online: 0},
+       {name: 'Moldova', code: 'MD', flag: '0176', online: 0},
+       {name: 'Monaco', code: 'MC', flag: '0175', online: 0},
+       {name: 'Mongolia', code: 'MN', flag: '0184', online: 0},
+       {name: 'Montenegro', code: 'ME', flag: '0177', online: 0},
+       {name: 'Morocco', code: 'MA', flag: '0174', online: 0},
+       {name: 'Mozambique', code: 'MZ', flag: '0196', online: 0},
+       {name: 'Myanmar', code: 'MM', flag: '0183', online: 0},
+       {name: 'Namibia', code: 'NA', flag: '0197', online: 0},
+       {name: 'Nauru', code: 'NR', flag: '0206', online: 0},
+       {name: 'Nepal', code: 'NP', flag: '0205', online: 0},
+       {name: 'Netherlands', code: 'NL', flag: '0203', online: 0},
+       {name: 'New Caledonia', code: 'NC', flag: '0281', online: 0},
+       {name: 'New Zealand', code: 'NZ', flag: '0208', online: 0},
+       {name: 'Nicaragua', code: 'NI', flag: '0202', online: 0},
+       {name: 'Niger', code: 'NE', flag: '0199', online: 0},
+       {name: 'Nigeria', code: 'NG', flag: '0201', online: 0},
+       {name: 'Northern Mariana Islands', code: 'MP', flag: '0186', online: 0},
+       {name: 'Norway', code: 'NO', flag: '0066', online: 0},
+       {name: 'Oman', code: 'OM', flag: '0209', online: 0},
+       {name: 'Pakistan', code: 'PK', flag: '0215', online: 0},
+       {name: 'Palau', code: 'PW', flag: '0222', online: 0},
+       {name: 'Palestine', code: 'PS', flag: '0220', online: 0},
+       {name: 'Panama', code: 'PA', flag: '0210', online: 0},
+       {name: 'Papua New Guinea', code: 'PG', flag: '0213', online: 0},
+       {name: 'Paraguay', code: 'PY', flag: '0223', online: 0},
+       {name: 'Peru', code: 'PE', flag: '0211', online: 0},
+       {name: 'Philippines', code: 'PH', flag: '0214', online: 0},
+       {name: 'Poland', code: 'PL', flag: '0216', online: 0},
+       {name: 'Portugal', code: 'PT', flag: '0221', online: 0},
+       {name: 'Puerto Rico', code: 'PR', flag: '0219', online: 0},
+       {name: 'Qatar', code: 'QA', flag: '0224', online: 0},
+       {name: 'Réunion', code: 'RE', flag: '0111', online: 0},
+       {name: 'Romania', code: 'RO', flag: '0253', online: 0},
+       {name: 'Russia', code: 'RU', flag: '0228', online: 0},
+       {name: 'Rwanda', code: 'RW', flag: '0229', online: 0},
+       {name: 'Saint Kitts and Nevis', code: 'KN', flag: '0157', online: 0},
+       {name: 'Saint Lucia', code: 'LC', flag: '0165', online: 0},
+       {name: 'Samoa', code: 'WS', flag: '0282', online: 0},
+       {name: 'San Marino', code: 'SM', flag: '0241', online: 0},
+       {name: 'Sao Tome and Princ.', code: 'ST', flag: '0246', online: 0},
+       {name: 'Senegal', code: 'SN', flag: '0242', online: 0},
+       {name: 'Serbia', code: 'RS', flag: '0227', online: 0},
+       {name: 'Seychelles', code: 'SC', flag: '0232', online: 0},
+       {name: 'Sierra Leone', code: 'SL', flag: '0240', online: 0},
+       {name: 'Singapore', code: 'SG', flag: '0235', online: 0},
+       {name: 'Slovakia', code: 'SK', flag: '0239', online: 0},
+       {name: 'Slovenia', code: 'SI', flag: '0237', online: 0},
+       {name: 'Solomon Islands', code: 'SB', flag: '0231', online: 0},
+       {name: 'Somalia', code: 'SO', flag: '0243', online: 0},
+       {name: 'South Africa', code: 'ZA', flag: '0286', online: 0},
+       {name: 'Spain', code: 'ES', flag: '0103', online: 0},
+       {name: 'Sri Lanka', code: 'LK', flag: '0167', online: 0},
+       {name: 'St Vincent and Green.', code: 'VC', flag: '0275', online: 0},
+       {name: 'Sudan', code: 'SD', flag: '0233', online: 0},
+       {name: 'Suriname', code: 'SR', flag: '0244', online: 0},
+       {name: 'Swaziland', code: 'SZ', flag: '0250', online: 0},
+       {name: 'Sweden', code: 'SE', flag: '0234', online: 0},
+       {name: 'Switzerland', code: 'CH', flag: '0075', online: 0},
+       {name: 'Syria', code: 'SY', flag: '0249', online: 0},
+       {name: 'Taiwan', code: 'TW', flag: '0266', online: 0},
+       {name: 'Tajikistan', code: 'TJ', flag: '0257', online: 0},
+       {name: 'Tanzania', code: 'TZ', flag: '0267', online: 0},
+       {name: 'Thailand', code: 'TH', flag: '0256', online: 0},
+       {name: 'Togo', code: 'TG', flag: '0255', online: 0},
+       {name: 'Tonga', code: 'TO', flag: '0262', online: 0},
+       {name: 'Trinidad and Tobago', code: 'TT', flag: '0264', online: 0},
+       {name: 'Tunisia', code: 'TN', flag: '0261', online: 0},
+       {name: 'Turkey', code: 'TR', flag: '0263', online: 0},
+       {name: 'Turkmenistan', code: 'TM', flag: '0260', online: 0},
+       {name: 'Tuvalu', code: 'TV', flag: '0265', online: 0},
+       {name: 'Uganda', code: 'UG', flag: '0269', online: 0},
+       {name: 'Ukraine', code: 'UA', flag: '0268', online: 0},
+       {name: 'United Arab Emirates', code: 'AE', flag: '0034', online: 0},
+       {name: 'United Kingdom', code: 'GB', flag: '0113', online: 0},
+       {name: 'United States', code: 'US', flag: '0270', online: 0},
+       {name: 'Uruguay', code: 'UY', flag: '0272', online: 0},
+       {name: 'Uzbekistan', code: 'UZ', flag: '0273', online: 0},
+       {name: 'Vanuatu', code: 'VU', flag: '0280', online: 0},
+       {name: 'Vatican City', code: 'VA', flag: '0274', online: 0},
+       {name: 'Venezuela', code: 'VE', flag: '0276', online: 0},
+       {name: 'Vietnam', code: 'VN', flag: '0279', online: 0},
+       {name: 'British Virgin Islands', code: 'VG', flag: '0277', online: 0},
+       {name: 'United States Virgin Islands', code: 'VI', flag: '0278', online: 0},
+       {name: 'Western Sahara', code: 'EH', flag: '0101', online: 0},
+       {name: 'Yemen', code: 'YE', flag: '0284', online: 0},
+       {name: 'Zambia', code: 'ZM', flag: '0287', online: 0},
+       {name: 'Zimbabwe', code: 'ZW', flag: '0288', online: 0}
+       
     ];
 
-
-
-
-
-    KG Kyrgyzstan
-    LA Laos LA
-    LV Latvia
-    LB Lebanon  LB
-    LS Lesotho
-    LR Liberia  LR
-    LY Libya
-    LI Liechtenstein  LI
-    LT Lithuania
-    LU Luxembourg LU
-    MO Macau SAR
-    MK Macedonia  MK
-    MG Madagascar
-    MW Malawi MW
-    MY Malaysia
-    MV Maldives MV
-    ML Mali
-    MT Malta  MT
-    MH Marshall Islands
-    MQ Martinique MQ
-    MR Mauritania
-    MU Mauritius  MU
-    MX Mexico
-    FM Micronesia, Fed. States of FM
-    MD Moldova
-    MC Monaco MC
-    MN Mongolia
-    ME Montenegro ME
-    MA Morocco
-    MZ Mozambique MZ
-    MM Myanmar
-    NA Namibia  NA
-    NR Nauru
-    NP Nepal  NP
-    NL Netherlands
-    NC New Caledonia  NC
-    NZ New Zealand  NZ  
-    NI Nicaragua  NI
-    NE Niger
-    NG Nigeria  NG
-    MP Northern Mariana Islands
-    NO Norway NO
-    OM Oman
-    PK Pakistan PK
-    PW Palau
-    PS Palestinian Territories  PS
-    PA Panama
-    PG Papua New Guinea PG
-    PY Paraguay
-    PE Peru PE
-    PH Philippines
-    PL Poland PL
-    PT Portugal
-    PR Puerto Rico  PR
-    QA Qatar
-    RE Réunion  RE
-    RO Romania
-    RU Russian Federation RU
-    RW Rwanda
-    KN Saint Kitts and Nevis  KN
-    LC Saint Lucia
-    WS Samoa  WS
-    SM San Marino
-    ST Sao Tome and Princ.  ST
-    SN Senegal  SN
-    RS Serbia
-    SC Seychelles SC
-    SL Sierra Leone
-    SG Singapore  SG
-    SK Slovakia
-    SI Slovenia SI
-    SB Solomon Islands
-    SO Somalia  SO
-    ZA South Africa
-    ES Spain  ES
-    LK Sri Lanka
-    VC St Vincent and Gren. VC
-    SD Sudan
-    SR Suriname SR
-    SZ Swaziland
-    SE Sweden SE
-    CH Switzerland
-    SY Syria  SY
-    TW Taiwan
-    TJ Tajikistan TJ
-    TZ Tanzania
-    TH Thailand TH
-    TG Togo
-    TO Tonga  TO
-    TT Trinidad and Tobago
-    TN Tunisia  TN
-    TR Turkey
-    TM Turkmenistan TM
-    TV Tuvalu
-    UG Uganda UG
-    UA Ukraine
-    AE United Arab Emirates AE
-    GB United Kingdom
-    US United States  US
-    UY Uruguay
-    UZ Uzbekistan UZ
-    VU Vanuatu
-    VA Vatican City VA
-    VE Venezuela
-    VN Vietnam  VN
-    VG Virgin
-     Islands, British  VG  VI Virgin Islands, U.S. VI
-    EH Western
-     Sahara EH  YE Yemen  YE
-    ZM Zambia
-     ZM  ZW Zimbabwe ZW
 
 
 
