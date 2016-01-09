@@ -65,9 +65,15 @@ angular.module('phonertcdemo')
 
 
 
-    $scope.n = 50;
+    $scope.n = 100;
     $scope.open = function() {
 
+      // $scope.loginName = "a" + Math.floor(Math.random() * 1000000000);
+      // randomNumberForCountry = Math.floor((Math.random() * 1000) % $scope.countries.length);
+      // CountryService.setMyCountry($scope.countries[randomNumberForCountry]);
+      // $scope.myCountry = CountryService.getMyCountry();
+
+      // $scope.login();
       window.open("index.html#/app/testpage");
       
       if ($scope.n > 0) {

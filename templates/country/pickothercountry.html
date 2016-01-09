@@ -1,0 +1,29 @@
+
+<ion-view title="Country you want to call" hide-back-button="false" hide-nav-bar="false">
+  
+ 
+ <ion-header-bar class="bar bar-subheader">
+    <input type="text" ng-model="search" placeholder="Search" />
+ </ion-header-bar>
+
+
+
+  <ion-content has-header="true"> 
+
+      <div class="list" >
+        <a class="item item-avatar" 
+            ng-click="pickCountry(c)"
+            ng-repeat="c in countries | orderBy:'-online' | filter: search | limitTo: limit">
+          <img ng-src="emoji/{{c.flag}}.svg">
+          <h2>{{c.name}}</h2>
+           <p>{{c.code}}, <span class="positive"><strong>{{c.online | number}}</strong></span> online</p>
+        </a>
+      </div>  
+
+
+
+      <ion-infinite-scroll ng-if="limit <= 209" on-infinite="loadMore()" distance="5%">
+      </ion-infinite-scroll>
+
+  </ion-content>
+</ion-view>
