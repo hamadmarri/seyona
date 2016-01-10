@@ -33,6 +33,7 @@ angular.module('phonertcdemo')
     };
 
 
+
     signaling.on('online', function (loggedInUser) {
       service.onlineUsersCounter++;
 

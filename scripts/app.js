@@ -56,6 +56,12 @@ angular.module('phonertcdemo', ['ionic',
         templateUrl: 'templates/country/pickothercountry.html'
       })
 
+      .state('app.welcomeCountry', {
+        url: '/welcomeCountry',
+        controller: 'WelcomeCountryCtrl',
+        templateUrl: 'templates/country/welcomeCountry.html'
+      })
+
 
       .state('app.login', {
         url: '/login',
@@ -76,7 +82,10 @@ angular.module('phonertcdemo', ['ionic',
 
     // $urlRouterProvider.otherwise('app/login');
     $urlRouterProvider.otherwise('app/pickmycountry');
+    // $urlRouterProvider.otherwise('app/welcomeCountry');
     // $urlRouterProvider.otherwise('app/takepicture');
+
+    
 
   })
 

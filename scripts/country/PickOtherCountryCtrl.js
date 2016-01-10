@@ -1,6 +1,6 @@
 angular.module('phonertcdemo')
 
-  .controller('PickOtherCountryCtrl', function ($scope, $state, $interval, $timeout, signaling, CountryService, ContactsServiceForCountry) {
+  .controller('PickOtherCountryCtrl', function ($window, $scope, $state, $interval, $timeout, signaling, CountryService, ContactsServiceForCountry) {
  
     $scope.countries = CountryService.getCountries();
     $scope.limit = 21;
@@ -17,7 +17,11 @@ angular.module('phonertcdemo')
 
 
     $scope.pickCountry = function(c) {
-      alert(c.name);
+      $state.go('app.pickmycountry');
+
+      $timeout(function() {
+        $window.location.reload(true);
+      }, 500);
     };
 
 
