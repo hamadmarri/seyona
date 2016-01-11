@@ -1,0 +1,40 @@
+<ion-view title="Search" hide-back-button="false" hide-nav-bar="true">
+
+  <ion-content>
+          
+
+    <img style="display: block;margin: 0 auto;" class="toplettlePadding"  ng-src="emoji/{{callingCountryFlag()}}.svg" />
+
+    <h4 class="center ubuntu balanced">Online users: {{onlineUsersCount() | number}}</h4>
+
+    <h2 style="margin-left: {{searchingMargin}};" class="ubuntu toplettlePadding">Searching{{dots}}</h2>
+
+
+    <div class="center topBottomIsolatePadding">
+      
+      <button class="button button-energized" ng-click="smileysLuck()">See your emoji luck</button>
+      
+      <div class="row toplettlePadding">
+        <div class="col"><img ng-src="emoji/{{img1}}.svg" /></div>
+        <div class="col"><img ng-src="emoji/{{img2}}.svg" /></div>
+        <div class="col"><img ng-src="emoji/{{img3}}.svg" /></div>
+        <div class="col"><img ng-src="emoji/{{img4}}.svg" /></div>
+      </div>
+
+    </div>
+
+    <h4 class="ubuntu lettlePadding toplettlePadding"><span class="positive">Tips:</span> {{tip}}</h4>
+    
+
+  </ion-content>
+
+  <ion-footer-bar>
+    <div class="bar bar-header">
+      <a class="button icon-left button-light ubuntu"
+        ng-click="back()">Cancel</a>
+    </div>
+  </ion-footer-bar>
+
+
+</ion-view>
+

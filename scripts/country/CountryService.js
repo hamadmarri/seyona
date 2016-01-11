@@ -2,6 +2,8 @@ angular.module('phonertcdemo')
   .factory('CountryService', function () {
     
     var myCountry = {};
+
+    var callingCountryCode = '';
     
     var service = {};
 
@@ -234,16 +236,16 @@ angular.module('phonertcdemo')
     };
 
 
-    service.incrementCountry = function(c) {
-      var country = service.find(c.code);
+    service.incrementCountry = function(code) {
+      var country = service.find(code);
 
       country.online++;
       // alert(country.code + " " + country.online);
     };
 
 
-    service.decrementCountry = function(c) {
-      var country = service.find(c.code);
+    service.decrementCountry = function(code) {
+      var country = service.find(code);
 
       country.online--;
       if (country.online < 0) {
@@ -267,6 +269,16 @@ angular.module('phonertcdemo')
 
     service.getMyCountry = function() {
       return myCountry;
+    };
+
+
+    service.setCallingCountryCode = function(code) {
+      callingCountryCode = code;
+    };
+
+
+    service.getCallingCountryCode = function() {
+      return callingCountryCode;
     };
 
     return service;

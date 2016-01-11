@@ -10,7 +10,14 @@ angular.module('phonertcdemo')
 
 
     $scope.login = function () {
-      signaling.emit('login', { name: $scope.loginName, otherCountry: $scope.myCountry } );
+      var countryPerson = {
+        name: $scope.loginName,
+        countryCode: $scope.myCountry.code,
+        status: 'busy',
+        callsCount: 0
+      };
+
+      signaling.emit('login', countryPerson );
     };
 
 
@@ -24,7 +31,7 @@ angular.module('phonertcdemo')
 
 
     signaling.on('login_successful', function (users) {
-      ContactsServiceForCountry.setOnlineUsers(users, $scope.loginName, $scope.myCountry);
+      ContactsServiceForCountry.setOnlineUsers(users, $scope.loginName);
 
       // sendDataToServer();
       $state.go('app.pickothercountry');
@@ -57,7 +64,7 @@ angular.module('phonertcdemo')
                 template: response.status + " " + response.data
               });
            });
-    }
+    };
 
 
   });

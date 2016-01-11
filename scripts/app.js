@@ -56,11 +56,27 @@ angular.module('phonertcdemo', ['ionic',
         templateUrl: 'templates/country/pickothercountry.html'
       })
 
-      .state('app.welcomeCountry', {
-        url: '/welcomeCountry',
+      .state('app.welcomecountry', {
+        url: '/welcomecountry',
         controller: 'WelcomeCountryCtrl',
-        templateUrl: 'templates/country/welcomeCountry.html'
+        templateUrl: 'templates/country/welcomecountry.html'
       })
+
+      .state('app.searchingcountry', {
+        url: '/searchingcountry',
+        controller: 'SearchingCountryCtrl',
+        templateUrl: 'templates/country/searchingcountry.html'
+      })
+
+
+      .state('app.countrycall', {
+        url: '/countrycall/:contactName?isCalling',
+        controller: 'CountryCallCtrl',
+        templateUrl: 'templates/country/countrycall.html'
+      })
+
+      
+
 
 
       .state('app.login', {
@@ -81,11 +97,10 @@ angular.module('phonertcdemo', ['ionic',
 
 
     // $urlRouterProvider.otherwise('app/login');
-    $urlRouterProvider.otherwise('app/pickmycountry');
-    // $urlRouterProvider.otherwise('app/welcomeCountry');
+    // $urlRouterProvider.otherwise('app/pickmycountry');
+    $urlRouterProvider.otherwise('app/searchingcountry');
     // $urlRouterProvider.otherwise('app/takepicture');
 
-    
 
   })
 
@@ -106,6 +121,9 @@ angular.module('phonertcdemo', ['ionic',
 
   .run(function ($state, signaling, MatchService) {
     signaling.on('messageReceived', function (name, message) {
+
+      // alert("app.messageReceived");
+
       switch (message.type) {
         case 'call':
           if ($state.current.name === 'app.call') { return; }
@@ -117,6 +135,15 @@ angular.module('phonertcdemo', ['ionic',
 
           $state.go('app.call', { isCalling: false, contactName: name });
           break;
+
+
+        case 'countrycall':
+          // alert("countrycall");
+          if ($state.current.name === 'app.countrycall') { return; }
+          $state.go('app.call', { isCalling: false, contactName: name });
+          break;
+
       }
     });
+
   });

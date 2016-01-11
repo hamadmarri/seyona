@@ -3,50 +3,37 @@ angular.module('phonertcdemo')
     
     var onlineUsersCounter = 0;
 
+    var callingCountryPerson = {};
 
     var service = {
       onlineUsersCounter: onlineUsersCounter,
-      currentName: ''
+      currentName: '',
+      callingCountryPerson: callingCountryPerson
     };
 
 
-    service.setOnlineUsers = function (users, currentName, myCountry) {
+    service.setOnlineUsers = function (users, currentName) {
       this.onlineUsersCounter = users.length;
       
-      console.log(users);
-
       this.currentName = currentName;
 
-      // var countries = CountryService.getCountries();
+      CountryService.clearCountryCounters();
 
       for (var i = 0; i < users.length; i++) {
-        CountryService.incrementCountry(users[i].otherCountry);
+        CountryService.incrementCountry(users[i].countryCode);
       };
 
-
-      // decrement because it's already added
-      // CountryService.decrementCountry(otherCountry);
-
-
-      // alert("service.setOnlineUsers: " + myCountry);
-      console.log("service.setOnlineUsers: " + myCountry);
     };
 
 
-
-    signaling.on('online', function (loggedInUser) {
+    signaling.on('online', function (countryPerson) {
       service.onlineUsersCounter++;
-
-       CountryService.incrementCountry(loggedInUser.otherCountry);
-
-      // alert("online: " + loggedInUser.name);
+       CountryService.incrementCountry(countryPerson.countryCode);
     });
 
-    signaling.on('offline', function (loggedInUser) {
+    signaling.on('offline', function (countryPerson) {
       service.onlineUsersCounter--;
-
-      CountryService.decrementCountry(loggedInUser.otherCountry);
-      // alert("offline: " + loggedInUser.name);
+      CountryService.decrementCountry(countryPerson.countryCode);
     });
 
 

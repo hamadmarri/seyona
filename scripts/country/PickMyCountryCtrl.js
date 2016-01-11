@@ -18,7 +18,7 @@ angular.module('phonertcdemo')
       CountryService.setMyCountry(c);
       $scope.myCountry = CountryService.getMyCountry();
 
-      $state.go('app.welcomeCountry');
+      $state.go('app.welcomecountry');
     };
     
   });
