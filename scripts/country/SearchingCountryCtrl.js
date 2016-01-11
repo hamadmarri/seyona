@@ -122,7 +122,7 @@ angular.module('phonertcdemo')
 
   signaling.on('found', function (countryPerson) {
       ContactsServiceForCountry.callingCountryPerson = countryPerson;
-      $state.go('app.call', { isCalling: true, contactName: countryPerson.name }); 
+      $state.go('app.countrycall', { isCalling: true, contactName: countryPerson.name }); 
   });
 
 
@@ -136,8 +136,6 @@ angular.module('phonertcdemo')
   $interval(animateSearchingDots, 400);
 
   $timeout(function(){ $scope.tryCall(); }, $scope.waitBeforePick);
-
-
 
 
 

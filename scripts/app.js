@@ -140,7 +140,7 @@ angular.module('phonertcdemo', ['ionic',
         case 'countrycall':
           // alert("countrycall");
           if ($state.current.name === 'app.countrycall') { return; }
-          $state.go('app.call', { isCalling: false, contactName: name });
+          $state.go('app.countrycall', { isCalling: false, contactName: name });
           break;
 
       }

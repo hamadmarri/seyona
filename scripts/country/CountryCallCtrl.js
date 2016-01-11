@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 
   .controller('CountryCallCtrl', function ($scope, $state, $rootScope, $timeout, $interval,
-         $ionicModal, $stateParams, signaling, ContactsServiceForCountry, ContactsService) {
+         $ionicModal, $stateParams, signaling, ContactsServiceForCountry) {
 
     var duplicateMessages = [];
 
@@ -17,7 +17,7 @@ angular.module('phonertcdemo')
 
     var timeRemaining = 120; // 2min
     
-    // $scope.percentage;
+    $scope.percentage = 20;
 
 
     $scope.callTime = function() {
@@ -33,6 +33,7 @@ angular.module('phonertcdemo')
     });
 
     function call(isInitiator, contactName) {
+
       console.log(new Date().toString() + ': calling to ' + contactName + ', isInitiator: ' + isInitiator);
 
       var config = { 
@@ -85,7 +86,7 @@ angular.module('phonertcdemo')
       // $scope.percentage = MatchService.getMatch(MatchService.getCrrentCallingId()).matchingPercent;
 
       // alert("is calling " + ContactsServiceForCountry.callingCountryPerson.name + " " + $stateParams.contactName);
-      signaling.emit('sendMessage', $stateParams.contactName, { type: 'countrycall', countryPerson: ContactsServiceForCountry.callingCountryPerson });
+      signaling.emit('sendMessage', $stateParams.contactName, { type: 'countrycall' });
       // alert("is calling " + ContactsServiceForCountry.callingCountryPerson.name);
     } else {
       // $scope.percentage = MatchService.getCurrentMatchPercent();
@@ -156,7 +157,7 @@ angular.module('phonertcdemo')
 
     $scope.addContact = function (newContact) {
       $scope.hideFromContactList.push(newContact);
-      signaling.emit('sendMessage', newContact, { type: 'countrycall', countryPerson: ContactsServiceForCountry.callingCountryPerson });
+      signaling.emit('sendMessage', newContact, { type: 'countrycall' });
 
       cordova.plugins.phonertc.showVideoView();
       $scope.selectContactModal.hide();
@@ -231,7 +232,7 @@ angular.module('phonertcdemo')
           break;
 
         case 'add_to_group':
-        
+
           message.contacts.forEach(function (contact) {
             $scope.hideFromContactList.push(contact);
             call(message.isInitiator, contact);
@@ -251,7 +252,7 @@ angular.module('phonertcdemo')
       } 
     }
 
-    // signaling.on('messageReceived', onMessageReceive);
+    signaling.on('messageReceived', onMessageReceive);
 
     $scope.$on('$destroy', function() { 
       signaling.removeListener('messageReceived', onMessageReceive);

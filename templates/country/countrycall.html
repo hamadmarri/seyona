@@ -26,6 +26,7 @@
 
 
 <div class="calling-container" ng-if="!isCalling && !callInProgress">
+  <!-- <p><span class="balanced">{{ contactName }}</span> is calling you</p> -->
 
   <button class="button button-positive" ng-click="answer()">
     Answer
@@ -36,7 +37,19 @@
   </button>
 </div>
 
+<!--<div class="calling-container" ng-if="callInProgress">
+   <p>
+    Call in progress...
+  </p>
 
+  <button class="button button-assertive" ng-click="end()">
+    End
+  </button> 
+</div> -->
+
+
+<!-- <div class="controllersContainer1">
+</div> -->
 
 <video-view></video-view>
 
@@ -50,7 +63,7 @@
     <button class="button button-assertive" ng-click="end()">End Call</button>
   </div> -->
 
-  <h1 class="title">percentage%</h1>
+  <h1 class="title">{{percentage}}%</h1>
   
   <div style="padding-right:5px;" class="buttons">
     <h5 style="color: white;">{{callTime() | date:'mm:ss'}}</h5>
