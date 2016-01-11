@@ -35,12 +35,14 @@ angular.module('phonertcdemo')
     $scope.pickCountry = function(c) {
       CountryService.setCallingCountryCode(c.code);
       // alert(CountryService.getCallingCountryCode());
-
-      signaling.emit('searching', { callingCountryCode: c.code });
       
-      // $state.go('app.searchingcountry');
+      $state.go('app.searchingcountry');
     };
 
 
+
+    $scope.init = function() {
+      signaling.emit('busy');
+    };
 
   });

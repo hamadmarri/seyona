@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 
   .controller('WelcomeCountryCtrl', function ($scope, $state, $http, $ionicPopup, signaling, 
-      CountryService, ContactsServiceForCountry, ENV) {
+      CountryService, ContactsServiceForCountry, ENV, $timeout) {
  
 
     $scope.myCountry = CountryService.getMyCountry();
@@ -23,6 +23,15 @@ angular.module('phonertcdemo')
 
     signaling.on('login_error', function (message) {
 
+      if (message == 'You are already connected.' 
+              || message == 'This name already exists.') {
+
+        
+        setTimeout(function() { signaling.emit('logout'); }, 1000);
+        setTimeout(function() { $scope.login(); }, 3000);
+        return;
+      }
+
       var alertPopup = $ionicPopup.alert({
         title: 'Error',
         template: message
@@ -36,6 +45,7 @@ angular.module('phonertcdemo')
       // sendDataToServer();
       $state.go('app.pickothercountry');
     });
+
 
 
     function sendDataToServer() {

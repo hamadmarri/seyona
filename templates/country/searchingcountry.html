@@ -1,14 +1,22 @@
-<ion-view title="Search" hide-back-button="false" hide-nav-bar="true">
+<ion-view title="Search" hide-back-button="false" hide-nav-bar="true" ng-init="init()">
 
   <ion-content>
-          
+    
 
-    <img style="display: block;margin: 0 auto;" class="toplettlePadding"  ng-src="emoji/{{callingCountryFlag()}}.svg" />
+    <div style="text-align: center;">
+      <img class="toplettlePadding" 
+       ng-src="emoji/{{myFlag()}}.svg" />
 
-    <h4 class="center ubuntu balanced">Online users: {{onlineUsersCount() | number}}</h4>
+      <img class="toplettlePadding"  ng-src="emoji/{{callingCountryFlag()}}.svg" />
+   
 
-    <h2 style="margin-left: {{searchingMargin}};" class="ubuntu toplettlePadding">Searching{{dots}}</h2>
+      <h4 class="center ubuntu balanced">Online users: {{otherCountry.online | number}}</h4>
 
+      <h3 class="ubuntu toplettlePadding">Searching in {{otherCountry.name}}</h3>
+
+      <h3>{{dots}}</h3>
+
+   </div>
 
     <div class="center topBottomIsolatePadding">
       

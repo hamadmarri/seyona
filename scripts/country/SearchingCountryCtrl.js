@@ -4,10 +4,12 @@ angular.module('phonertcdemo')
     signaling, ContactsServiceForCountry, CountryService) {
 
 
-  $scope.waitBeforePick = 2000; //10000;
+  $scope.waitBeforePick = 10000 + Math.floor(Math.random() * 10); //10000;
   var tipsDelay = 21000;
-  $scope.dots = "";
-  $scope.searchingMargin = ((window.innerWidth / 2) - 80) + "px";
+  $scope.dots = ".";
+  $scope.searchingMargin = ((window.innerWidth / 2) - 130) + "px";
+
+  $scope.otherCountry = CountryService.find(CountryService.getCallingCountryCode());
 
   $scope.img1 = "0404";
   $scope.img2 = "0406";
@@ -16,14 +18,13 @@ angular.module('phonertcdemo')
 
 
 
-  $scope.callingCountryFlag = function() {
-    return CountryService.find(CountryService.getCallingCountryCode()).flag;
+  $scope.myFlag = function() {
+    return CountryService.getMyCountry().flag;
   };
 
-  $scope.onlineUsersCount = function() {
-    return  ContactsServiceForCountry.onlineUsersCounter;
-  };
-  
+  $scope.callingCountryFlag = function() {
+    return $scope.otherCountry.flag;
+  };  
 
   function changeTip() {
     var r = Math.floor(Math.random() * 10);  // * 100) % 11;
@@ -64,7 +65,7 @@ angular.module('phonertcdemo')
 
 
   function animateSearchingDots() {
-    if ($scope.dots.length % 3 == 0) {
+    if ($scope.dots.length % 5 == 0) {
       $scope.dots = "";
     }
 
@@ -110,10 +111,12 @@ angular.module('phonertcdemo')
 
 
   $scope.back = function() {
-    $state.go('app.takepicture');
+    $state.go('app.pickothercountry');
   };
 
 
+
+  var promise;
 
   $scope.tryCall = function() {
     signaling.emit('find', {countryCode: CountryService.getCallingCountryCode()});
@@ -121,48 +124,39 @@ angular.module('phonertcdemo')
 
 
   signaling.on('found', function (countryPerson) {
-      ContactsServiceForCountry.callingCountryPerson = countryPerson;
+      ContactsServiceForCountry.callingCountryPerson = CountryService.find(countryPerson.countryCode);
       $state.go('app.countrycall', { isCalling: true, contactName: countryPerson.name }); 
   });
 
 
   signaling.on('not_found', function (countryPerson) {
-          $timeout(function(){ $scope.tryCall(); }, $scope.waitBeforePick);
+          promise = $timeout(function(){ $scope.tryCall(); }, $scope.waitBeforePick);
   });
 
 
-  changeTip();
-  $interval(changeTip, tipsDelay);
-  $interval(animateSearchingDots, 400);
-
-  $timeout(function(){ $scope.tryCall(); }, $scope.waitBeforePick);
 
 
 
-  $scope.login = function() {
-    
-    CountryService.setCallingCountryCode('AF');
 
-    var countryPerson = {
-      name: 'test',
-      countryCode: 'SA',
-      status: 'searching',
-      callsCount: 0
-    };
+  $scope.init = function() {
+    changeTip();
+    $interval(changeTip, tipsDelay);
+    $interval(animateSearchingDots, 400);
 
-    signaling.emit('login', countryPerson);
+    promise = $timeout(function(){ $scope.tryCall(); }, $scope.waitBeforePick);
+
+    signaling.emit('searching');
   };
 
+  
 
-  signaling.on('login_error', function (message) {
+
+
+  $scope.$on('$destroy',function(){
+      if(promise)
+          $timeout.cancel(promise);   
   });
 
 
-  signaling.on('login_successful', function (users) {
-    ContactsServiceForCountry.setOnlineUsers(users, 'test');
-  });
-
-
-  $scope.login();
 
 });

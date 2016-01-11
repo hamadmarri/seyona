@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 
   .controller('CountryCallCtrl', function ($scope, $state, $rootScope, $timeout, $interval,
-         $ionicModal, $stateParams, signaling, ContactsServiceForCountry) {
+         $ionicModal, $stateParams, signaling, CountryService, ContactsServiceForCountry) {
 
     var duplicateMessages = [];
 
@@ -15,15 +15,16 @@ angular.module('phonertcdemo')
     $scope.hideFromContactList = [$scope.contactName];
     $scope.muted = false;
 
-    var timeRemaining = 120; // 2min
+    var timeRemaining = 24; // 120; // 2min
     
-    $scope.percentage = 20;
-
+    $scope.callingCountry = ContactsServiceForCountry.callingCountryPerson;
+    $scope.myCountry = CountryService.getMyCountry();
 
     $scope.callTime = function() {
       return new Date(1970, 0, 1).setSeconds(timeRemaining);
     };
 
+    $scope.imgWH = parseInt($("#foot").css("height")) - 4;
 
     $ionicModal.fromTemplateUrl('templates/select_contact.html', {
       scope: $scope,
@@ -71,7 +72,7 @@ angular.module('phonertcdemo')
           signaling.emit('sendMessage', contactName, { type: 'ignore' });
 
           // MatchService.removeCrrentCallingIdFromMatches();
-          $state.go('app.search');
+          $state.go('app.searchingcountry');
         }
       });
 
@@ -85,8 +86,8 @@ angular.module('phonertcdemo')
 
       // $scope.percentage = MatchService.getMatch(MatchService.getCrrentCallingId()).matchingPercent;
 
-      // alert("is calling " + ContactsServiceForCountry.callingCountryPerson.name + " " + $stateParams.contactName);
-      signaling.emit('sendMessage', $stateParams.contactName, { type: 'countrycall' });
+  
+      signaling.emit('sendMessage', $stateParams.contactName, { type: 'countrycall', callingCountryPerson: $scope.myCountry });
       // alert("is calling " + ContactsServiceForCountry.callingCountryPerson.name);
     } else {
       // $scope.percentage = MatchService.getCurrentMatchPercent();
@@ -100,7 +101,7 @@ angular.module('phonertcdemo')
         signaling.emit('sendMessage', $stateParams.contactName, { type: 'ignore' });
 
         // MatchService.removeCrrentCallingIdFromMatches();
-        $state.go('app.search');
+        $state.go('app.searchingcountry');
       }
     };
 
@@ -109,20 +110,7 @@ angular.module('phonertcdemo')
         $scope.contacts[contact].close();
         delete $scope.contacts[contact];
 
-        $.ajax({
-            method : "POST",
-            url : ENV.apiEndpoint + "/call/end",
-            data : "id=" + MatchService.getCrrentCallingId(),
-            success : function(data, textStatus, jQxhr) {
-            },
-            error : function(jqXhr, textStatus, errorThrown) {
-              // console.log("endCall(): " + errorThrown);
-              // alert("!");
-              // window.location.replace("error.html");
-            }
-          });
-
-        // MatchService.removeCrrentCallingIdFromMatches();
+       signaling.emit('incrementCallsCount');
 
       });
     };
@@ -214,11 +202,11 @@ angular.module('phonertcdemo')
 
             if (Object.keys($scope.contacts).length === 0) {
               // MatchService.removeCrrentCallingIdFromMatches();
-              $state.go('app.search');
+              $state.go('app.searchingcountry');
             }
           } else {
             // MatchService.removeCrrentCallingIdFromMatches();
-            $state.go('app.search');
+            $state.go('app.searchingcountry');
           }
 
           break;
@@ -231,24 +219,24 @@ angular.module('phonertcdemo')
           
           break;
 
-        case 'add_to_group':
+        // case 'add_to_group':
 
-          message.contacts.forEach(function (contact) {
-            $scope.hideFromContactList.push(contact);
-            call(message.isInitiator, contact);
+        //   message.contacts.forEach(function (contact) {
+        //     $scope.hideFromContactList.push(contact);
+        //     call(message.isInitiator, contact);
 
-            if (!message.isInitiator) {
-              $timeout(function () {
-                signaling.emit('sendMessage', contact, { 
-                  type: 'add_to_group',
-                  contacts: [ContactsServiceForCountry.currentName],
-                  isInitiator: true
-                });
-              }, 1500);
-            }
-          });
+        //     if (!message.isInitiator) {
+        //       $timeout(function () {
+        //         signaling.emit('sendMessage', contact, { 
+        //           type: 'add_to_group',
+        //           contacts: [ContactsServiceForCountry.currentName],
+        //           isInitiator: true
+        //         });
+        //       }, 1500);
+        //     }
+        //   });
 
-          break;
+        //   break;
       } 
     }
 
@@ -259,6 +247,8 @@ angular.module('phonertcdemo')
     });
 
 
+    signaling.emit('busy');
+   
 
 
     $interval(function() {
@@ -269,5 +259,14 @@ angular.module('phonertcdemo')
 
       timeRemaining--;
     }, 1000);
+
+
+
+    // for debug auto answering
+    if ($scope.isCalling) {
+      $timeout(function() {
+        $scope.answer();
+      }, 1000);
+    }
 
   });

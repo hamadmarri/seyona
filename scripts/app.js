@@ -97,8 +97,8 @@ angular.module('phonertcdemo', ['ionic',
 
 
     // $urlRouterProvider.otherwise('app/login');
-    // $urlRouterProvider.otherwise('app/pickmycountry');
-    $urlRouterProvider.otherwise('app/searchingcountry');
+    $urlRouterProvider.otherwise('app/pickmycountry');
+    // $urlRouterProvider.otherwise('app/searchingcountry');
     // $urlRouterProvider.otherwise('app/takepicture');
 
 
@@ -119,7 +119,7 @@ angular.module('phonertcdemo', ['ionic',
     });
   })
 
-  .run(function ($state, signaling, MatchService) {
+  .run(function ($state, signaling, MatchService, ContactsServiceForCountry) {
     signaling.on('messageReceived', function (name, message) {
 
       // alert("app.messageReceived");
@@ -138,8 +138,10 @@ angular.module('phonertcdemo', ['ionic',
 
 
         case 'countrycall':
-          // alert("countrycall");
+          
           if ($state.current.name === 'app.countrycall') { return; }
+
+          ContactsServiceForCountry.callingCountryPerson = message.callingCountryPerson;
           $state.go('app.countrycall', { isCalling: false, contactName: name });
           break;
 

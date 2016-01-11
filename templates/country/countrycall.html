@@ -28,6 +28,10 @@
 <div class="calling-container" ng-if="!isCalling && !callInProgress">
   <!-- <p><span class="balanced">{{ contactName }}</span> is calling you</p> -->
 
+  
+  <img class="toplettlePadding" ng-src="emoji/{{callingCountry.flag}}.svg" />
+  <br />
+
   <button class="button button-positive" ng-click="answer()">
     Answer
   </button>
@@ -59,14 +63,28 @@
 
 
 <ion-footer-bar id="foot" class="bar-dark">
-  <!-- <div class="buttons">
-    <button class="button button-assertive" ng-click="end()">End Call</button>
-  </div> -->
-
-  <h1 class="title">{{percentage}}%</h1>
   
-  <div style="padding-right:5px;" class="buttons">
-    <h5 style="color: white;">{{callTime() | date:'mm:ss'}}</h5>
+  <div class="row row-center">
+    <div class="buttons col col-30">
+      <button class="button button-assertive" ng-click="end()">End Call</button>
+    </div>
+
+
+  
+    <div class="col col-40" style="text-align: center;">
+      <img ng-src="emoji/{{myCountry.flag}}.svg" style="width: {{imgWH}}px; padding-top:2px;" />
+      <img ng-src="emoji/{{callingCountry.flag}}.svg" style="width: {{imgWH}}px; padding-top:2px;" />
+    </div>
+    
+    <div style="padding-right:0px;" class="buttons col col-30">
+      <div class="row">
+        <div class="col">
+        </div>
+        <div class="col col-30">
+          <span style="color: white;">{{callTime() | date:'mm:ss'}}</span>
+        </div>
+      </div>
+    </div>
   </div>
 
 </ion-footer-bar>
