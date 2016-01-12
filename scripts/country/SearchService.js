@@ -26,7 +26,7 @@ angular.module('phonertcdemo')
 
 
     service.start = function(data) {
-      waitBeforePick = 10000 + Math.floor(Math.random() * 100000);
+      waitBeforePick = 10000 + Math.floor(Math.random() * 10000);
       promise = $interval(function(){ service.tryCall(data); }, waitBeforePick);
 
 

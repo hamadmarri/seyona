@@ -112,18 +112,10 @@ angular.module('phonertcdemo')
 
 
   $scope.back = function() {
+    SearchService.stop();
     $state.go('app.pickothercountry');
   };
 
-
-
- 
-
-  // $scope.tryCall = function() {
-  //   alert('tryCall ' + $scope.waitBeforePick);
-
-  //   signaling.emit('find', {countryCode: CountryService.getCallingCountryCode()});
-  // };
 
 
   signaling.on('found', function (countryPerson) {
@@ -134,14 +126,6 @@ angular.module('phonertcdemo')
   });
 
 
-  // signaling.on('not_found', function (countryPerson) {
-  //         promise = $timeout(function(){ $scope.tryCall(); }, $scope.waitBeforePick);
-  // });
-
-
-
-
-
 
   $scope.init = function() {
     changeTip();
@@ -149,25 +133,11 @@ angular.module('phonertcdemo')
     $interval(animateSearchingDots, 400);
 
     SearchService.start( {countryCode: CountryService.getCallingCountryCode()} );
-
-    // $scope.waitBeforePick = 10000 + Math.floor(Math.random() * 10000);
-
-    // promise = $timeout(function(){ $scope.tryCall(); }, $scope.waitBeforePick);
-
-
-    // setTimeout(function() { 
-    //     signaling.emit('searching');
-    //   }, 5000);
   };
 
   
 
 
-
-  // $scope.$on('$destroy',function(){
-  //     if(promise)
-  //         $timeout.cancel(promise);   
-  // });
 
 
 

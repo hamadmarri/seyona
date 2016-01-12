@@ -16,6 +16,7 @@ angular.module('phonertcdemo')
     $scope.muted = false;
 
     var timeRemaining = 24; // 120; // 2min
+    var intervalPromis;
     
     $scope.callingCountry = ContactsServiceForCountry.callingCountryPerson;
     $scope.myCountry = CountryService.getMyCountry();
@@ -67,6 +68,7 @@ angular.module('phonertcdemo')
       });
 
       session.on('disconnect', function () {
+
         if ($scope.contacts[contactName]) {
           delete $scope.contacts[contactName];
         }
@@ -75,8 +77,15 @@ angular.module('phonertcdemo')
           signaling.emit('sendMessage', contactName, { type: 'ignore' });
 
           // MatchService.removeCrrentCallingIdFromMatches();
-          $state.go('app.searchingcountry');
         }
+
+        if(intervalPromis) {
+            $interval.cancel(intervalPromis); 
+        }
+        
+        signaling.emit('incrementCallsCount');
+
+        $state.go('app.searchingcountry');
       });
 
       session.call();
@@ -114,7 +123,12 @@ angular.module('phonertcdemo')
       // $scope.session.close();
       // alert("end a");
 
-      signaling.emit('incrementCallsCount');
+      if(intervalPromis) {
+          $interval.cancel(intervalPromis); 
+      }
+      
+
+      // signaling.emit('incrementCallsCount');
 
       Object.keys($scope.contacts).forEach(function (contact) {
         $scope.contacts[contact].close();
@@ -260,14 +274,14 @@ angular.module('phonertcdemo')
 
       signaling.emit('busy');
 
-      $interval(function() {
+      intervalPromis = $interval(function() {
 
-        if (timeRemaining <= 0) {
-          $scope.end();
-        }
+          if (timeRemaining <= 0) {
+            $scope.end();
+          }
 
-        timeRemaining--;
-      }, 1000);
+          timeRemaining--;
+        }, 1000);
 
 
       // for debug auto answering
