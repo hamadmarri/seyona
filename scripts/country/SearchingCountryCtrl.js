@@ -1,15 +1,16 @@
 angular.module('phonertcdemo')
 
 .controller('SearchingCountryCtrl', function ($scope, $state, $timeout, $interval, 
-    signaling, ContactsServiceForCountry, CountryService) {
+    signaling, ContactsServiceForCountry, CountryService, SearchService) {
 
 
-  $scope.waitBeforePick = 10000 + Math.floor(Math.random() * 10); //10000;
   var tipsDelay = 21000;
   $scope.dots = ".";
   $scope.searchingMargin = ((window.innerWidth / 2) - 130) + "px";
 
   $scope.otherCountry = CountryService.find(CountryService.getCallingCountryCode());
+
+   // var promise;
 
   $scope.img1 = "0404";
   $scope.img2 = "0406";
@@ -116,22 +117,26 @@ angular.module('phonertcdemo')
 
 
 
-  var promise;
+ 
 
-  $scope.tryCall = function() {
-    signaling.emit('find', {countryCode: CountryService.getCallingCountryCode()});
-  };
+  // $scope.tryCall = function() {
+  //   alert('tryCall ' + $scope.waitBeforePick);
+
+  //   signaling.emit('find', {countryCode: CountryService.getCallingCountryCode()});
+  // };
 
 
   signaling.on('found', function (countryPerson) {
       ContactsServiceForCountry.callingCountryPerson = CountryService.find(countryPerson.countryCode);
+
+      SearchService.stop();
       $state.go('app.countrycall', { isCalling: true, contactName: countryPerson.name }); 
   });
 
 
-  signaling.on('not_found', function (countryPerson) {
-          promise = $timeout(function(){ $scope.tryCall(); }, $scope.waitBeforePick);
-  });
+  // signaling.on('not_found', function (countryPerson) {
+  //         promise = $timeout(function(){ $scope.tryCall(); }, $scope.waitBeforePick);
+  // });
 
 
 
@@ -143,19 +148,26 @@ angular.module('phonertcdemo')
     $interval(changeTip, tipsDelay);
     $interval(animateSearchingDots, 400);
 
-    promise = $timeout(function(){ $scope.tryCall(); }, $scope.waitBeforePick);
+    SearchService.start( {countryCode: CountryService.getCallingCountryCode()} );
 
-    signaling.emit('searching');
+    // $scope.waitBeforePick = 10000 + Math.floor(Math.random() * 10000);
+
+    // promise = $timeout(function(){ $scope.tryCall(); }, $scope.waitBeforePick);
+
+
+    // setTimeout(function() { 
+    //     signaling.emit('searching');
+    //   }, 5000);
   };
 
   
 
 
 
-  $scope.$on('$destroy',function(){
-      if(promise)
-          $timeout.cancel(promise);   
-  });
+  // $scope.$on('$destroy',function(){
+  //     if(promise)
+  //         $timeout.cancel(promise);   
+  // });
 
 
 

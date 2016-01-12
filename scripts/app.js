@@ -119,7 +119,7 @@ angular.module('phonertcdemo', ['ionic',
     });
   })
 
-  .run(function ($state, signaling, MatchService, ContactsServiceForCountry) {
+  .run(function ($state, signaling, MatchService, ContactsServiceForCountry, SearchService) {
     signaling.on('messageReceived', function (name, message) {
 
       // alert("app.messageReceived");
@@ -142,6 +142,7 @@ angular.module('phonertcdemo', ['ionic',
           if ($state.current.name === 'app.countrycall') { return; }
 
           ContactsServiceForCountry.callingCountryPerson = message.callingCountryPerson;
+          SearchService.stop();
           $state.go('app.countrycall', { isCalling: false, contactName: name });
           break;
 

@@ -20,6 +20,8 @@ angular.module('phonertcdemo')
     $scope.callingCountry = ContactsServiceForCountry.callingCountryPerson;
     $scope.myCountry = CountryService.getMyCountry();
 
+    $scope.session;
+
     $scope.callTime = function() {
       return new Date(1970, 0, 1).setSeconds(timeRemaining);
     };
@@ -51,6 +53,7 @@ angular.module('phonertcdemo')
       };
 
       var session = new cordova.plugins.phonertc.Session(config);
+      $scope.session = session;
       
       session.on('sendMessage', function (data) { 
         signaling.emit('sendMessage', contactName, { 
@@ -106,12 +109,16 @@ angular.module('phonertcdemo')
     };
 
     $scope.end = function () {
+
+      // alert("end b");
+      // $scope.session.close();
+      // alert("end a");
+
+      signaling.emit('incrementCallsCount');
+
       Object.keys($scope.contacts).forEach(function (contact) {
         $scope.contacts[contact].close();
         delete $scope.contacts[contact];
-
-       signaling.emit('incrementCallsCount');
-
       });
     };
 
@@ -247,26 +254,32 @@ angular.module('phonertcdemo')
     });
 
 
-    signaling.emit('busy');
-   
 
 
-    $interval(function() {
+    $scope.init = function() {
 
-      if (timeRemaining <= 0) {
-        $scope.end();
+      signaling.emit('busy');
+
+      $interval(function() {
+
+        if (timeRemaining <= 0) {
+          $scope.end();
+        }
+
+        timeRemaining--;
+      }, 1000);
+
+
+      // for debug auto answering
+      if ($scope.isCalling) {
+        $timeout(function() {
+          $scope.answer();
+        }, 1000);
       }
 
-      timeRemaining--;
-    }, 1000);
+    };
 
 
 
-    // for debug auto answering
-    if ($scope.isCalling) {
-      $timeout(function() {
-        $scope.answer();
-      }, 1000);
-    }
 
   });
