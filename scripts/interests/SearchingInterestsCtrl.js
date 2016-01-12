@@ -1,14 +1,16 @@
 angular.module('phonertcdemo')
 
 .controller('SearchingInterestsCtrl', function ($scope, $state, $timeout, $interval, 
-    signaling, ContactsServiceForInterests, InterestsService, InterestsSearchService) {
+    signalingInterests, ContactsServiceForInterests, InterestsService, InterestsSearchService) {
 
 
   var tipsDelay = 21000;
   $scope.dots = ".";
   $scope.searchingMargin = ((window.innerWidth / 2) - 130) + "px";
 
-  $scope.online = ContactsServiceForInterests.onlineUsersCounter;
+  $scope.online = function() { 
+    return ContactsServiceForInterests.onlineUsersCounter; 
+  };
 
 
   $scope.img1 = "0404";
@@ -103,12 +105,13 @@ angular.module('phonertcdemo')
 
   $scope.back = function() {
     InterestsSearchService.stop();
+    signalingInterests.emit('busy');
     $state.go('app.pickinterests');
   };
 
 
 
-  signaling.on('found', function (interestsPerson) {
+  signalingInterests.on('found', function (interestsPerson) {
       ContactsServiceForInterests.setCommonInterests(interestsPerson.interests);
 
       // alert("found " + interestsPerson.interests);

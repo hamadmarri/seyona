@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 
   .controller('InterestsCallCtrl', function ($scope, $state, $rootScope, $timeout, $interval,
-         $ionicModal, $stateParams, signaling, InterestsService, ContactsServiceForInterests) {
+         $ionicModal, $stateParams, signalingInterests, InterestsService, ContactsServiceForInterests) {
 
     var duplicateMessages = [];
 
@@ -56,7 +56,7 @@ angular.module('phonertcdemo')
       $scope.session = session;
       
       session.on('sendMessage', function (data) { 
-        signaling.emit('sendMessage', contactName, { 
+        signalingInterests.emit('sendMessage', contactName, { 
           type: 'phonertc_handshake',
           data: JSON.stringify(data)
         });
@@ -73,7 +73,7 @@ angular.module('phonertcdemo')
         }
 
         if (Object.keys($scope.contacts).length === 0) {
-          signaling.emit('sendMessage', contactName, { type: 'ignore' });
+          signalingInterests.emit('sendMessage', contactName, { type: 'ignore' });
 
           // MatchService.removeCrrentCallingIdFromMatches();
         }
@@ -82,7 +82,7 @@ angular.module('phonertcdemo')
             $interval.cancel(intervalPromis); 
         }
         
-        signaling.emit('incrementCallsCount');
+        signalingInterests.emit('incrementCallsCount');
 
         $state.go('app.searchinginterests');
       });
@@ -99,7 +99,7 @@ angular.module('phonertcdemo')
 
       // alert(ContactsServiceForInterests.commonInterests);
   
-      signaling.emit('sendMessage', $stateParams.contactName, { type: 'interestscall', commonInterests: ContactsServiceForInterests.commonInterests });
+      signalingInterests.emit('sendMessage', $stateParams.contactName, { type: 'interestscall', commonInterests: ContactsServiceForInterests.commonInterests });
       // alert("is calling " + ContactsServiceForInterests.callingCountryPerson.name);
     } else {
       // $scope.percentage = MatchService.getCurrentMatchPercent();
@@ -110,7 +110,7 @@ angular.module('phonertcdemo')
       if (contactNames.length > 0) { 
         $scope.contacts[contactNames[0]].disconnect();
       } else {
-        signaling.emit('sendMessage', $stateParams.contactName, { type: 'ignore' });
+        signalingInterests.emit('sendMessage', $stateParams.contactName, { type: 'ignore' });
 
         // MatchService.removeCrrentCallingIdFromMatches();
         $state.go('app.searchinginterests');
@@ -128,7 +128,7 @@ angular.module('phonertcdemo')
       }
       
 
-      // signaling.emit('incrementCallsCount');
+      // signalingInterests.emit('incrementCallsCount');
 
       Object.keys($scope.contacts).forEach(function (contact) {
         $scope.contacts[contact].close();
@@ -146,7 +146,7 @@ angular.module('phonertcdemo')
 
       setTimeout(function () {
         console.log('sending answer');
-        signaling.emit('sendMessage', $stateParams.contactName, { type: 'answer' });
+        signalingInterests.emit('sendMessage', $stateParams.contactName, { type: 'answer' });
       }, 1500);
     };
 
@@ -166,7 +166,7 @@ angular.module('phonertcdemo')
 
     $scope.addContact = function (newContact) {
       $scope.hideFromContactList.push(newContact);
-      signaling.emit('sendMessage', newContact, { type: 'interestscall' });
+      signalingInterests.emit('sendMessage', newContact, { type: 'interestscall' });
 
       cordova.plugins.phonertc.showVideoView();
       $scope.selectContactModal.hide();
@@ -198,7 +198,7 @@ angular.module('phonertcdemo')
 
           var existingContacts = Object.keys($scope.contacts);
           if (existingContacts.length !== 0) {
-            signaling.emit('sendMessage', name, {
+            signalingInterests.emit('sendMessage', name, {
               type: 'add_to_group',
               contacts: existingContacts,
               isInitiator: false
@@ -242,10 +242,10 @@ angular.module('phonertcdemo')
       } 
     }
 
-    signaling.on('messageReceived', onMessageReceive);
+    signalingInterests.on('messageReceived', onMessageReceive);
 
     $scope.$on('$destroy', function() { 
-      signaling.removeListener('messageReceived', onMessageReceive);
+      signalingInterests.removeListener('messageReceived', onMessageReceive);
     });
 
 
@@ -253,7 +253,7 @@ angular.module('phonertcdemo')
 
     $scope.init = function() {
 
-      signaling.emit('busy');
+      signalingInterests.emit('busy');
 
       intervalPromis = $interval(function() {
 

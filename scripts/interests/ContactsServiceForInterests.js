@@ -1,5 +1,5 @@
 angular.module('phonertcdemo')
-  .factory('ContactsServiceForInterests', function ($http, $interval, signaling, InterestsService) {
+  .factory('ContactsServiceForInterests', function ($http, $interval, signalingInterests, InterestsService) {
     
     var onlineUsersCounter = 0;
 
@@ -18,11 +18,11 @@ angular.module('phonertcdemo')
     };
 
 
-    signaling.on('online', function (interestsPerson) {
+    signalingInterests.on('online', function (interestsPerson) {
       service.onlineUsersCounter++;
     });
 
-    signaling.on('offline', function (interestsPerson) {
+    signalingInterests.on('offline', function (interestsPerson) {
       service.onlineUsersCounter--;
     });
 

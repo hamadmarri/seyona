@@ -1,5 +1,5 @@
 angular.module('phonertcdemo')
-  .factory('ContactsServiceForCountry', function ($http, $interval, signaling, CountryService) {
+  .factory('ContactsServiceForCountry', function ($http, $interval, signalingCountry, CountryService) {
     
     var onlineUsersCounter = 0;
 
@@ -26,12 +26,12 @@ angular.module('phonertcdemo')
     };
 
 
-    signaling.on('online', function (countryPerson) {
+    signalingCountry.on('online', function (countryPerson) {
       service.onlineUsersCounter++;
        CountryService.incrementCountry(countryPerson.countryCode);
     });
 
-    signaling.on('offline', function (countryPerson) {
+    signalingCountry.on('offline', function (countryPerson) {
       service.onlineUsersCounter--;
       CountryService.decrementCountry(countryPerson.countryCode);
     });

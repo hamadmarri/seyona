@@ -1,5 +1,5 @@
 angular.module('phonertcdemo')
-  .factory('InterestsSearchService', function ($interval, $timeout, signaling) {
+  .factory('InterestsSearchService', function ($interval, $timeout, signalingInterests) {
     
    
     var promise;
@@ -11,11 +11,11 @@ angular.module('phonertcdemo')
 
     
     service.tryCall = function(data) {
-      signaling.emit('find', data);
+      signalingInterests.emit('find', data);
     };
 
 
-    signaling.on('not_found', function (countryPerson) {
+    signalingInterests.on('not_found', function (countryPerson) {
     });
 
 
@@ -26,7 +26,7 @@ angular.module('phonertcdemo')
 
 
       $timeout(function() { 
-          signaling.emit('searching');
+          signalingInterests.emit('searching');
         }, 5000);
     };
 

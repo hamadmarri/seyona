@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 
 .controller('SearchingCountryCtrl', function ($scope, $state, $timeout, $interval, 
-    signaling, ContactsServiceForCountry, CountryService, SearchService) {
+    signalingCountry, ContactsServiceForCountry, CountryService, SearchService) {
 
 
   var tipsDelay = 21000;
@@ -118,7 +118,7 @@ angular.module('phonertcdemo')
 
 
 
-  signaling.on('found', function (countryPerson) {
+  signalingCountry.on('found', function (countryPerson) {
       ContactsServiceForCountry.callingCountryPerson = CountryService.find(countryPerson.countryCode);
 
       SearchService.stop();

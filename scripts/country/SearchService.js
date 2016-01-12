@@ -1,5 +1,5 @@
 angular.module('phonertcdemo')
-  .factory('SearchService', function ($interval, $timeout, signaling) {
+  .factory('SearchService', function ($interval, $timeout, signalingCountry) {
     
    
     var promise;
@@ -15,11 +15,11 @@ angular.module('phonertcdemo')
     service.tryCall = function(data) {
       // alert('tryCall ' + waitBeforePick);
 
-      signaling.emit('find', data);
+      signalingCountry.emit('find', data);
     };
 
 
-    signaling.on('not_found', function (countryPerson) {
+    signalingCountry.on('not_found', function (countryPerson) {
             // promise = $timeout(function(){ $scope.tryCall(); }, $scope.waitBeforePick);
     });
 
@@ -31,7 +31,7 @@ angular.module('phonertcdemo')
 
 
       $timeout(function() { 
-          signaling.emit('searching');
+          signalingCountry.emit('searching');
         }, 5000);
     };
 

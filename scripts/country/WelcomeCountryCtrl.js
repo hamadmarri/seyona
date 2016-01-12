@@ -1,6 +1,6 @@
 angular.module('phonertcdemo')
 
-  .controller('WelcomeCountryCtrl', function ($scope, $state, $http, $ionicPopup, signaling, 
+  .controller('WelcomeCountryCtrl', function ($scope, $state, $http, $ionicPopup, signalingCountry, 
       CountryService, ContactsServiceForCountry, ENV, $timeout) {
  
 
@@ -17,17 +17,17 @@ angular.module('phonertcdemo')
         callsCount: 0
       };
 
-      signaling.emit('login', countryPerson );
+      signalingCountry.emit('login', countryPerson );
     };
 
 
-    signaling.on('login_error', function (message) {
+    signalingCountry.on('login_error', function (message) {
 
       if (message == 'You are already connected.' 
               || message == 'This name already exists.') {
 
         
-        setTimeout(function() { signaling.emit('logout'); }, 1000);
+        setTimeout(function() { signalingCountry.emit('logout'); }, 1000);
         setTimeout(function() { $scope.login(); }, 3000);
         return;
       }
@@ -39,7 +39,7 @@ angular.module('phonertcdemo')
     });
 
 
-    signaling.on('login_successful', function (users) {
+    signalingCountry.on('login_successful', function (users) {
       ContactsServiceForCountry.setOnlineUsers(users, $scope.loginName);
 
       // sendDataToServer();
@@ -67,7 +67,7 @@ angular.module('phonertcdemo')
 
             }, function(response) { // ERROR
 
-              signaling.disconnect();
+              signalingCountry.disconnect();
 
               var alertPopup = $ionicPopup.alert({
                 title: 'Error',

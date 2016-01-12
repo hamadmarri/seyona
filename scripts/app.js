@@ -101,6 +101,13 @@ angular.module('phonertcdemo', ['ionic',
       })
 
 
+      .state('app.home', {
+        url: '/home',
+        controller: 'HomeCtrl',
+        templateUrl: 'templates/home.html'
+      })
+
+
 
 
 
@@ -123,7 +130,7 @@ angular.module('phonertcdemo', ['ionic',
 
 
     // $urlRouterProvider.otherwise('app/login');
-    $urlRouterProvider.otherwise('app/pickinterests');
+    $urlRouterProvider.otherwise('app/home');
     // $urlRouterProvider.otherwise('app/searchingcountry');
     // $urlRouterProvider.otherwise('app/takepicture');
 
@@ -145,12 +152,11 @@ angular.module('phonertcdemo', ['ionic',
     });
   })
 
-  .run(function ($state, signaling, MatchService, ContactsServiceForCountry, 
-            SearchService, InterestsSearchService, ContactsServiceForInterests) {
+  .run(function ($state, signaling, signalingCountry, signalingInterests,
+             MatchService, ContactsServiceForCountry, SearchService, 
+             InterestsSearchService, ContactsServiceForInterests) {
 
     signaling.on('messageReceived', function (name, message) {
-
-      // alert("app.messageReceived");
 
       switch (message.type) {
         case 'call':
@@ -163,8 +169,14 @@ angular.module('phonertcdemo', ['ionic',
 
           $state.go('app.call', { isCalling: false, contactName: name });
           break;
+      }
+    });
 
 
+
+    signalingCountry.on('messageReceived', function (name, message) {
+
+      switch (message.type) {
         case 'countrycall':
           
           if ($state.current.name === 'app.countrycall') { return; }
@@ -173,21 +185,23 @@ angular.module('phonertcdemo', ['ionic',
           SearchService.stop();
           $state.go('app.countrycall', { isCalling: false, contactName: name });
           break;
+      }
+    });
 
 
+    signalingInterests.on('messageReceived', function (name, message) {
+
+      switch (message.type) {
         case 'interestscall':
           
           if ($state.current.name === 'app.interestscall') { return; }
 
-          // alert(message.commonInterests);
-          
           ContactsServiceForInterests.commonInterests = message.commonInterests;
           InterestsSearchService.stop();
           $state.go('app.interestscall', { isCalling: false, contactName: name });
           break;
-
-
       }
     });
+      
 
   });

@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 
   .controller('PickInterestsCtrl', function ($scope, $state, InterestsService,
-   ContactsServiceForInterests, $ionicPopup, signaling) {
+   ContactsServiceForInterests, $ionicPopup, signalingInterests) {
  
     $scope.interest = '';
     $scope.myInterests = [];
@@ -18,6 +18,10 @@ angular.module('phonertcdemo')
 
     $scope.add = function(i) {
       i = i.trim();
+
+      if ($scope.myInterests.indexOf(i) != -1) {
+        return;
+      }
 
       if (i != '') {
         $scope.myInterests.push(i);
@@ -78,17 +82,17 @@ angular.module('phonertcdemo')
         callsCount: 0
       };
 
-      signaling.emit('login', interestsPerson);
+      signalingInterests.emit('login', interestsPerson);
     };
 
 
-    signaling.on('login_error', function (message) {
+    signalingInterests.on('login_error', function (message) {
 
       if (message == 'You are already connected.' 
               || message == 'This name already exists.') {
 
         
-        setTimeout(function() { signaling.emit('logout'); }, 1000);
+        setTimeout(function() { signalingInterests.emit('logout'); }, 1000);
         setTimeout(function() { $scope.login(); }, 3000);
         return;
       }
@@ -100,7 +104,7 @@ angular.module('phonertcdemo')
     });
 
 
-    signaling.on('login_successful', function (users) {
+    signalingInterests.on('login_successful', function (users) {
       ContactsServiceForInterests.setOnlineUsers(users, $scope.loginName);
 
       $state.go('app.searchinginterests');
@@ -110,7 +114,7 @@ angular.module('phonertcdemo')
 
 
     $scope.init = function() {
-      signaling.emit('busy');
+      signalingInterests.emit('busy');
     };
 
   });

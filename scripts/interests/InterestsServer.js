@@ -11,7 +11,7 @@ app.get('/', function (req, res){
 });
 
 io.on('connection', function (socket) {
-  socket.on('login', function (countryPerson) {
+  socket.on('login', function (interestsPerson) {
         
     // if this socket is already connected,
     // send a failed login message name
@@ -19,32 +19,32 @@ io.on('connection', function (socket) {
     if (index !== -1) {
       // socket.emit('login_error', 'You are already connected.');
 
-      socket.broadcast.emit('offline', users[index].countryPerson);
-      users[index].countryPerson.countryCode = countryPerson.countryCode;
+      socket.broadcast.emit('offline', users[index].interestsPerson);
+      users[index].interestsPerson.interests = interestsPerson.interests;
       
-      socket.emit('login_successful', _.pluck(users, 'countryPerson'));
-      socket.broadcast.emit('online', users[index].countryPerson);
+      socket.emit('login_successful', _.pluck(users, 'interestsPerson'));
+      socket.broadcast.emit('online', users[index].interestsPerson);
 
       return; 
     }
 
     // if this name is already registered,
     // send a failed login message
-    if (_.findIndex(users, { name: countryPerson.name }) !== -1) {
+    if (_.findIndex(users, { name: interestsPerson.name }) !== -1) {
       socket.emit('login_error', 'This name already exists.');
       return; 
     }
 
     users.push({ 
-      name: countryPerson.name,
-      countryPerson: countryPerson,
+      name: interestsPerson.name,
+      interestsPerson: interestsPerson,
       socket: socket.id
     });
 
-    socket.emit('login_successful', _.pluck(users, 'countryPerson'));
-    socket.broadcast.emit('online', countryPerson);
+    socket.emit('login_successful', _.pluck(users, 'interestsPerson'));
+    socket.broadcast.emit('online', interestsPerson);
 
-    console.log(countryPerson);
+    console.log(interestsPerson);
   });
 
 
@@ -53,9 +53,9 @@ io.on('connection', function (socket) {
     var index = _.findIndex(users, { socket: socket.id });
 
     if (index !== -1) {
-      socket.broadcast.emit('offline', users[index].countryPerson);
+      socket.broadcast.emit('offline', users[index].interestsPerson);
       users.splice(index, 1);
-      // console.log(countryPerson.name + ' disconnected');
+      // console.log(interestsPerson.name + ' disconnected');
     }
 
   });
@@ -64,27 +64,31 @@ io.on('connection', function (socket) {
   socket.on('searching', function () {
     var index = _.findIndex(users, { socket: socket.id });
 
-    users[index].countryPerson.status = "searching";
+    if (index !== -1) {
+      users[index].interestsPerson.status = 0; // searching
+    }
 
-    // console.log(users[index].countryPerson.name + " is searching");
+    // console.log(users[index].interestsPerson.name + " is searching");
   });
 
 
   socket.on('busy', function () {
     var index = _.findIndex(users, { socket: socket.id });
 
-    users[index].countryPerson.status = "busy";
+    if (index !== -1) {
+      users[index].interestsPerson.status = 1; // busy
+    }
 
-    // console.log(users[index].countryPerson.name + " is busy");
+    // console.log(users[index].interestsPerson.name + " is busy");
   });
 
 
   socket.on('incrementCallsCount', function () {
     var index = _.findIndex(users, { socket: socket.id });
 
-    users[index].countryPerson.callsCount++;
+    users[index].interestsPerson.callsCount++;
 
-    // console.log(users[index].countryPerson.name + " have " + users[index].countryPerson.callsCount);
+    // console.log(users[index].interestsPerson.name + " have " + users[index].interestsPerson.callsCount);
   });
 
 
@@ -94,33 +98,54 @@ io.on('connection', function (socket) {
    console.log('find ' + (++findCount) + " from " + index);
 
     var min = -1;
-    var countryPerson;
+    var interestsPerson;
+    var atLeastOne = false;
 
     for (var i = 0; i < users.length; i++) {
       
-      console.log(users[i].name + " " + users[i].countryPerson.status);
+      console.log(users[i].name + " " + users[i].interestsPerson.status + " calls " + users[i].interestsPerson.callsCount);
 
-      if (users[i].countryPerson.countryCode == query.countryCode
-            && users[i].countryPerson.status == 'searching'
+      atLeastOne = false;
+
+      // minimum calls and at least one common interest
+      if (users[i].interestsPerson.status == 0 // searching
             && users[i].socket != socket.id) {
 
-        if (
-            ( min != -1 
-              && users[i].countryPerson.callsCount < min
-            ) 
-            || min == -1
-          ) {
+            
+            for (var j = 0; j < query.interests.length; j++) {
+              for (var k = 0; k < users[i].interestsPerson.interests.length; k++) {
 
-          countryPerson = users[i].countryPerson;
-          min = users[i].countryPerson.callsCount;
-        } 
+                if (users[i].interestsPerson.interests[k] == query.interests[j]) {
+                  atLeastOne = true;
+                  break;
+                }
+              }
 
+              if (atLeastOne) {
+                break;
+              }
+
+            }
+
+
+            if (atLeastOne) {
+              if (
+                  ( min != -1 
+                    && users[i].interestsPerson.callsCount < min
+                  ) 
+                  || min == -1
+                ) {
+
+                interestsPerson = users[i].interestsPerson;
+                min = users[i].interestsPerson.callsCount;
+              }  
+            }
       }
     }
 
     if (min != -1) {
-      socket.emit('found', countryPerson);
-      // console.log('found ' + countryPerson.name);
+      socket.emit('found', interestsPerson);
+      // console.log('found ' + interestsPerson.name);
     } else {
       socket.emit('not_found', { });
       // console.log('not_found');
@@ -136,6 +161,9 @@ io.on('connection', function (socket) {
     var contact = _.find(users, { name: name });
     if (!contact) { return; }
     
+
+    // console.log(message);
+
     io.to(contact.socket)
       .emit('messageReceived', currentUser.name, message);
 
@@ -148,7 +176,7 @@ io.on('connection', function (socket) {
 
       socket.broadcast.emit('offline', users[index].name);
       console.log(users[index].name + ' disconnected had ' 
-          + users[index].countryPerson.callsCount + ' calls');
+          + users[index].interestsPerson.callsCount + ' calls');
 
       users.splice(index, 1);
     }
