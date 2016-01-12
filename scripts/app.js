@@ -145,7 +145,9 @@ angular.module('phonertcdemo', ['ionic',
     });
   })
 
-  .run(function ($state, signaling, MatchService, ContactsServiceForCountry, SearchService) {
+  .run(function ($state, signaling, MatchService, ContactsServiceForCountry, 
+            SearchService, ContactsServiceForInterests) {
+
     signaling.on('messageReceived', function (name, message) {
 
       // alert("app.messageReceived");
@@ -171,6 +173,17 @@ angular.module('phonertcdemo', ['ionic',
           SearchService.stop();
           $state.go('app.countrycall', { isCalling: false, contactName: name });
           break;
+
+
+        case 'interestscall':
+          
+          if ($state.current.name === 'app.interestscall') { return; }
+
+          ContactsServiceForInterests.setCommonInterests(message.interestsPerson.interests);
+          SearchService.stop();
+          $state.go('app.interestscall', { isCalling: false, contactName: name });
+          break;
+
 
       }
     });

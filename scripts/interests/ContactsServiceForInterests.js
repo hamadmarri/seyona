@@ -1,40 +1,43 @@
 angular.module('phonertcdemo')
-  .factory('ContactsServiceForInterests', function ($http, $interval, signaling, CountryService) {
+  .factory('ContactsServiceForInterests', function ($http, $interval, signaling, InterestsService) {
     
     var onlineUsersCounter = 0;
 
-    var callingCountryPerson = {};
+    var commonInterests = [];
 
     var service = {
       onlineUsersCounter: onlineUsersCounter,
-      currentName: '',
-      callingCountryPerson: callingCountryPerson
+      currentName: ''
     };
 
 
     service.setOnlineUsers = function (users, currentName) {
       this.onlineUsersCounter = users.length;
-      
       this.currentName = currentName;
-
-      CountryService.clearCountryCounters();
-
-      for (var i = 0; i < users.length; i++) {
-        CountryService.incrementCountry(users[i].countryCode);
-      };
-
     };
 
 
-    signaling.on('online', function (countryPerson) {
+    signaling.on('online', function (interestsPerson) {
       service.onlineUsersCounter++;
-       CountryService.incrementCountry(countryPerson.countryCode);
     });
 
-    signaling.on('offline', function (countryPerson) {
+    signaling.on('offline', function (interestsPerson) {
       service.onlineUsersCounter--;
-      CountryService.decrementCountry(countryPerson.countryCode);
     });
+
+
+    service.setCommonInterests = function(interests) {
+      commonInterests = [];
+      var myInterests = InterestsService.myInterests;
+
+      for (var i = 0; i < myInterests.length; i++) {
+        for (var j = 0; j < interests.length; j++) {
+          if (interests[j] == myInterests[i]) {
+            commonInterests.push(interests[j]);
+          }
+        }
+      }
+    };
 
 
     return service;

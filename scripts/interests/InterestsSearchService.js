@@ -6,21 +6,16 @@ angular.module('phonertcdemo')
     var waitBeforePick;
 
     var service = {
-      // onlineUsersCounter: onlineUsersCounter,
-      // currentName: ''
     };
 
 
     
     service.tryCall = function(data) {
-      // alert('tryCall ' + waitBeforePick);
-
       signaling.emit('find', data);
     };
 
 
     signaling.on('not_found', function (countryPerson) {
-            // promise = $timeout(function(){ $scope.tryCall(); }, $scope.waitBeforePick);
     });
 
 
@@ -36,11 +31,9 @@ angular.module('phonertcdemo')
     };
 
     service.stop = function() {
-      // alert('stop');
 
       if(promise) {
           $interval.cancel(promise); 
-          // alert('interval.cancel');
       }
 
     };

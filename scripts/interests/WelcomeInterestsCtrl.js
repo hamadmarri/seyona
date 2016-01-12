@@ -48,33 +48,6 @@ angular.module('phonertcdemo')
 
 
 
-    function sendDataToServer() {
-        var person = {
-          webRtcId : $scope.loginName,
-          country : $scope.myCountry.code
-        };
-
-        var data = JSON.stringify(person);
-        var config = {headers: {
-         'Content-Type': "application/json;charset=UTF-8"
-       }};
-
-
-       $http.post(ENV.apiEndpoint + '/countrypeople', data, config)
-       .then(function(response) { // SUCCESS
-
-            $state.go('app.pickothercountry');
-
-            }, function(response) { // ERROR
-
-              signaling.disconnect();
-
-              var alertPopup = $ionicPopup.alert({
-                title: 'Error',
-                template: response.status + " " + response.data
-              });
-           });
-    };
 
 
   });

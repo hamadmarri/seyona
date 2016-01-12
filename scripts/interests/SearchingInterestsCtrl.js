@@ -1,16 +1,15 @@
 angular.module('phonertcdemo')
 
 .controller('SearchingInterestsCtrl', function ($scope, $state, $timeout, $interval, 
-    signaling, ContactsServiceForCountry, CountryService, SearchService) {
+    signaling, ContactsServiceForInterests, InterestsService, InterestsSearchService) {
 
 
   var tipsDelay = 21000;
   $scope.dots = ".";
   $scope.searchingMargin = ((window.innerWidth / 2) - 130) + "px";
 
-  $scope.otherCountry = CountryService.find(CountryService.getCallingCountryCode());
+  $scope.online = ContactsServiceForInterests.onlineUsersCounter;
 
-   // var promise;
 
   $scope.img1 = "0404";
   $scope.img2 = "0406";
@@ -18,24 +17,15 @@ angular.module('phonertcdemo')
   $scope.img4 = "0408";
 
 
-
-  $scope.myFlag = function() {
-    return CountryService.getMyCountry().flag;
-  };
-
-  $scope.callingCountryFlag = function() {
-    return $scope.otherCountry.flag;
-  };  
-
   function changeTip() {
     var r = Math.floor(Math.random() * 10);  // * 100) % 11;
     
     switch (r) {
     case 0:
-      $scope.tip = "When you got calls from deferent countries that means they have chosen your country. You can answer or ignore.";
+      $scope.tip = "If you are waiting for so long time, it is because most of online users are busy with other calls. Please be patient.";
       break;
     case 1:
-      $scope.tip = "When you got calls from deferent countries that means they have chosen your country. You can answer or ignore.";
+      $scope.tip = "If you are waiting for so long time, it is because most of online users are busy with other calls. Please be patient.";
       break;
     case 2:
       $scope.tip = "If you are waiting for so long time, it is because most of online users are busy with other calls. Please be patient.";
@@ -44,7 +34,7 @@ angular.module('phonertcdemo')
       $scope.tip = "Be the first who says Hi!";
       break;
     case 4:
-      $scope.tip = "When you got calls from deferent countries that means they have chosen your country. You can answer or ignore.";
+      $scope.tip = "When you recieve calls from others you can either answer or ignore.";
       break;
     case 5:
       $scope.tip = "Don't forget to rate me in Google Play/App Store :D";
@@ -112,17 +102,17 @@ angular.module('phonertcdemo')
 
 
   $scope.back = function() {
-    SearchService.stop();
-    $state.go('app.pickothercountry');
+    InterestsSearchService.stop();
+    $state.go('app.pickinterests');
   };
 
 
 
-  signaling.on('found', function (countryPerson) {
-      ContactsServiceForCountry.callingCountryPerson = CountryService.find(countryPerson.countryCode);
+  signaling.on('found', function (interestsPerson) {
+      ContactsServiceForInterests.setCommonInterests(interestsPerson.interests);
 
-      SearchService.stop();
-      $state.go('app.countrycall', { isCalling: true, contactName: countryPerson.name }); 
+      InterestsSearchService.stop();
+      $state.go('app.interestscall', { isCalling: true, contactName: interestsPerson.name }); 
   });
 
 
@@ -132,13 +122,8 @@ angular.module('phonertcdemo')
     $interval(changeTip, tipsDelay);
     $interval(animateSearchingDots, 400);
 
-    SearchService.start( {countryCode: CountryService.getCallingCountryCode()} );
+    InterestsSearchService.start({ interests: InterestsService.myInterests });
   };
 
   
-
-
-
-
-
 });
