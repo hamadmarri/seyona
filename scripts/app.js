@@ -43,6 +43,8 @@ angular.module('phonertcdemo', ['ionic',
       })
 
 
+
+      /********************** COUNTRY  ***************************/
       .state('app.pickmycountry', {
         url: '/pickmycountry',
         controller: 'PickMyCountryCtrl',
@@ -75,7 +77,31 @@ angular.module('phonertcdemo', ['ionic',
         templateUrl: 'templates/country/countrycall.html'
       })
 
-      
+
+
+      /********************** INTERESTS  ***************************/
+      .state('app.pickinterests', {
+        url: '/pickinterests',
+        controller: 'PickInterestsCtrl',
+        templateUrl: 'templates/interests/pickinterests.html'
+      })
+
+
+      .state('app.searchinginterests', {
+        url: '/searchinginterests',
+        controller: 'SearchingInterestsCtrl',
+        templateUrl: 'templates/interests/searchinginterests.html'
+      })
+
+
+      .state('app.interestscall', {
+        url: '/interestscall/:contactName?isCalling',
+        controller: 'InterestsCallCtrl',
+        templateUrl: 'templates/interests/interestscall.html'
+      })
+
+
+
 
 
 
@@ -97,7 +123,7 @@ angular.module('phonertcdemo', ['ionic',
 
 
     // $urlRouterProvider.otherwise('app/login');
-    $urlRouterProvider.otherwise('app/pickmycountry');
+    $urlRouterProvider.otherwise('app/pickinterests');
     // $urlRouterProvider.otherwise('app/searchingcountry');
     // $urlRouterProvider.otherwise('app/takepicture');
 

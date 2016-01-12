@@ -1,0 +1,46 @@
+
+<ion-view title="Inter your interests" hide-back-button="false" hide-nav-bar="false">
+  
+ 
+<!--  <ion-header-bar class="bar bar-subheader">
+  <div class="row">
+    <div class="col col-70">
+      <input type="text" ng-model="interest" placeholder="Your interests..." />
+    </div>
+    <div class="col col-30">
+      <button>Add</button>
+    </div>
+  </div>
+ </ion-header-bar> -->
+
+
+  <ion-content class="has-header"> 
+    
+      <div class="row">
+        <div class="col">
+          <input type="text" ng-model="interest" placeholder="Type your interests here..." />
+        </div>
+        <div class="col col-20">
+          <button class="button button-positive" 
+            style="width: 100%;" 
+            ng-click="add(interest); interest = ''">Add
+          </button>
+        </div>
+      </div>
+
+
+      <ion-list show-delete="true">
+        <ion-item class="item-remove-animate" ng-repeat="i in myInterests">
+          
+          <ion-delete-button class="ion-minus-circled" 
+                ng-click="delete(i)">
+          </ion-delete-button>
+          {{i}}
+        </ion-item>
+      </ion-list>
+
+       
+
+  </ion-content>
+
+</ion-view>

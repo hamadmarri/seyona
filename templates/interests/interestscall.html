@@ -1,0 +1,92 @@
+
+  <ion-view title="Call" hide-back-button="true" hide-nav-bar="true" ng-init="init()">
+  
+<!--   <ion-nav-buttons side="right">
+
+
+  <button class="button button-icon icon"
+  ng-class="{ 'ion-ios7-mic-off': muted, 'ion-ios7-mic': !muted }"
+  ng-click="toggleMute()"
+  ng-if="cordova.platformId === 'ios' || cordova.platformId === 'android'"></button>
+  <button class="button button-icon icon ion-plus-round" 
+  ng-click="openSelectContactModal()"></button>
+</ion-nav-buttons> -->
+
+
+<ion-content on-scroll="updateVideoPosition()" on-scroll-complete="updateVideoPosition()" style="background-color: #111;">
+
+<!-- <div class="calling-container" ng-if="isCalling && !callInProgress">
+ 
+  <p>Calling to <span class="balanced">{{ contactName }}</span>...</p>
+
+  <button class="button button-assertive" ng-click="ignore()">
+    Nevermind
+  </button>
+</div> -->
+
+
+<div class="calling-container" ng-if="!isCalling && !callInProgress">
+  <!-- <p><span class="balanced">{{ contactName }}</span> is calling you</p> -->
+
+  
+  <img class="toplettlePadding" ng-src="emoji/{{callingCountry.flag}}.svg" />
+  <br />
+
+  <button class="button button-positive" ng-click="answer()">
+    Answer
+  </button>
+
+  <button class="button button-assertive" ng-click="ignore()">
+    Ignore
+  </button>
+</div>
+
+<!--<div class="calling-container" ng-if="callInProgress">
+   <p>
+    Call in progress...
+  </p>
+
+  <button class="button button-assertive" ng-click="end()">
+    End
+  </button> 
+</div> -->
+
+
+<!-- <div class="controllersContainer1">
+</div> -->
+
+<video-view></video-view>
+
+
+
+</ion-content>
+
+
+<ion-footer-bar id="foot" class="bar-dark">
+  
+  <div class="row row-center">
+    <div class="buttons col col-30">
+      <button class="button button-assertive" ng-click="end()">End Call</button>
+    </div>
+
+
+  
+    <div class="col col-40" style="text-align: center;">
+      <img ng-src="emoji/{{myCountry.flag}}.svg" style="width: {{imgWH}}px; padding-top:2px;" />
+      <img ng-src="emoji/{{callingCountry.flag}}.svg" style="width: {{imgWH}}px; padding-top:2px;" />
+    </div>
+    
+    <div style="padding-right:0px;" class="buttons col col-30">
+      <div class="row">
+        <div class="col">
+        </div>
+        <div class="col col-30">
+          <span style="color: white;">{{callTime() | date:'mm:ss'}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ion-footer-bar>
+
+</ion-view>
