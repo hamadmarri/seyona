@@ -1,5 +1,5 @@
 
-<ion-view title="Inter your interests" hide-back-button="false" hide-nav-bar="false">
+<ion-view title="Inter your interests" hide-back-button="false" hide-nav-bar="false" ng-init="init()">
   
  
 <!--  <ion-header-bar class="bar bar-subheader">
@@ -23,7 +23,7 @@
                   ng-model="interest"
                   placeholder="{{interestsPlaceholder()}}" />
         </div>
-        <div class="col col-20">
+        <div class="col col-25">
           <button class="button button-positive" 
             style="width: 100%;" 
             ng-click="add(interest); interest = ''"

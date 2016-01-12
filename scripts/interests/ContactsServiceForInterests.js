@@ -7,7 +7,8 @@ angular.module('phonertcdemo')
 
     var service = {
       onlineUsersCounter: onlineUsersCounter,
-      currentName: ''
+      currentName: '',
+      commonInterests: commonInterests
     };
 
 
@@ -27,13 +28,13 @@ angular.module('phonertcdemo')
 
 
     service.setCommonInterests = function(interests) {
-      commonInterests = [];
+      service.commonInterests = [];
       var myInterests = InterestsService.myInterests;
 
       for (var i = 0; i < myInterests.length; i++) {
         for (var j = 0; j < interests.length; j++) {
           if (interests[j] == myInterests[i]) {
-            commonInterests.push(interests[j]);
+            service.commonInterests.push(interests[j]);
           }
         }
       }

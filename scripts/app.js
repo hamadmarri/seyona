@@ -146,7 +146,7 @@ angular.module('phonertcdemo', ['ionic',
   })
 
   .run(function ($state, signaling, MatchService, ContactsServiceForCountry, 
-            SearchService, ContactsServiceForInterests) {
+            SearchService, InterestsSearchService, ContactsServiceForInterests) {
 
     signaling.on('messageReceived', function (name, message) {
 
@@ -179,8 +179,10 @@ angular.module('phonertcdemo', ['ionic',
           
           if ($state.current.name === 'app.interestscall') { return; }
 
-          ContactsServiceForInterests.setCommonInterests(message.interestsPerson.interests);
-          SearchService.stop();
+          // alert(message.commonInterests);
+          
+          ContactsServiceForInterests.commonInterests = message.commonInterests;
+          InterestsSearchService.stop();
           $state.go('app.interestscall', { isCalling: false, contactName: name });
           break;
 

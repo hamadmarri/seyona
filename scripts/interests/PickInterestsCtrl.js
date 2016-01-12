@@ -108,4 +108,9 @@ angular.module('phonertcdemo')
 
     
 
+
+    $scope.init = function() {
+      signaling.emit('busy');
+    };
+
   });

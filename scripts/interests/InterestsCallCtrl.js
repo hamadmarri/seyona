@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 
   .controller('InterestsCallCtrl', function ($scope, $state, $rootScope, $timeout, $interval,
-         $ionicModal, $stateParams, signaling, CountryService, ContactsServiceForCountry) {
+         $ionicModal, $stateParams, signaling, InterestsService, ContactsServiceForInterests) {
 
     var duplicateMessages = [];
 
@@ -18,8 +18,7 @@ angular.module('phonertcdemo')
     var timeRemaining = 24; // 120; // 2min
     var intervalPromis;
     
-    $scope.callingCountry = ContactsServiceForCountry.callingCountryPerson;
-    $scope.myCountry = CountryService.getMyCountry();
+    $scope.commonInterests = ContactsServiceForInterests.commonInterests;
 
     $scope.session;
 
@@ -85,7 +84,7 @@ angular.module('phonertcdemo')
         
         signaling.emit('incrementCallsCount');
 
-        $state.go('app.searchingcountry');
+        $state.go('app.searchinginterests');
       });
 
       session.call();
@@ -98,9 +97,10 @@ angular.module('phonertcdemo')
 
       // $scope.percentage = MatchService.getMatch(MatchService.getCrrentCallingId()).matchingPercent;
 
+      // alert(ContactsServiceForInterests.commonInterests);
   
-      signaling.emit('sendMessage', $stateParams.contactName, { type: 'countrycall', callingCountryPerson: $scope.myCountry });
-      // alert("is calling " + ContactsServiceForCountry.callingCountryPerson.name);
+      signaling.emit('sendMessage', $stateParams.contactName, { type: 'interestscall', commonInterests: ContactsServiceForInterests.commonInterests });
+      // alert("is calling " + ContactsServiceForInterests.callingCountryPerson.name);
     } else {
       // $scope.percentage = MatchService.getCurrentMatchPercent();
     }
@@ -113,7 +113,7 @@ angular.module('phonertcdemo')
         signaling.emit('sendMessage', $stateParams.contactName, { type: 'ignore' });
 
         // MatchService.removeCrrentCallingIdFromMatches();
-        $state.go('app.searchingcountry');
+        $state.go('app.searchinginterests');
       }
     };
 
@@ -166,7 +166,7 @@ angular.module('phonertcdemo')
 
     $scope.addContact = function (newContact) {
       $scope.hideFromContactList.push(newContact);
-      signaling.emit('sendMessage', newContact, { type: 'countrycall' });
+      signaling.emit('sendMessage', newContact, { type: 'interestscall' });
 
       cordova.plugins.phonertc.showVideoView();
       $scope.selectContactModal.hide();
@@ -223,11 +223,11 @@ angular.module('phonertcdemo')
 
             if (Object.keys($scope.contacts).length === 0) {
               // MatchService.removeCrrentCallingIdFromMatches();
-              $state.go('app.searchingcountry');
+              $state.go('app.searchinginterests');
             }
           } else {
             // MatchService.removeCrrentCallingIdFromMatches();
-            $state.go('app.searchingcountry');
+            $state.go('app.searchinginterests');
           }
 
           break;
@@ -239,25 +239,6 @@ angular.module('phonertcdemo')
           }
           
           break;
-
-        // case 'add_to_group':
-
-        //   message.contacts.forEach(function (contact) {
-        //     $scope.hideFromContactList.push(contact);
-        //     call(message.isInitiator, contact);
-
-        //     if (!message.isInitiator) {
-        //       $timeout(function () {
-        //         signaling.emit('sendMessage', contact, { 
-        //           type: 'add_to_group',
-        //           contacts: [ContactsServiceForCountry.currentName],
-        //           isInitiator: true
-        //         });
-        //       }, 1500);
-        //     }
-        //   });
-
-        //   break;
       } 
     }
 
