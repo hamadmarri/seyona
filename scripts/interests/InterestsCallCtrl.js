@@ -85,8 +85,9 @@ angular.module('phonertcdemo')
         
         signalingInterests.emit('incrementCallsCount');
 
-        AdService.runAdInterstitial();
         AdService.runAdBanner();
+        AdService.runAdInterstitial();
+
 
         $state.go('app.searchinginterests');
       });
