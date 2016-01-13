@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 
   .controller('CallCtrl', function ($scope, $state, $rootScope, $timeout, $interval, 
-      $ionicModal, $stateParams, signaling, ContactsService, MatchService, ENV) {
+      $ionicModal, $stateParams, signaling, ContactsService, MatchService, ENV, AdService) {
     
     var duplicateMessages = [];
 
@@ -15,9 +15,11 @@ angular.module('phonertcdemo')
     $scope.hideFromContactList = [$scope.contactName];
     $scope.muted = false;
 
-    var timeRemaining = 120; // 2min
+    var timeRemaining = 300; // 5min
     
     $scope.percentage;
+
+    var intervalPromis;
 
 
     $scope.callTime = function() {
@@ -69,7 +71,15 @@ angular.module('phonertcdemo')
         if (Object.keys($scope.contacts).length === 0) {
           signaling.emit('sendMessage', contactName, { type: 'ignore' });
 
+          if(intervalPromis) {
+              $interval.cancel(intervalPromis); 
+          }
+
           MatchService.removeCrrentCallingIdFromMatches();
+
+          AdService.runAdBanner();
+          AdService.runAdInterstitial();
+
           $state.go('app.search');
         }
       });
@@ -102,6 +112,11 @@ angular.module('phonertcdemo')
     };
 
     $scope.end = function () {
+
+      if(intervalPromis) {
+          $interval.cancel(intervalPromis); 
+      }
+      
       Object.keys($scope.contacts).forEach(function (contact) {
         $scope.contacts[contact].close();
         delete $scope.contacts[contact];
@@ -257,13 +272,20 @@ angular.module('phonertcdemo')
 
 
 
-    $interval(function() {
+  $scope.init = function() {
+    
+    AdService.removeBanner();
 
-      if (timeRemaining <= 0) {
-        $scope.end();
-      }
+    intervalPromis = $interval(function() {
+        if (timeRemaining <= 0) {
+          $scope.end();
+        }
 
-      timeRemaining--;
-    }, 1000);
+        timeRemaining--;
+      }, 1000);
+
+  };
+
+    
 
   });

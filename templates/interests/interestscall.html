@@ -7,11 +7,11 @@
       <div class="calling-container" ng-if="!isCalling && !callInProgress">
 
 
-        <button class="button button-positive" ng-click="answer()">
+        <button class="button button-positive ubuntu" ng-click="answer()">
           Answer
         </button>
 
-        <button class="button button-assertive" ng-click="ignore()">
+        <button class="button button-assertive ubuntu" ng-click="ignore()">
           Ignore
         </button>
       </div>
@@ -25,12 +25,12 @@
     
     <div class="row row-center">
       <div class="buttons col col-30">
-        <button class="button button-assertive" ng-click="end()">End Call</button>
+        <button class="button button-assertive ubuntu" ng-click="end()">End Call</button>
       </div>
 
 
     
-      <div class="col col-40" style="text-align: center;">
+      <div class="col col-40 ubuntu" style="text-align: center;">
         <span ng-repeat="i in commonInterests">{{i}} </span>
       </div>
       

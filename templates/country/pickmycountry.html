@@ -3,7 +3,7 @@
   
  
  <ion-header-bar class="bar bar-subheader">
-    <input type="text" ng-model="search" placeholder="Search" />
+    <input type="text" class="ubuntu" ng-model="search" placeholder="Search" />
  </ion-header-bar>
 
 
@@ -15,8 +15,8 @@
             ng-click="pickCountry(c)"
             ng-repeat="c in countries | orderBy:'name' | filter: search | limitTo: limit">
           <img ng-src="emoji/{{c.flag}}.svg">
-          <h2>{{c.name}}</h2>
-           <p>{{c.code}}</p>
+          <h2 class="ubuntu">{{c.name}}</h2>
+           <p class="ubuntu">{{c.code}}</p>
         </a>
       </div>
 

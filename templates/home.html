@@ -1,17 +1,22 @@
 
-<ion-view title="Seyona" hide-back-button="false" hide-nav-bar="true" ng-init="init()">
+<ion-view title="Seyona" hide-back-button="false" hide-nav-bar="true" ng-init="init()"
+  style='background-image: url("bg.png");'>
   
-  <ion-content class="has-header"> 
+  <ion-content class="false" > 
     
-    <div style="text-align: center;">
+    <div style="text-align: center; margin-top:8%;">
       <img src="logo.svg" style="width:{{size()}}px; height:{{size()}}px;" />
+      <br />
+      <span class="ubuntu">
+        <span style="color: #00a651;">Seyona</span>
+      </span>
     </div>
 
 
-    <div style="margin-top: 10%;" class="row">
+    <div style="margin-top: 13%;" class="row">
       <div class="col"></div>
       <div class="col col-80">
-        <a style="margin: 0px !important;" ui-sref="app.pickmycountry" class="button button-block  button-calm">By Countries</a>
+        <a style="margin: 0px !important;" ui-sref="app.pickmycountry" class="button button-block  button-stable ubuntu">By Countries</a>
       </div>
       <div class="col"></div>
     </div>
@@ -19,7 +24,7 @@
     <div class="row">
       <div class="col"></div>
       <div class="col col-80">
-        <a style="margin: 0px !important;" ui-sref="app.pickinterests" class="button button-block  button-positive">By Interests</a>
+        <a style="margin: 0px !important;" ui-sref="app.pickinterests" class="button button-block  button-stable ubuntu">By Interests</a>
       </div>
       <div class="col"></div>
     </div>
@@ -27,7 +32,7 @@
     <div class="row">
       <div class="col"></div>
       <div class="col col-80">
-        <a style="margin: 0px !important;" ui-sref="app.takepicture" class="button button-block  button-royal">By Face Similarity</a>
+        <a style="margin: 0px !important;" ui-sref="app.takepicture" class="button button-block  button-stable ubuntu">By Face Similarity</a>
       </div>
       <div class="col"></div>
     </div>

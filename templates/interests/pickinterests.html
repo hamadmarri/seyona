@@ -18,13 +18,13 @@
     
       <div class="row">
         <div class="col">
-          <input type="text" 
+          <input type="text" class="ubuntu" 
                   ng-disabled="myInterests.length >= 5"
                   ng-model="interest"
                   placeholder="{{interestsPlaceholder()}}" />
         </div>
         <div class="col col-25">
-          <button class="button button-positive" 
+          <button class="button button-positive ubuntu" 
             style="width: 100%;" 
             ng-click="add(interest); interest = ''"
             ng-disabled="myInterests.length >= 5 || interest == ''">
@@ -40,12 +40,12 @@
           <ion-delete-button class="ion-minus-circled" 
                 ng-click="delete(i)">
           </ion-delete-button>
-          {{i}}
+          <span class="ubuntu">{{i}}</span>
         </ion-item>
       </ion-list>
 
 
-      <button class="button button-block button-positive icon-right ion-chevron-right" ng-disabled="myInterests.length == 0" ng-if="myInterests.length > 0" ng-click="search()">Start Search</button>
+      <button class="button button-block button-positive icon-right ion-chevron-right ubuntu" ng-disabled="myInterests.length == 0" ng-if="myInterests.length > 0" ng-click="search()">Start Search</button>
        
 
   </ion-content>

@@ -1,7 +1,8 @@
 angular.module('phonertcdemo')
 
   .controller('CountryCallCtrl', function ($scope, $state, $rootScope, $timeout, $interval,
-         $ionicModal, $stateParams, signalingCountry, CountryService, ContactsServiceForCountry) {
+         $ionicModal, $stateParams, signalingCountry, CountryService, ContactsServiceForCountry, 
+         AdService) {
 
     var duplicateMessages = [];
 
@@ -15,7 +16,7 @@ angular.module('phonertcdemo')
     $scope.hideFromContactList = [$scope.contactName];
     $scope.muted = false;
 
-    var timeRemaining = 24; // 120; // 2min
+    var timeRemaining = 300; // 5min
     var intervalPromis;
     
     $scope.callingCountry = ContactsServiceForCountry.callingCountryPerson;
@@ -84,6 +85,9 @@ angular.module('phonertcdemo')
         }
         
         signalingCountry.emit('incrementCallsCount');
+
+        AdService.runAdBanner();
+        AdService.runAdInterstitial();
 
         $state.go('app.searchingcountry');
       });
@@ -274,6 +278,8 @@ angular.module('phonertcdemo')
 
       signalingCountry.emit('busy');
 
+      AdService.removeBanner();
+      
       intervalPromis = $interval(function() {
 
           if (timeRemaining <= 0) {
@@ -285,11 +291,11 @@ angular.module('phonertcdemo')
 
 
       // for debug auto answering
-      if ($scope.isCalling) {
-        $timeout(function() {
-          $scope.answer();
-        }, 1000);
-      }
+      // if ($scope.isCalling) {
+      //   $timeout(function() {
+      //     $scope.answer();
+      //   }, 1000);
+      // }
 
     };
 
