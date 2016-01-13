@@ -114,9 +114,6 @@ angular.module('phonertcdemo')
   signalingInterests.on('found', function (interestsPerson) {
       ContactsServiceForInterests.setCommonInterests(interestsPerson.interests);
 
-      // alert("found " + interestsPerson.interests);
-      // alert("found " + ContactsServiceForInterests.commonInterests);
-
       InterestsSearchService.stop();
 
       $state.go('app.interestscall', { isCalling: true, contactName: interestsPerson.name }); 

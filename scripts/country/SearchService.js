@@ -2,7 +2,8 @@ angular.module('phonertcdemo')
   .factory('SearchService', function ($interval, $timeout, signalingCountry) {
     
    
-    var promise;
+    var promiseTryCall;
+    var promiseSearching;
     var waitBeforePick;
 
     var service = {
@@ -20,27 +21,29 @@ angular.module('phonertcdemo')
 
 
     signalingCountry.on('not_found', function (countryPerson) {
-            // promise = $timeout(function(){ $scope.tryCall(); }, $scope.waitBeforePick);
+            // promiseTryCall = $timeout(function(){ $scope.tryCall(); }, $scope.waitBeforePick);
     });
 
 
 
     service.start = function(data) {
       waitBeforePick = 10000 + Math.floor(Math.random() * 10000);
-      promise = $interval(function(){ service.tryCall(data); }, waitBeforePick);
+      promiseTryCall = $interval(function(){ service.tryCall(data); }, waitBeforePick);
 
 
-      $timeout(function() { 
+      promiseSearching = $timeout(function() { 
           signalingCountry.emit('searching');
         }, 5000);
     };
 
     service.stop = function() {
-      // alert('stop');
 
-      if(promise) {
-          $interval.cancel(promise); 
-          // alert('interval.cancel');
+      if(promiseTryCall) {
+          $interval.cancel(promiseTryCall); 
+      }
+
+      if (promiseSearching) {
+        $timeout.cancel(promiseSearching);
       }
 
     };

@@ -2,7 +2,8 @@ angular.module('phonertcdemo')
   .factory('InterestsSearchService', function ($interval, $timeout, signalingInterests) {
     
    
-    var promise;
+    var promiseTryCall;
+    var promiseSearching;
     var waitBeforePick;
 
     var service = {
@@ -22,18 +23,22 @@ angular.module('phonertcdemo')
 
     service.start = function(data) {
       waitBeforePick = 10000 + Math.floor(Math.random() * 10000);
-      promise = $interval(function(){ service.tryCall(data); }, waitBeforePick);
+      promiseTryCall = $interval(function(){ service.tryCall(data); }, waitBeforePick);
 
 
-      $timeout(function() { 
+      promiseSearching = $timeout(function() { 
           signalingInterests.emit('searching');
         }, 5000);
     };
 
     service.stop = function() {
 
-      if(promise) {
-          $interval.cancel(promise); 
+      if(promiseTryCall) {
+          $interval.cancel(promiseTryCall); 
+      }
+
+      if (promiseSearching) {
+        $timeout.cancel(promiseSearching);
       }
 
     };
