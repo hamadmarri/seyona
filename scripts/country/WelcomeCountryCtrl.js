@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 
   .controller('WelcomeCountryCtrl', function ($scope, $state, $http, $ionicPopup, signalingCountry, 
-      CountryService, ContactsServiceForCountry, ENV, $timeout) {
+      CountryService, ContactsServiceForCountry, $timeout) {
  
 
     $scope.myCountry = CountryService.getMyCountry();
@@ -48,33 +48,9 @@ angular.module('phonertcdemo')
 
 
 
-    function sendDataToServer() {
-        var person = {
-          webRtcId : $scope.loginName,
-          country : $scope.myCountry.code
-        };
 
-        var data = JSON.stringify(person);
-        var config = {headers: {
-         'Content-Type': "application/json;charset=UTF-8"
-       }};
-
-
-       $http.post(ENV.apiEndpoint + '/countrypeople', data, config)
-       .then(function(response) { // SUCCESS
-
-            $state.go('app.pickothercountry');
-
-            }, function(response) { // ERROR
-
-              signalingCountry.disconnect();
-
-              var alertPopup = $ionicPopup.alert({
-                title: 'Error',
-                template: response.status + " " + response.data
-              });
-           });
+    $scope.init = function() {
+      signalingCountry.emit('logout');
     };
-
 
   });

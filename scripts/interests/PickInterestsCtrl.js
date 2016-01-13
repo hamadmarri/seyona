@@ -114,7 +114,9 @@ angular.module('phonertcdemo')
 
 
     $scope.init = function() {
-      signalingInterests.emit('busy');
+      // signalingInterests.emit('busy');
+
+      signalingInterests.emit('logout');
     };
 
   });
