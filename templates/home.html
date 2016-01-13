@@ -2,7 +2,7 @@
 <ion-view title="Seyona" hide-back-button="false" hide-nav-bar="true" ng-init="init()"
   style='background-image: url("bg.png");'>
   
-  <ion-content class="false" > 
+  <ion-content > 
     
     <div style="text-align: center; margin-top:8%;">
       <img src="logo.svg" style="width:{{size()}}px; height:{{size()}}px;" />
@@ -16,7 +16,7 @@
     <div style="margin-top: 13%;" class="row">
       <div class="col"></div>
       <div class="col col-80">
-        <a style="margin: 0px !important;" ui-sref="app.pickmycountry" class="button button-block  button-stable ubuntu">By Countries</a>
+        <a style="margin: 0px !important;" ui-sref="app.pickmycountry" class="button button-block  button-stable ubuntu icon-right ion-flag">By Countries</a>
       </div>
       <div class="col"></div>
     </div>
@@ -24,7 +24,7 @@
     <div class="row">
       <div class="col"></div>
       <div class="col col-80">
-        <a style="margin: 0px !important;" ui-sref="app.pickinterests" class="button button-block  button-stable ubuntu">By Interests</a>
+        <a style="margin: 0px !important;" ui-sref="app.pickinterests" class="button button-block  button-stable ubuntu icon-right ion-paper-airplane">By Interests</a>
       </div>
       <div class="col"></div>
     </div>
@@ -32,7 +32,16 @@
     <div class="row">
       <div class="col"></div>
       <div class="col col-80">
-        <a style="margin: 0px !important;" ui-sref="app.takepicture" class="button button-block  button-stable ubuntu">By Face Similarity</a>
+        <a style="margin: 0px !important;" ui-sref="app.takepicture" class="button button-block  button-stable ubuntu icon-right ion-person-stalker">By Face Similarity</a>
+      </div>
+      <div class="col"></div>
+    </div>
+
+
+    <div class="row">
+      <div class="col"></div>
+      <div class="col col-80">
+        <a style="margin-top: 20px !important;" ui-sref="app.help" class="button button-block  button-stable ubuntu icon-right ion-help-circled">Help</a>
       </div>
       <div class="col"></div>
     </div>

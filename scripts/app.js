@@ -107,6 +107,11 @@ angular.module('phonertcdemo', ['ionic',
         templateUrl: 'templates/home.html'
       })
 
+      .state('app.help', {
+        url: '/help',
+        templateUrl: 'templates/help.html'
+      })
+
 
 
 
