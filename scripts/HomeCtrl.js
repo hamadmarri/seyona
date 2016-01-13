@@ -1,6 +1,6 @@
 angular.module('phonertcdemo')
 
-  .controller('HomeCtrl', function ($scope) {
+  .controller('HomeCtrl', function ($scope, AdService) {
 
   	$scope.size = function() {
   		// alert(window.innerWidth * 0.21);
@@ -18,5 +18,10 @@ angular.module('phonertcdemo')
   		return b;
   	}
 
+
+
+    $scope.init = function() {
+      AdService.runAdBanner();
+    };
 
   });

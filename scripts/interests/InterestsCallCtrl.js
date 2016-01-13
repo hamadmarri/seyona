@@ -1,7 +1,8 @@
 angular.module('phonertcdemo')
 
   .controller('InterestsCallCtrl', function ($scope, $state, $rootScope, $timeout, $interval,
-         $ionicModal, $stateParams, signalingInterests, InterestsService, ContactsServiceForInterests) {
+         $ionicModal, $stateParams, signalingInterests, InterestsService, ContactsServiceForInterests,
+         AdService) {
 
     var duplicateMessages = [];
 
@@ -83,6 +84,9 @@ angular.module('phonertcdemo')
         }
         
         signalingInterests.emit('incrementCallsCount');
+
+        AdService.runAdInterstitial();
+        AdService.runAdBanner();
 
         $state.go('app.searchinginterests');
       });
@@ -255,6 +259,7 @@ angular.module('phonertcdemo')
 
       signalingInterests.emit('busy');
 
+      AdService.removeBanner();
       intervalPromis = $interval(function() {
 
           if (timeRemaining <= 0) {
