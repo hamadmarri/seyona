@@ -1,9 +1,17 @@
-<ion-view title="Seyona" hide-back-button="true">
+<ion-view hide-back-button="false">
+	
+	<ion-nav-bar class="bar bar-header bar-dark">
+	  <ion-nav-back-button class="button-clear ubuntu"
+	    ng-click="goBack()">
+	    <i class="ion-arrow-left-b"></i> Back
+	  </ion-nav-back-button>
+	</ion-nav-bar>
+
 	<ion-content>
 
 		
 		<div style="text-align: center; margin-top:80px;">
-			<h2>Search for</h2>
+			<h2 class="ubuntu">Search for</h2>
 			<!-- <div class="row">
 			  <div class="col"> -->
 				<button ng-click="positive()" class="button button-size button-light icon-right ion-person ubuntu">
@@ -12,7 +20,7 @@
 			  <!-- </div>
 			  <div class="col"> -->
 				<button ng-click="negative()" class="button button-size button-dark icon-right ion-happy ubuntu">
-				  		Not similar at all
+				  		 Unalike person
 				</button>
 			  <!-- </div>
 			</div> -->

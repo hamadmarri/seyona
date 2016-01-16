@@ -17,53 +17,53 @@ angular.module('phonertcdemo')
 
 	service.runAdBanner = function() {
 
-		 document.addEventListener('deviceready', function() {
+		 // document.addEventListener('deviceready', function() {
 		 	    
-		 	    if (!alreadyShown) {
-		 	    	AdMob.createBanner( {
-		 	    	                   adId: admobid.banner,
-		 	    	                   isTesting: true,
-		 	    	                   overlap: false,
-		 	    	                   offsetTopBar: true,
-		 	    	                   position: 2,
-		 	    	                   bgColor: 'black'
-		 	    	                   } );
+		 // 	    if (!alreadyShown) {
+		 // 	    	AdMob.createBanner( {
+		 // 	    	                   adId: admobid.banner,
+		 // 	    	                   isTesting: true,
+		 // 	    	                   overlap: false,
+		 // 	    	                   offsetTopBar: true,
+		 // 	    	                   position: 2,
+		 // 	    	                   bgColor: 'black'
+		 // 	    	                   } );
 		 	    	
 
-		 	    	AdMob.prepareInterstitial({
-		 	    	                          adId: admobid.interstitial,
-		 	    	                          autoShow: false
-		 	    	                          });
+		 // 	    	AdMob.prepareInterstitial({
+		 // 	    	                          adId: admobid.interstitial,
+		 // 	    	                          autoShow: false
+		 // 	    	                          });
 
 
-		 			alreadyShown = true;	
-		 	    } else {
-		 	    	AdMob.showBanner();
-		 	    }
+		 // 			alreadyShown = true;	
+		 // 	    } else {
+		 // 	    	AdMob.showBanner();
+		 // 	    }
 
-		 }, false);
+		 // }, false);
 	    
 	};
 
 	service.removeBanner = function() {
-		if (alreadyShown) {
-			alreadyShown = false;
-			AdMob.hideBanner();
-		}
+		// if (alreadyShown) {
+		// 	alreadyShown = false;
+		// 	AdMob.hideBanner();
+		// }
 		
 	};
 
 
 	service.runAdInterstitial = function() {
-		var r = Math.floor(Math.random() * 10) % 2;
+		// var r = Math.floor(Math.random() * 10) % 2;
 
-		if (r == 0) {
+		// if (r == 0) {
 			
-			AdMob.prepareInterstitial({
-					                     adId: admobid.interstitial,
-					                     autoShow: true
-					                     });
-		}
+		// 	AdMob.prepareInterstitial({
+		// 			                     adId: admobid.interstitial,
+		// 			                     autoShow: true
+		// 			                     });
+		// }
 
 	};
 

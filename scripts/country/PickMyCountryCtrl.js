@@ -22,4 +22,7 @@ angular.module('phonertcdemo')
     };
     
 
+    $scope.goBack = function() {
+      $state.go('app.home');
+    };
   });

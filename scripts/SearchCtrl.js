@@ -271,7 +271,7 @@ angular.module('phonertcdemo')
 
 	$scope.back = function() {
 		DeleteService.deleteAllUserDataOnServer();
-		$state.go('app.takepicture');
+		$state.go('app.positiveOrNegative');
 	};
 
 

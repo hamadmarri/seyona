@@ -1,33 +1,41 @@
-<ion-view title="Take Picture" hide-back-button="false">
-	<ion-content>
+<ion-view  hide-back-button="false"> <!-- title="Take Picture" -->
 
-		
+	<ion-nav-bar class="bar bar-header bar-dark">
+	  <ion-nav-back-button class="button-clear ubuntu"
+	    ng-click="goBack()">
+	    <i class="ion-arrow-left-b"></i> Back
+	  </ion-nav-back-button>
+	</ion-nav-bar>
+
+
+	<ion-content>
+				
 		<img id="photo">
 
 		<p id="takePictureDisc" ng-if="status == 0">Have a video call with your match by taking a photo, Seyona will read your face's features and find who looks like you!</p>
 
 		<div style="text-align: center">
 
-			<button ng-if="status == 0" ng-click="getPhoto()" class="button button-size button-royal icon-right ion-camera">
+			<button ng-if="status == 0" ng-click="getPhoto()" class="button button-size button-royal icon-right ion-camera ubuntu">
 				Take a Photo
 			</button>
 
-			<button ng-if="status != 0" ng-click="getPhoto()" class="button button-size icon-right ion-camera">
+			<button ng-if="status != 0" ng-click="getPhoto()" class="button button-size icon-right ion-camera ubuntu">
 				Take another one
 			</button>
 
 			<!-- ng-if="status != 0" -->
-			<button ng-if="status != 0" ng-click="sendPhoto($event)" class="button button-size button-balanced icon-right ion-arrow-right-c">Use this photo</button>
+			<button ng-if="status != 0" ng-click="sendPhoto($event)" class="button button-size button-balanced icon-right ion-arrow-right-c ubuntu">Use this photo</button>
 		</div>
 
 		<script id="my-popover.html" type="text/ng-template">
 		  <ion-popover-view>
 		    <ion-header-bar>
-		      <h1 class="title">Processing</h1>
+		      <h1 class="title ubuntu">Processing</h1>
 		    </ion-header-bar>
 		    <ion-content style="padding: 25px;">
 		    	<div>
-		    		{{showStatusTitle + showStatusTitleDots}}
+		    		<spane class="ubuntu" >{{showStatusTitle + showStatusTitleDots}}</spane>
 		    	</div>
 		    </ion-content>
 

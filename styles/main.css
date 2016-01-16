@@ -83,13 +83,18 @@
 #takePictureDisc {
 	font-family: Ubuntu Mono;
 	color: #333;
-	font-size: 155%;
+	font-size: 113%;
 	/*font-weight: bold;*/
-	padding: 20% 20% 0 20%;
-	line-height: 34px;
-	text-shadow: 1px 1px 1px rgba(0, 0, 0, .15);
+	margin: 20% 20% 0 20%;
+	padding: 15px;
+	line-height: 21px;
+	/*text-shadow: 1px 1px 1px rgba(0, 0, 0, .15);*/
 	letter-spacing: .03em;
-	word-spacing: .25em;
+	/*word-spacing: .25em;*/
+	/*text-align: justify;*/
+	border-style: solid;
+	border-width: 1px;
+	border-color: #ddd;
 }
 
 

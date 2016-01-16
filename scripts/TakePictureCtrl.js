@@ -23,6 +23,11 @@ angular.module('phonertcdemo')
   $scope.loginName = "a" + Math.floor(Math.random() * 1000000000);
 
 
+
+  $scope.goBack = function() {
+    $state.go('app.home');
+  };
+
   $scope.sendPhoto = function($event) {
 
     $scope.status = 2; // photo synchronizing
