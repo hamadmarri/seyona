@@ -51,7 +51,7 @@ angular.module('phonertcdemo')
       $scope.tip = "End Call button will end your call and connect you with another user.";
       break;
     case 9:
-      $scope.tip = "Share Seyona with your friends. The more online people, the more chance to find your twin.";
+      $scope.tip = "Share Seyona with your friends.";
       break;
     }
   }

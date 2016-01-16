@@ -17,15 +17,15 @@
       <img class="toplettlePadding"  ng-src="emoji/{{callingCountryFlag()}}.svg" />
    
 
-      <h4 class="center ubuntu balanced">Online users: {{otherCountry.online | number}}</h4>
+      <h5 class="center ubuntu balanced">Online users: {{otherCountry.online | number}}</h5>
 
-      <h3 class="ubuntu toplettlePadding">Searching in {{otherCountry.name}}</h3>
+      <h4 class="ubuntu toplettlePadding">Searching in {{otherCountry.name}}</h4>
 
-      <h3>{{dots}}</h3>
+      <h4>{{dots}}</h4>
 
    </div>
 
-    <div class="center topBottomIsolatePadding">
+    <div class="center "> <!-- topBottomIsolatePadding -->
       
       <button class="button button-energized ubuntu" ng-click="smileysLuck()">See your emoji luck</button>
       
@@ -38,7 +38,8 @@
 
     </div>
 
-    <h4 class="ubuntu lettlePadding toplettlePadding"><span class="positive">Tips:</span> {{tip}}</h4>
+    <!-- toplettlePadding -->
+    <h5 class="ubuntu lettlePadding "><span class="positive">Tips:</span> {{tip}}</h5>
     
 
   </ion-content>

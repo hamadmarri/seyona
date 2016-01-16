@@ -8,14 +8,21 @@
      <i class="ion-arrow-left-b"></i> Back
    </ion-nav-back-button>
  </ion-nav-bar>
+ 
+<!--  <ion-nav-bar class="bar bar-header bar-dark">
+   <ion-nav-back-button class="button-clear ubuntu"
+     ng-click="goBack()">
+     <i class="ion-arrow-left-b"></i> Back
+   </ion-nav-back-button>
+ </ion-nav-bar>
 
  <ion-header-bar class="bar bar-subheader">
     <input type="text" class="ubuntu" ng-model="search" placeholder="Search" />
- </ion-header-bar>
+ </ion-header-bar> -->
 
 
 
-  <ion-content has-header="true"> 
+  <ion-content > <!-- has-header="true" -->
 
       <div class="list" >
         <a class="item item-avatar" 
@@ -33,4 +40,19 @@
       </ion-infinite-scroll>
 
   </ion-content>
+
+  <ion-footer-bar>
+    <label style="width:100%;" class="item item-input">       
+
+      <i class="icon ion-search placeholder-icon"></i>
+      <input type="text"
+            style="text-align:center;" 
+            class="ubuntu" 
+            ng-disabled="myInterests.length >= 5"
+            ng-model="search"
+            placeholder="Search">
+
+     </label>
+  </ion-footer-bar>
+
 </ion-view>

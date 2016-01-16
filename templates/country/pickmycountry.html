@@ -9,12 +9,23 @@
 </ion-nav-bar>
 
  
- <ion-header-bar class="bar bar-subheader">
-    <input type="text" class="ubuntu" ng-model="search" placeholder="Search" />
- </ion-header-bar>
+<!--  <ion-header-bar class="bar bar-subheader">
+    <label class="item item-input">       
+
+      <i class="icon ion-search placeholder-icon"></i>
+      <input type="text"
+            style="text-align:center;" 
+            class="ubuntu" 
+            ng-disabled="myInterests.length >= 5"
+            ng-model="search"
+            placeholder="Search">
+
+     </label>
+
+ </ion-header-bar> -->
 
 
-  <ion-content class="has-header"> 
+  <ion-content > 
                   
 
       <div class="list" style='background-image: url("bg.png");'>
@@ -32,5 +43,18 @@
       </ion-infinite-scroll>
   </ion-content>
 
+  <ion-footer-bar>
+    <label style="width:100%;" class="item item-input">       
+
+      <i class="icon ion-search placeholder-icon"></i>
+      <input type="text"
+            style="text-align:center;" 
+            class="ubuntu" 
+            ng-disabled="myInterests.length >= 5"
+            ng-model="search"
+            placeholder="Search">
+
+     </label>
+  </ion-footer-bar>
 
 </ion-view>

@@ -137,7 +137,7 @@ angular.module('phonertcdemo', ['ionic',
 
 
     // $urlRouterProvider.otherwise('app/login');
-    $urlRouterProvider.otherwise('app/pickinterests');
+    $urlRouterProvider.otherwise('app/home');
     // $urlRouterProvider.otherwise('app/searchingcountry');
     // $urlRouterProvider.otherwise('app/takepicture');
 
