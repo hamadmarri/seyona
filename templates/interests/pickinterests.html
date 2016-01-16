@@ -2,52 +2,80 @@
 <ion-view title="Inter your interests" hide-back-button="false" hide-nav-bar="false" ng-init="init()">
   
  
-<!--  <ion-header-bar class="bar bar-subheader">
-  <div class="row">
-    <div class="col col-70">
-      <input type="text" ng-model="interest" placeholder="Your interests..." />
-    </div>
-    <div class="col col-30">
-      <button>Add</button>
-    </div>
-  </div>
- </ion-header-bar> -->
 
+<ion-nav-bar class="bar bar-header bar-dark">
+  <ion-nav-back-button class="button-clear ubuntu"
+    ng-click="goBack()">
+    <i class="ion-arrow-left-b"></i> Back
+  </ion-nav-back-button>
+</ion-nav-bar>
 
-  <ion-content class="has-header"> 
-    
+  <ion-content> 
+      
+      <div class="row" >
+        <div class="col">
+          <button class="button button-block icon ion-playstation {{categoryArray[0]?'button-dark':'button-stable'}} ubuntu"
+          ng-click="showAdded(0, 'Games')"></button>
+        </div>
+        <div class="col">
+          <button class="button button-block icon ion-heart {{categoryArray[1]?'button-dark':'button-stable'}} ubuntu"
+          ng-click="showAdded(1, 'Love')"></button>
+        </div>
+        <div class="col">
+          <button class="button button-block icon ion-music-note {{categoryArray[2]?'button-dark':'button-stable'}} ubuntu"
+          ng-click="showAdded(2, 'Music')"></button>
+        </div>
+        <div class="col">
+          <button class="button button-block icon ion-film-marker {{categoryArray[3]?'button-dark':'button-stable'}} ubuntu"
+          ng-click="showAdded(3, 'Movies')"></button>
+        </div>
+        <div class="col">
+          <button class="button button-block icon ion-earth {{categoryArray[4]?'button-dark':'button-stable'}} ubuntu"
+          ng-click="showAdded(4, 'Travel')"></button>
+        </div>
+
+      </div>
+
       <div class="row">
         <div class="col">
-          <input type="text" class="ubuntu" 
+
+          <label class="item item-input">       
+
+            <input type="text"
+                  style="width=100%;" class="ubuntu" 
                   ng-disabled="myInterests.length >= 5"
                   ng-model="interest"
-                  placeholder="{{interestsPlaceholder()}}" />
+                  placeholder="{{interestsPlaceholder()}}">
+
+           </label>
+
         </div>
-        <div class="col col-25">
-          <button class="button button-positive ubuntu" 
+        <div class="col col-20">
+          <button class="button button-icon icon ion-plus-circled" 
             style="width: 100%;" 
             ng-click="add(interest); interest = ''"
-            ng-disabled="myInterests.length >= 5 || interest == ''">
-              Add
+            ng-hide="myInterests.length >= 5 || interest == ''">
+              
           </button>
         </div>
       </div>
 
 
-      <ion-list show-delete="true">
-        <ion-item class="item-remove-animate" ng-repeat="i in myInterests">
-          
-          <ion-delete-button class="ion-minus-circled" 
-                ng-click="delete(i)">
-          </ion-delete-button>
-          <span class="ubuntu">{{i}}</span>
-        </ion-item>
-      </ion-list>
+      <button style="margin-left:5px;"
+       class="button {{i.isDelete?'button-assertive':'button-dark'}}"
+       ng-repeat="i in myInterests"
+       ng-click="toDelete(i)">
+        {{i.isDelete?'Delete':i.value}}
+      </button>
 
 
-      <button class="button button-block button-positive icon-right ion-chevron-right ubuntu" ng-disabled="myInterests.length == 0" ng-if="myInterests.length > 0" ng-click="search()">Start Search</button>
+      
        
+       <!-- Start Search -->
+    <!-- class="button button-size button-dark icon-right  -->
 
   </ion-content>
+
+  <button style="position:absolute; bottom:0px;" class="button button-block button-dark icon ion-arrow-right-c ubuntu" ng-disabled="myInterests.length == 0 && !showSearch" ng-if="myInterests.length > 0 || showSearch" ng-click="search()"></button>
 
 </ion-view>

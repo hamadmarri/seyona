@@ -53,4 +53,9 @@ angular.module('phonertcdemo')
       signalingCountry.emit('logout');
     };
 
+
+    $scope.goBack = function() {
+      $state.go('app.pickmycountry');
+    };
+
   });

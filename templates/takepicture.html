@@ -16,7 +16,7 @@
 
 		<div style="text-align: center">
 
-			<button ng-if="status == 0" ng-click="getPhoto()" class="button button-size button-royal icon-right ion-camera ubuntu">
+			<button ng-if="status == 0" ng-click="getPhoto()" class="button button-size button-dark icon-right ion-camera ubuntu">
 				Take a Photo
 			</button>
 
@@ -25,7 +25,7 @@
 			</button>
 
 			<!-- ng-if="status != 0" -->
-			<button ng-if="status != 0" ng-click="sendPhoto($event)" class="button button-size button-balanced icon-right ion-arrow-right-c ubuntu">Use this photo</button>
+			<button ng-if="status != 0" ng-click="sendPhoto($event)" class="button button-size button-dark icon-right ion-arrow-right-c ubuntu">Use this photo</button>
 		</div>
 
 		<script id="my-popover.html" type="text/ng-template">

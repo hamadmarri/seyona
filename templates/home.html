@@ -4,7 +4,7 @@
   
   <ion-content > 
     
-    <div style="text-align: center; margin-top:8%;">
+    <div style="text-align: center; margin-top:13%;">
       <img src="logo.svg" style="width:{{size()}}px; height:{{size()}}px;" />
       <br />
       <span class="ubuntu">
@@ -16,38 +16,48 @@
     <div style="margin-top: 13%;" class="row">
       <div class="col"></div>
       <div class="col col-80">
-        <a style="margin: 0px !important;" ui-sref="app.pickmycountry" class="button button-block  button-stable ubuntu icon-right ion-flag">By Countries</a>
+        <span style="color: #888;" class="ubuntu">Have a video chat by</span>
       </div>
       <div class="col"></div>
     </div>
-
-    <div class="row">
-      <div class="col"></div>
-      <div class="col col-80">
-        <a style="margin: 0px !important;" ui-sref="app.pickinterests" class="button button-block  button-stable ubuntu icon-right ion-paper-airplane">By Interests</a>
-      </div>
-      <div class="col"></div>
-    </div>
-
-    <div class="row">
-      <div class="col"></div>
-      <div class="col col-80">
-        <a style="margin: 0px !important;" ui-sref="app.takepicture" class="button button-block  button-stable ubuntu icon-right ion-person-stalker">By Face Similarity</a>
-      </div>
-      <div class="col"></div>
-    </div>
-
-
-    <div class="row">
-      <div class="col"></div>
-      <div class="col col-80">
-        <a style="margin-top: 20px !important;" ui-sref="app.help" class="button button-block  button-stable ubuntu icon-right ion-help-circled">Help</a>
-      </div>
-      <div class="col"></div>
-    </div>
-
     
 
+    <div class="row">
+      <div class="col"></div>
+      <div class="col col-80">
+        <a style="margin: 0px !important;" ui-sref="app.pickmycountry" class="button button-block  button-dark button-large ubuntu icon-right ion-flag">Country</a>
+      </div>
+      <div class="col"></div>
+    </div>
+
+    <div class="row">
+      <div class="col"></div>
+      <div class="col col-80">
+        <a style="margin: 0px !important;" ui-sref="app.pickinterests" class="button button-block  button-dark button-large ubuntu icon-right ion-paper-airplane">Interest</a>
+      </div>
+      <div class="col"></div>
+    </div>
+
+    <div class="row">
+      <div class="col"></div>
+      <div class="col col-80">
+        <a style="margin: 0px !important;" ui-sref="app.takepicture" class="button button-block  button-dark ubuntu button-large icon-right ion-person-stalker">Face</a>
+      </div>
+      <div class="col"></div>
+    </div>
+
+   
+
   </ion-content>
+
+  <ion-footer-bar id="foot" class="bar-dark">
+      
+      <div class="buttons">
+        <a id="helpBtn" ui-sref="app.help" class="button button-icon icon ion-help-circled"></a>
+      </div>
+
+    </div>
+
+  </ion-footer-bar>
 
 </ion-view>

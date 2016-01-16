@@ -2,6 +2,13 @@
 <ion-view title="Country you want to call" hide-back-button="false" hide-nav-bar="false" ng-init="init()">
   
  
+ <ion-nav-bar class="bar bar-header bar-dark">
+   <ion-nav-back-button class="button-clear ubuntu"
+     ng-click="goBack()">
+     <i class="ion-arrow-left-b"></i> Back
+   </ion-nav-back-button>
+ </ion-nav-bar>
+
  <ion-header-bar class="bar bar-subheader">
     <input type="text" class="ubuntu" ng-model="search" placeholder="Search" />
  </ion-header-bar>

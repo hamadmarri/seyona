@@ -1,4 +1,11 @@
-<ion-view title="Search" hide-back-button="false" hide-nav-bar="true" ng-init="init()">
+<ion-view title="Search" hide-back-button="false" hide-nav-bar="false" ng-init="init()">
+  
+  <ion-nav-bar class="bar bar-header bar-dark">
+    <ion-nav-back-button class="button-clear ubuntu"
+      ng-click="back()">
+      <i class="ion-arrow-left-b"></i> Cancel
+    </ion-nav-back-button>
+  </ion-nav-bar>
 
   <ion-content>
     
@@ -31,14 +38,6 @@
     
 
   </ion-content>
-
-  <ion-footer-bar>
-    <div class="bar bar-header">
-      <a class="button icon-left button-light ubuntu"
-        ng-click="back()">Cancel</a>
-    </div>
-  </ion-footer-bar>
-
 
 </ion-view>
 

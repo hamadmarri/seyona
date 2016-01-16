@@ -110,6 +110,7 @@ angular.module('phonertcdemo', ['ionic',
 
       .state('app.help', {
         url: '/help',
+        controller: 'PickInterestsCtrl',
         templateUrl: 'templates/help.html'
       })
 
@@ -136,7 +137,7 @@ angular.module('phonertcdemo', ['ionic',
 
 
     // $urlRouterProvider.otherwise('app/login');
-    $urlRouterProvider.otherwise('app/home');
+    $urlRouterProvider.otherwise('app/pickinterests');
     // $urlRouterProvider.otherwise('app/searchingcountry');
     // $urlRouterProvider.otherwise('app/takepicture');
 
