@@ -115,6 +115,18 @@ angular.module('phonertcdemo', ['ionic',
       })
 
 
+      /********************** PROFILE  ***************************/
+      .state('app.signup', {
+        url: '/signup',
+        controller: 'SignupCtrl',
+        templateUrl: 'templates/profile/signup.html'
+      })
+
+      .state('app.showprofile', {
+        url: '/showprofile',
+        controller: 'ShowProfileCtrl',
+        templateUrl: 'templates/profile/showprofile.html'
+      })
 
 
 
@@ -136,11 +148,8 @@ angular.module('phonertcdemo', ['ionic',
       });
 
 
-    // $urlRouterProvider.otherwise('app/login');
-    $urlRouterProvider.otherwise('app/home');
-    // $urlRouterProvider.otherwise('app/searchingcountry');
-    // $urlRouterProvider.otherwise('app/takepicture');
-
+    $urlRouterProvider.otherwise('app/showprofile');
+    // $urlRouterProvider.otherwise('app/home');
 
   })
 

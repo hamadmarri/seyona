@@ -1,0 +1,23 @@
+<ion-view title="Signup">
+  
+    
+  <ion-content>
+    <div class="list">
+      <label class="item item-input">
+        <input type="text" placeholder="Your Name" ng-model="user.username">
+      </label>
+
+      <button ng-click="getPhoto()" class="button button-size button-dark icon-right ion-camera ubuntu">
+        Take a Photo
+      </button>
+
+    </div>
+
+   
+
+    <div class="padding">
+      <button class="button button-block button-positive" ng-click="signup()">That's it</button>
+    </div>
+
+  </ion-content>
+</ion-view>
