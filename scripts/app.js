@@ -148,8 +148,8 @@ angular.module('phonertcdemo', ['ionic',
       });
 
 
-    $urlRouterProvider.otherwise('app/showprofile');
-    // $urlRouterProvider.otherwise('app/home');
+    // $urlRouterProvider.otherwise('app/showprofile');
+    $urlRouterProvider.otherwise('app/home');
 
   })
 
@@ -166,6 +166,29 @@ angular.module('phonertcdemo', ['ionic',
         StatusBar.styleDefault();
       }
     });
+  })
+
+  
+  .run(function($state, ProfileService) {
+
+    ProfileService.load();
+    loading();
+
+    function loading() {
+      setTimeout(function() { 
+        if (ProfileService.status != "done") {
+          loading();
+        } else {
+          // alert(ProfileService.profile.username);
+
+          if (ProfileService.profile.username == "") {
+            $state.go('app.signup');
+          }
+        }
+        
+       }, 350);
+    }
+
   })
 
   .run(function ($state, signaling, signalingCountry, signalingInterests,

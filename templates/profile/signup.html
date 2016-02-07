@@ -4,11 +4,19 @@
   <ion-content>
     <div class="list">
       <label class="item item-input">
-        <input type="text" placeholder="Your Name" ng-model="user.username">
+        <input type="text" placeholder="Your Name" ng-model="user.username" >
+
+        <!-- ng-focus="show=false"
+        ng-blur="show=true" -->
+
       </label>
 
-      <button ng-click="getPhoto()" class="button button-size button-dark icon-right ion-camera ubuntu">
-        Take a Photo
+
+      <img id="photo" style="height: auto; width: auto; max-width: 62%; max-height: 62%;"
+      ng-click="getPhoto()">
+
+      <button ng-if="status==0" ng-click="getPhoto()" class="item button button-block button-dark icon-right ion-images ubuntu">
+        Choose Photo
       </button>
 
     </div>
@@ -16,7 +24,7 @@
    
 
     <div class="padding">
-      <button class="button button-block button-positive" ng-click="signup()">That's it</button>
+      <button ng-if="status==0" class="button button-block button-positive" ng-click="signup()">That's it</button>
     </div>
 
   </ion-content>
