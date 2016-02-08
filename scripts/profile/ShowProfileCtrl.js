@@ -3,6 +3,7 @@ angular.module('phonertcdemo')
   .controller('ShowProfileCtrl', function ($scope, FileService, CountryService) {
 
 
+    $scope.editUsername = false;
     $scope.editAge = false;
     $scope.editGender = false;
 
@@ -26,6 +27,53 @@ angular.module('phonertcdemo')
 
 
 
+     $scope.getPhoto = function() {
+
+      navigator.camera.getPicture(onSuccess, onFail, 
+      {
+        destinationType: Camera.DestinationType.DATA_URL,
+        quality: 55,
+        saveToPhotoAlbum: false,
+
+        targetWidth:320,
+        // targetWidth:200,
+        correctOrientation: true,
+        encodingType: Camera.EncodingType.JPEG,
+
+        cameraDirection: 1,
+
+        sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM // Camera.PictureSourceType.PHOTOLIBRARY
+      });
+
+
+      function onSuccess(imageData) {
+        var image = $("#myphoto")[0];
+        image.src = "data:image/jpeg;base64," + imageData;
+
+        $scope.user.image = image.src;
+        FileService.write(angular.toJson($scope.user));
+
+        $scope.$apply();
+      }
+
+      function onFail(message) {
+      }
+
+    };
+
+    $scope.startEditUsername = function(b) {
+      $scope.editUsername = b;
+      
+      if (b == true) {
+        setTimeout(function() {
+            document.getElementById("usernameInput").focus(); 
+        }, 500);
+      } else {
+        FileService.write(angular.toJson($scope.user));
+      }
+    };
+
+
     $scope.startEditAge = function(b) {
       $scope.editAge = b;
       
@@ -45,7 +93,7 @@ angular.module('phonertcdemo')
       if (b == false) {
         FileService.write(angular.toJson($scope.user));
       }
-      
+
     };
 
     $scope.doReading = function() {

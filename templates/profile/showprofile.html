@@ -7,13 +7,18 @@
     
       <div class="item item-button-right">
         <img id="myphoto" style="height: auto; width: auto; max-width: 100px; max-height: 100px;">
-        <button class="button icon ion-edit"></button>
+        <button class="button icon ion-edit" ng-click="getPhoto()"></button>
       </div>    
 
 
-      <div class="item item-button-right">
+      <div ng-if="!editUsername" class="item item-button-right">
         <span class="ubuntu" style="font-size:24px">{{user.username}}</span>
-        <button class="button icon ion-edit"></button>
+        <button class="button icon ion-edit" ng-click="startEditUsername(true)"></button>
+      </div>
+
+      <div ng-if="editUsername" class="item item-button-right">
+        <input id="usernameInput" type="text" ng-model="user.username">
+        <button class="button icon ion-checkmark-round positive" ng-click="startEditUsername(false)"></button>
       </div>
 
       <div class="item item-button-right">
