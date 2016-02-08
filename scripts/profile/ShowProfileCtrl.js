@@ -1,9 +1,20 @@
 angular.module('phonertcdemo')
 
-  .controller('ShowProfileCtrl', function ($scope, FileService) {
+  .controller('ShowProfileCtrl', function ($scope, FileService, CountryService) {
+
+
+    $scope.editAge = false;
+    $scope.editGender = false;
+
 
     $scope.read = "";
-    $scope.user;
+    $scope.user = {
+      username: "",
+      image: "",
+      countryCode: "",
+      age: "",
+      gender: ""
+    };
 
     $scope.init = function() {
       // $scope.read = "";
@@ -13,6 +24,29 @@ angular.module('phonertcdemo')
       $scope.doReading();
     };
 
+
+
+    $scope.startEditAge = function(b) {
+      $scope.editAge = b;
+      
+      if (b == true) {
+        setTimeout(function() {
+            document.getElementById("ageInput").focus(); 
+        }, 500);
+      } else {
+        FileService.write(angular.toJson($scope.user));
+      }
+    };
+
+
+    $scope.startEditGender = function(b) {
+      $scope.editGender = b;
+      
+      if (b == false) {
+        FileService.write(angular.toJson($scope.user));
+      }
+      
+    };
 
     $scope.doReading = function() {
       setTimeout(function() { 
@@ -25,8 +59,21 @@ angular.module('phonertcdemo')
 
           $scope.user = angular.fromJson($scope.read);
 
-          var image = $("#photo")[0];
+          var image = $("#myphoto")[0];
           image.src = $scope.user.image;
+          
+          if ($scope.user.image == "") {
+            image.src = "logo.svg";
+          }
+
+          // if ($scope.user.countryCode == undefined) {
+          //   $scope.user.countryCode = "SA";
+          //   $scope.user.countryCode = CountryService.find($scope.user.countryCode).flag;
+          // }
+          
+
+          // $scope.user.age = "31";
+          // $scope.user.gender = "M";
 
           $scope.$apply();
         }

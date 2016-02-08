@@ -1,8 +1,60 @@
 <ion-view title="Profile" ng-init="init()">
   
   <ion-content>
-   <h1>{{user.username}}</h1>
-   <img id="photo" style="height: auto; width: auto; max-width: 62%; max-height: 62%;">
+
+   <div class="list">
+
+    
+      <div class="item item-button-right">
+        <img id="myphoto" style="height: auto; width: auto; max-width: 100px; max-height: 100px;">
+        <button class="button icon ion-edit"></button>
+      </div>    
+
+
+      <div class="item item-button-right">
+        <span class="ubuntu" style="font-size:24px">{{user.username}}</span>
+        <button class="button icon ion-edit"></button>
+      </div>
+
+      <div class="item item-button-right">
+        <span class="ubuntu" style="font-size:24px">
+          Country{{user.countryCode!=undefined?': ':''}}
+        </span>
+
+        <img ng-if="user.countryCode!=undefined" ng-src="emoji/{{user.countryCode}}.svg">
+        <button class="button icon ion-edit"></button>
+      </div>
+
+    
+      <div ng-if="!editAge" class="item item-button-right">
+        <span class="ubuntu" style="font-size:24px">
+          Age{{user.age!=undefined?': ' + user.age: user.age}}
+        </span>
+        <button class="button icon ion-edit" ng-click="startEditAge(true)"></button>
+      </div>
+
+      <div ng-if="editAge" class="item item-button-right">
+        <input id="ageInput" type="number" ng-model="user.age">
+        <button class="button icon ion-checkmark-round positive" ng-click="startEditAge(false)"></button>
+      </div>
+
+
+      <div ng-if="!editGender" class="item item-button-right">
+        <span class="ubuntu" style="font-size:24px">
+          Gender{{user.gender!=undefined?': ' + user.gender:user.gender}}
+        </span>
+        <button class="button icon ion-edit" ng-click="startEditGender(true)"></button>
+      </div>
+
+      <div ng-if="editGender"  class="item item-button-right">   
+        <ion-radio ng-model="user.gender" ng-value="'Female'" ng-click="startEditGender(false)">Female</ion-radio>
+        <ion-radio ng-model="user.gender" ng-value="'Male'" ng-click="startEditGender(false)">Male</ion-radio>
+      </div>
+
+    </div>
+
+    
+
 
   </ion-content>
 </ion-view>

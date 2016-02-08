@@ -148,8 +148,8 @@ angular.module('phonertcdemo', ['ionic',
       });
 
 
-    // $urlRouterProvider.otherwise('app/showprofile');
-    $urlRouterProvider.otherwise('app/home');
+    $urlRouterProvider.otherwise('app/showprofile');
+    // $urlRouterProvider.otherwise('app/home');
 
   })
 

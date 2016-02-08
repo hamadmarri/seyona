@@ -421,55 +421,7 @@
    inkscape:connector-curvature="0"
    style="fill:#ffffff" />
 </g></g>
-<g
-   id="Layer_5">
-	<linearGradient
-   id="SVGID_3_"
-   gradientUnits="userSpaceOnUse"
-   x1="-200.6401"
-   y1="842.2881"
-   x2="-212.899"
-   y2="893.189">
-		<stop
-   offset="0"
-   style="stop-color:#D0DD28"
-   id="stop3152" />
-		<stop
-   offset="0.9946"
-   style="stop-color:#91911F"
-   id="stop3154" />
-	</linearGradient>
-	<rect
-   x="-239"
-   y="847"
-   fill="url(#SVGID_3_)"
-   width="60"
-   height="60"
-   id="rect3156" />
-	<linearGradient
-   id="SVGID_4_"
-   gradientUnits="userSpaceOnUse"
-   x1="-112.6401"
-   y1="842.2881"
-   x2="-124.899"
-   y2="893.189">
-		<stop
-   offset="0"
-   style="stop-color:#00A651"
-   id="stop3159" />
-		<stop
-   offset="1"
-   style="stop-color:#1D7545"
-   id="stop3161" />
-	</linearGradient>
-	<rect
-   x="-151"
-   y="847"
-   fill="url(#SVGID_4_)"
-   width="60"
-   height="60"
-   id="rect3163" />
-</g>
+
 <g
    id="text"
    display="none">
@@ -492,6 +444,7 @@
    font-family="'MyriadPro-Regular'"
    font-size="97"
    id="text3168">Seyona</text>
+
 
 
 </g>
