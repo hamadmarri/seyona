@@ -24,12 +24,12 @@
 
         
         <label class="item item-input item-select item-button-right" >
-          <span class="input-label ubuntu" style="font-size:24px">
+          <span ng-if="countryFlag==undefined" class="input-label ubuntu" style="font-size:24px">
              Country{{user.countryCode!=undefined?': ':''}}
           </span>
 
           <select ng-model="user.countryCode" ng-change="setCountry()">
-            <option ng-repeat="i in countries" value="{{i.code}}">
+            <option ng-repeat="i in countries" value="{{i.code}}" ng-selected="{{user.countryCode == i.code}}">
               {{i.name}}
             </option>
           </select>

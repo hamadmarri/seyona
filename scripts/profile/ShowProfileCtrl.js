@@ -22,12 +22,20 @@ angular.module('phonertcdemo')
     $scope.init = function() {
       // $scope.read = "";
 
+
+
       if (ProfileService.profile.username == "") {
 
+        // alert("if");
 
-        FileService.read();
-        $scope.doReading();  
+        setTimeout(function() {
+          FileService.read();
+          $scope.doReading();  
+        }, 1000);
+        
+      
       } else {
+        // alert("else");
 
 
         $scope.user = ProfileService.profile;

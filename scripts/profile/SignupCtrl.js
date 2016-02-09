@@ -60,7 +60,10 @@ angular.module('phonertcdemo')
 
       FileService.write(angular.toJson($scope.user));
 
-      $state.go("app.showprofile");
+      setTimeout(function() {
+        $state.go("app.showprofile");
+      }, 1000);
+      
     };
 
 

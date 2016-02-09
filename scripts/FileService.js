@@ -103,6 +103,7 @@ angular.module('phonertcdemo')
         }
 
         function fail(evt) {
+            service.status = "done";
             service.error = evt.target.error.code;
         }
   };
