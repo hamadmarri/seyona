@@ -2,13 +2,24 @@ angular.module('phonertcdemo')
   .factory('InterestsSearchService', function ($interval, $timeout, signalingInterests) {
     
    
-    var promiseTryCall;
-    var promiseSearching;
+    // var promiseTryCall;
+    // var promiseSearching;
     var waitBeforePick;
 
     var service = {
+      promiseTryCall: null,
+      promiseSearching: null,
+      foundCallback: null,
+      takeProfileCallback: null,
+      readyToCallCallback: null
     };
 
+
+    service.setCallbackFunctions = function(found, takeProfile, readyToCall) {
+      service.foundCallback = found;
+      service.takeProfileCallback = takeProfile;
+      service.readyToCallCallback = readyToCall;
+    };
 
     
     service.tryCall = function(data) {
@@ -20,31 +31,47 @@ angular.module('phonertcdemo')
     });
 
 
+    
+    signalingInterests.on('found', function (interestsPerson) {
+      service.foundCallback(interestsPerson);
+    });
+
+
+    signalingInterests.on('messageReceived', function (name, message) {
+      switch (message.type) {
+        case 'takeProfile':
+          service.takeProfileCallback(name, message);
+          break;
+        case 'readyToCall':
+          service.readyToCallCallback(name, message);
+          break;
+      }
+    });
 
     service.start = function(data) {
-      waitBeforePick = 1000 + randomTimeMoreThan10LessThan20();
-      promiseTryCall = $interval(function(){ service.tryCall(data); }, waitBeforePick);
+      waitBeforePick = 10000 + randomTimeMoreThan10LessThan20();
+      service.promiseTryCall = $interval(function(){ service.tryCall(data); }, waitBeforePick);
 
 
-      promiseSearching = $timeout(function() { 
+      service.promiseSearching = $timeout(function() { 
           signalingInterests.emit('searching');
         }, randomTimeMoreThan10LessThan20());
     };
 
 
     function randomTimeMoreThan10LessThan20() {
-      return 1000 + Math.floor(Math.random() * 1000);
+      return 10000 + Math.floor(Math.random() * 10000);
     };
     
 
     service.stop = function() {
 
-      if(promiseTryCall) {
-          $interval.cancel(promiseTryCall); 
+      if(service.promiseTryCall) {
+          $interval.cancel(service.promiseTryCall); 
       }
 
-      if (promiseSearching) {
-        $timeout.cancel(promiseSearching);
+      if (service.promiseSearching) {
+        $timeout.cancel(service.promiseSearching);
       }
 
     };

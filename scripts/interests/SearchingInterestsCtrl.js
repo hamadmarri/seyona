@@ -2,7 +2,7 @@ angular.module('phonertcdemo')
 
 .controller('SearchingInterestsCtrl', function ($scope, $state, $timeout, $interval, 
     signalingInterests, ContactsServiceForInterests, InterestsService, InterestsSearchService, 
-    ProfileService, $ionicPopup, CountryService) {
+    ProfileService, $ionicPopup, CountryService, BlacklistService) {
 
 
   var tipsDelay = 21000;
@@ -111,107 +111,115 @@ angular.module('phonertcdemo')
   };
 
 
-
-  signalingInterests.on('found', function (interestsPerson) {
+  $scope.found = function(interestsPerson) {
+ 
+    if (!BlacklistService.isInBlacklist(interestsPerson.name)) {
       ContactsServiceForInterests.setCommonInterests(interestsPerson.interests);
 
       InterestsSearchService.stop();
-
       signalingInterests.emit('busy');
 
-      signalingInterests.emit('sendMessage', interestsPerson.name, { type: 'shareProfile', initializor: true });
-  });
-
-
-  signalingInterests.on('messageReceived', function (name, message) {
-    switch (message.type) {
-      case 'takeProfile':
-        
-        var profile = message.profile;
-        var template = "";
-
-
-        template += '<img id="myphoto" style="height: auto;' +
-              'width: auto; max-width: 100px; max-height: 100px;" src="' + profile.image + '">';
-
-        template += "<br>Name: " + profile.username;
-
-        if (profile.countryCode != undefined) {
-          var country = CountryService.find(profile.countryCode);
-          template += '<br> <img ng-src="emoji/' + country.flag + '.svg">';
-          template += '<br>' + country.name;
-        }
-
-        if (profile.age != "") {
-          template += "<br>Age: " + profile.age;
-        }
-        
-        if (profile.gender != "") {
-          template += "<br>Gender: " + profile.gender;
-        }
-
-        var confirmPopup = $ionicPopup.confirm({
-          // title: profile.username,
-          template: template,
-          cancelText: 'Nevermind',
-          okText: 'Call'
-        });
-
-        // decide either call or search again
-        confirmPopup.then(function(res) {
-          var isReady = false;
-
-          if(res) {
-            isReady = true;
-          } else {
-            InterestsSearchService.start({ interests: InterestsService.myInterests });
-          }
-
-
-          var newMessage = {
-            type: 'readyToCall',
-            ready: isReady,
-            initializor: !message.initializor
-          };
-
-          if (isReady) {
-            signalingInterests.emit('sendMessage', name, newMessage);  
-          } else if (message.initializor == true) {
-            signalingInterests.emit('sendMessage', name, newMessage);  
-          }
-          
-
-        });
-        
-        break;
-      case 'readyToCall':
-
-        if (message.ready == true) {
-          
-          // if the other person is the caller
-          if (message.initializor == true) {
-
-            InterestsSearchService.stop();
-            signalingInterests.emit('busy');
-            signalingInterests.emit('sendMessage', name,{type:'shareProfile',initializor:false });
-
-          } else {
-            $state.go('app.interestscall', { isCalling: true, contactName: name });  
-          }
-        } else {
-          var alertPopup = $ionicPopup.alert({
-               title: 'Sorry!',
-               template: 'The other person ignored the call :('
-             });
-
-             alertPopup.then(function(res) {
-              InterestsSearchService.start({ interests: InterestsService.myInterests });
-             });
-        }
-        
-        break;
+      signalingInterests.emit('sendMessage', interestsPerson.name, { type: 'shareProfile', initializor: true });  
     }
-  });
+
+  };
+
+
+  $scope.messageReceived_TakeProfile = function(name, message) {
+    var profile = message.profile;
+    var template = "";
+
+
+    signalingInterests.emit('busy');
+
+
+    template += '<img id="myphoto" style="height: auto;' +
+          'width: auto; max-width: 100px; max-height: 100px;" src="' + profile.image + '">';
+
+    template += "<br>Name: " + profile.username;
+
+    if (profile.countryCode != undefined) {
+      var country = CountryService.find(profile.countryCode);
+      template += '<br> <img ng-src="emoji/' + country.flag + '.svg">';
+      template += '<br>' + country.name;
+    }
+
+    if (profile.age != undefined) {
+      template += "<br>Age: " + profile.age;
+    }
+    
+    if (profile.gender != undefined) {
+      template += "<br>Gender: " + profile.gender;
+    }
+
+    var confirmPopup = $ionicPopup.confirm({
+      // title: profile.username,
+      template: template,
+      cancelText: 'Nevermind',
+      okText: 'Call'
+    });
+
+    // decide either call or search again
+    confirmPopup.then(function(res) {
+      var isReady = false;
+
+      if(res) {
+        isReady = true;
+      } else {
+
+        // add to blacklist
+        BlacklistService.add(name);
+
+        InterestsSearchService.start({ interests: InterestsService.myInterests });
+      }
+
+
+      var newMessage = {
+        type: 'readyToCall',
+        ready: isReady,
+        initializor: !message.initializor
+      };
+
+      if (isReady) {
+        signalingInterests.emit('sendMessage', name, newMessage);  
+      } else if (message.initializor == true) {
+        signalingInterests.emit('sendMessage', name, newMessage);  
+      }
+      
+
+    });
+  };
+
+
+
+  $scope.messageReceived_ReadyToCall = function(name, message) {
+    if (message.ready == true) {
+      
+      // if the other person is the caller
+      if (message.initializor == true) {
+
+        InterestsSearchService.stop();
+        signalingInterests.emit('busy');
+        signalingInterests.emit('sendMessage', name,{type:'shareProfile',initializor:false });
+
+      } else {
+        $state.go('app.interestscall', { isCalling: true, contactName: name });  
+      }
+    } else {
+
+      // add to blacklist
+      BlacklistService.add(name);
+
+      var alertPopup = $ionicPopup.alert({
+           title: 'Sorry!',
+           template: 'The other person ignored the call :('
+         });
+
+         alertPopup.then(function(res) {
+          InterestsSearchService.start({ interests: InterestsService.myInterests });
+         });
+    }
+  };
 
 
 
@@ -219,6 +227,10 @@ angular.module('phonertcdemo')
     changeTip();
     $interval(changeTip, tipsDelay);
     $interval(animateSearchingDots, 400);
+
+    InterestsSearchService.setCallbackFunctions($scope.found, 
+            $scope.messageReceived_TakeProfile,
+            $scope.messageReceived_ReadyToCall);
 
     InterestsSearchService.start({ interests: InterestsService.myInterests });
   };
