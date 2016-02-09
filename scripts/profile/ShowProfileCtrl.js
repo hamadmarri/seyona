@@ -75,6 +75,7 @@ angular.module('phonertcdemo')
 
         $scope.user.image = image.src;
         FileService.write(angular.toJson($scope.user));
+        ProfileService.profile = $scope.user;
 
         $scope.$apply();
       }
@@ -93,6 +94,7 @@ angular.module('phonertcdemo')
         }, 500);
       } else {
         FileService.write(angular.toJson($scope.user));
+        ProfileService.profile = $scope.user;
       }
     };
 
@@ -103,6 +105,7 @@ angular.module('phonertcdemo')
       $scope.countryFlag = CountryService.find($scope.user.countryCode).flag;
 
       FileService.write(angular.toJson($scope.user));
+      ProfileService.profile = $scope.user;
     };
 
 
@@ -115,6 +118,7 @@ angular.module('phonertcdemo')
         }, 500);
       } else {
         FileService.write(angular.toJson($scope.user));
+        ProfileService.profile = $scope.user;
       }
     };
 
@@ -124,6 +128,7 @@ angular.module('phonertcdemo')
       
       if (b == false) {
         FileService.write(angular.toJson($scope.user));
+        ProfileService.profile = $scope.user;
       }
 
     };

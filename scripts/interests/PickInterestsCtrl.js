@@ -173,7 +173,7 @@ angular.module('phonertcdemo')
         status: 1, // busy
         callsCount: 0
       };
-
+      
       signalingInterests.emit('login', interestsPerson);
     };
 

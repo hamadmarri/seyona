@@ -22,7 +22,7 @@ angular.module('phonertcdemo')
 
 
     service.start = function(data) {
-      waitBeforePick = 10000 + randomTimeMoreThan10LessThan20();
+      waitBeforePick = 1000 + randomTimeMoreThan10LessThan20();
       promiseTryCall = $interval(function(){ service.tryCall(data); }, waitBeforePick);
 
 
@@ -33,7 +33,7 @@ angular.module('phonertcdemo')
 
 
     function randomTimeMoreThan10LessThan20() {
-      return 10000 + Math.floor(Math.random() * 10000);
+      return 1000 + Math.floor(Math.random() * 1000);
     };
     
 

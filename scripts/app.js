@@ -183,9 +183,10 @@ angular.module('phonertcdemo', ['ionic',
 
           if (ProfileService.profile.username == "") {
             $state.go('app.signup');
-          } else {
-            $state.go('app.showprofile');
-          }
+          } 
+          // else {
+          //   $state.go('app.showprofile');
+          // }
         }
         
        }, 350);
@@ -195,7 +196,7 @@ angular.module('phonertcdemo', ['ionic',
 
   .run(function ($state, signaling, signalingCountry, signalingInterests,
              MatchService, ContactsServiceForCountry, SearchService, 
-             InterestsSearchService, ContactsServiceForInterests) {
+             InterestsSearchService, ContactsServiceForInterests, ProfileService) {
 
     signaling.on('messageReceived', function (name, message) {
 
@@ -240,6 +241,18 @@ angular.module('phonertcdemo', ['ionic',
           ContactsServiceForInterests.commonInterests = message.commonInterests;
           InterestsSearchService.stop();
           $state.go('app.interestscall', { isCalling: false, contactName: name });
+          break;
+
+        case 'shareProfile':
+
+          var newMessage = {
+            type: 'takeProfile',
+            profile: ProfileService.profile,
+            initializor: !message.initializor
+          };
+
+          signalingInterests.emit('sendMessage', name, newMessage);
+
           break;
       }
     });

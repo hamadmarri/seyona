@@ -1,6 +1,6 @@
 angular.module('phonertcdemo')
 
-  .controller('SignupCtrl', function ($scope, $state, $ionicPopup, ENV, FileService) {
+  .controller('SignupCtrl', function ($scope, $state, $ionicPopup, ENV, FileService, ProfileService) {
     
 
     $scope.status = 0;
@@ -61,6 +61,7 @@ angular.module('phonertcdemo')
       FileService.write(angular.toJson($scope.user));
 
       setTimeout(function() {
+        ProfileService.load();
         $state.go("app.showprofile");
       }, 1000);
       
