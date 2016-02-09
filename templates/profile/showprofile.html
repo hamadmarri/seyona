@@ -21,14 +21,21 @@
         <button class="button icon ion-checkmark-round positive" ng-click="startEditUsername(false)"></button>
       </div>
 
-      <div class="item item-button-right">
-        <span class="ubuntu" style="font-size:24px">
-          Country{{user.countryCode!=undefined?': ':''}}
-        </span>
 
-        <img ng-if="user.countryCode!=undefined" ng-src="emoji/{{user.countryCode}}.svg">
-        <button class="button icon ion-edit"></button>
-      </div>
+        
+        <label class="item item-input item-select item-button-right" >
+          <span class="input-label ubuntu" style="font-size:24px">
+             Country{{user.countryCode!=undefined?': ':''}}
+          </span>
+
+          <select ng-model="user.countryCode" ng-change="setCountry()">
+            <option ng-repeat="i in countries" value="{{i.code}}">
+              {{i.name}}
+            </option>
+          </select>
+        
+          <img ng-if="countryFlag!=undefined" ng-src="emoji/{{countryFlag}}.svg">
+        </label>
 
     
       <div ng-if="!editAge" class="item item-button-right">
@@ -59,7 +66,6 @@
     </div>
 
     
-
 
   </ion-content>
 </ion-view>

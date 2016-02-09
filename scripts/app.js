@@ -148,8 +148,8 @@ angular.module('phonertcdemo', ['ionic',
       });
 
 
-    $urlRouterProvider.otherwise('app/showprofile');
-    // $urlRouterProvider.otherwise('app/home');
+    // $urlRouterProvider.otherwise('app/showprofile');
+    $urlRouterProvider.otherwise('app/home');
 
   })
 
@@ -183,6 +183,8 @@ angular.module('phonertcdemo', ['ionic',
 
           if (ProfileService.profile.username == "") {
             $state.go('app.signup');
+          } else {
+            $state.go('app.showprofile');
           }
         }
         

@@ -1,11 +1,13 @@
 angular.module('phonertcdemo')
 
-  .controller('ShowProfileCtrl', function ($scope, FileService, CountryService) {
+  .controller('ShowProfileCtrl', function ($scope, ProfileService, FileService, CountryService) {
 
 
     $scope.editUsername = false;
     $scope.editAge = false;
     $scope.editGender = false;
+    $scope.countries = CountryService.getCountries();
+    $scope.countryFlag = undefined;
 
 
     $scope.read = "";
@@ -20,9 +22,22 @@ angular.module('phonertcdemo')
     $scope.init = function() {
       // $scope.read = "";
 
-      FileService.read();
+      if (ProfileService.profile.username == "") {
 
-      $scope.doReading();
+
+        FileService.read();
+        $scope.doReading();  
+      } else {
+
+
+        $scope.user = ProfileService.profile;
+
+        if ($scope.user.countryCode != undefined) {
+          $scope.countryFlag = CountryService.find($scope.user.countryCode).flag;
+        }
+
+      }
+      
     };
 
 
@@ -74,6 +89,15 @@ angular.module('phonertcdemo')
     };
 
 
+
+    $scope.setCountry = function() {
+      // alert($scope.user.countryCode);
+      $scope.countryFlag = CountryService.find($scope.user.countryCode).flag;
+
+      FileService.write(angular.toJson($scope.user));
+    };
+
+
     $scope.startEditAge = function(b) {
       $scope.editAge = b;
       
@@ -122,6 +146,10 @@ angular.module('phonertcdemo')
 
           // $scope.user.age = "31";
           // $scope.user.gender = "M";
+
+          if ($scope.user.countryCode != undefined) {
+            $scope.countryFlag = CountryService.find($scope.user.countryCode).flag;
+          }
 
           $scope.$apply();
         }
