@@ -1,5 +1,14 @@
-<ion-view title="Profile" ng-init="init()">
+<ion-view title="Profile" hide-back-button="false" hide-nav-bar="false" ng-init="init()">
   
+
+  <ion-nav-bar class="bar bar-header bar-dark">
+    <ion-nav-back-button class="button-clear ubuntu"
+      ng-click="goBack()">
+      <i class="ion-arrow-left-b"></i> Back
+    </ion-nav-back-button>
+  </ion-nav-bar>
+
+
   <ion-content>
 
    <div class="list">
@@ -65,8 +74,13 @@
 
     </div>
 
-    
-    <a ui-sref="app.home">Home</a>
-
   </ion-content>
+
+
+  <ion-footer-bar id="foot" class="bar-dark">
+      <div class="buttons">
+        <a ui-sref="app.home" class="button button-icon icon ion-home"></a>
+      </div>
+  </ion-footer-bar>
+
 </ion-view>

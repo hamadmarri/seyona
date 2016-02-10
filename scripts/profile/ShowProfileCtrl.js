@@ -1,6 +1,6 @@
 angular.module('phonertcdemo')
 
-  .controller('ShowProfileCtrl', function ($scope, ProfileService, FileService, CountryService) {
+  .controller('ShowProfileCtrl', function ($scope, $state, ProfileService, FileService, CountryService) {
 
 
     $scope.editUsername = false;
@@ -168,6 +168,11 @@ angular.module('phonertcdemo')
         }
         
        }, 500);
+    };
+
+
+    $scope.goBack = function() {
+      $state.go('app.home');
     };
 
   });

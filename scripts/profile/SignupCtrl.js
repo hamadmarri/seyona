@@ -1,15 +1,21 @@
 angular.module('phonertcdemo')
 
-  .controller('SignupCtrl', function ($scope, $state, $ionicPopup, ENV, FileService, ProfileService) {
+  .controller('SignupCtrl', function ($scope, $state, $ionicPopup, ENV, FileService, 
+    ProfileService, CountryService) {
     
 
-    $scope.status = 0;
-    // $scope.show = true;
+    $scope.countries = CountryService.getCountries();
+    $scope.countryFlag = undefined;
+    $scope.photoPicked = false;
+    $scope.usernameError = false;
 
     $scope.user = {
       username: "",
-      image:""
+      image:"",
+      countryCode: ""
     };
+
+
 
 
      $scope.getPhoto = function() {
@@ -40,8 +46,8 @@ angular.module('phonertcdemo')
         $scope.user.image = image.src;
 
         // alert($scope.user.image.length);
+        $scope.photoPicked = true;
 
-        $scope.status = 1;
         $scope.$apply();
       }
 
@@ -53,10 +59,32 @@ angular.module('phonertcdemo')
 
 
 
+    $scope.setCountry = function() {
+      $scope.countryFlag = CountryService.find($scope.user.countryCode).flag;
+    };
+
+
     $scope.signup = function() {
       // alert($scope.user.username);
+      $scope.usernameError = false;
 
       $scope.user.username = $scope.user.username.trim();
+
+      if ($scope.user.username.length < 2 || $scope.user.username.length > 25) {
+        $scope.usernameError = true;
+        return;
+      }
+
+      var matches = $scope.user.username.match(/^[a-zA-Z]+$/);
+      if (matches == null) {
+          $scope.usernameError = true;
+          return;
+      }
+
+      alert($scope.user.username);
+      alert($scope.user.countryCode);
+      alert($scope.user.image);
+
 
       FileService.write(angular.toJson($scope.user));
 

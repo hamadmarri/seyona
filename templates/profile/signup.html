@@ -1,31 +1,51 @@
-<ion-view title="Signup">
-  
+<ion-view title="Signup" hide-back-button="true" hide-nav-bar="false" ng-init="init()">
+    
+
+  <ion-nav-bar class="bar bar-header bar-dark">
+  </ion-nav-bar>
+
     
   <ion-content>
     <div class="list">
+
+      <div class="item" ng-show="usernameError">
+        <span style="color: red;">Alphabet only, min is 2 max is 25 characters</span>
+      </div>
+      
       <label class="item item-input">
-        <input type="text" placeholder="Your Name" ng-model="user.username" >
-
-        <!-- ng-focus="show=false"
-        ng-blur="show=true" -->
-
+        <input type="text" placeholder="Your Name" ng-model="user.username">
       </label>
+
+
+      <label class="item item-input item-select item-button-right" >
+        <span ng-if="countryFlag==undefined" class="input-label ubuntu">
+           Country{{user.countryCode!=undefined?': ':''}}
+        </span>
+
+        <select ng-model="user.countryCode" ng-change="setCountry()">
+          <option ng-repeat="i in countries" value="{{i.code}}" ng-selected="{{user.countryCode == i.code}}">
+            {{i.name}}
+          </option>
+        </select>
+      
+        <img ng-if="countryFlag!=undefined" ng-src="emoji/{{countryFlag}}.svg">
+      </label>
+
 
 
       <img id="photo" style="height: auto; width: auto; max-width: 62%; max-height: 62%;"
       ng-click="getPhoto()">
 
-      <button ng-if="status==0" ng-click="getPhoto()" class="item button button-block button-dark icon-right ion-images ubuntu">
+      <button ng-if="photoPicked==false" ng-click="getPhoto()" class="item button button-block button-dark icon-right ion-images ubuntu">
         Choose Photo
       </button>
 
     </div>
 
-   
-
-    <div class="padding">
-      <button ng-if="status==1" class="button button-block button-positive" ng-click="signup()">That's it</button>
-    </div>
-
   </ion-content>
+
+  <button ng-if="user.username.length > 0 && user.countryCode && photoPicked" style="position:absolute; bottom:0px;" class="button button-block button-balanced ubuntu" ng-click="signup()">That's it</button>
+
 </ion-view>
+
+<!--  -->
