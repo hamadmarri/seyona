@@ -1,7 +1,8 @@
 angular.module('phonertcdemo')
 
 .controller('SearchingCountryCtrl', function ($scope, $state, $timeout, $interval, 
-    signalingCountry, ContactsServiceForCountry, CountryService, SearchService) {
+    signalingCountry, ContactsServiceForCountry, CountryService, SearchService, 
+    ProfileService, $ionicPopup, BlacklistService, SoundService) {
 
 
   var tipsDelay = 21000;
@@ -118,19 +119,140 @@ angular.module('phonertcdemo')
 
 
 
-  signalingCountry.on('found', function (countryPerson) {
+  $scope.found = function(countryPerson) {
+  
+    if (!BlacklistService.isInBlacklist(countryPerson.name)) {
       ContactsServiceForCountry.callingCountryPerson = CountryService.find(countryPerson.countryCode);
 
       SearchService.stop();
-      $state.go('app.countrycall', { isCalling: true, contactName: countryPerson.name }); 
-  });
 
+      signalingCountry.emit('busy');
+
+      signalingCountry.emit('sendMessage', countryPerson.name, { type: 'shareProfile', initializor: true });  
+    }
+
+  };
+
+  // signalingCountry.on('found', function (countryPerson) {
+  //     ContactsServiceForCountry.callingCountryPerson = CountryService.find(countryPerson.countryCode);
+
+  //     SearchService.stop();
+  //     $state.go('app.countrycall', { isCalling: true, contactName: countryPerson.name }); 
+  // });
+
+  $scope.messageReceived_TakeProfile = function(name, message) {
+
+    SoundService.startPhoneRinging();
+
+    var profile = message.profile;
+    var template = "";
+
+
+    signalingCountry.emit('busy');
+
+
+    template += '<img id="myphoto" style="height: auto;' +
+          'width: auto; max-width: 100px; max-height: 100px;" src="' + profile.image + '">';
+
+    template += "<br>Name: " + profile.username;
+
+    if (profile.countryCode != undefined) {
+      var country = CountryService.find(profile.countryCode);
+      template += '<br> <img ng-src="emoji/' + country.flag + '.svg">';
+      template += '<br>' + country.name;
+    }
+
+    if (profile.age != undefined) {
+      template += "<br>Age: " + profile.age;
+    }
+    
+    if (profile.gender != undefined) {
+      template += "<br>Gender: " + profile.gender;
+    }
+
+    var confirmPopup = $ionicPopup.confirm({
+      // title: profile.username,
+      template: template,
+      cancelText: 'Nevermind',
+      okText: 'Call'
+    });
+
+    // decide either call or search again
+    confirmPopup.then(function(res) {
+      var isReady = false;
+
+
+      SoundService.stopPhoneRinging();
+
+
+      if(res) {
+        isReady = true;
+        
+        SoundService.pickupPhone();
+      } else {
+
+        // add to blacklist
+        BlacklistService.add(name);
+
+        SearchService.start({ countryCode: CountryService.getCallingCountryCode() });
+      }
+
+
+      var newMessage = {
+        type: 'readyToCall',
+        ready: isReady,
+        initializor: !message.initializor
+      };
+
+      if (isReady) {
+        signalingCountry.emit('sendMessage', name, newMessage);  
+      } else if (message.initializor == true) {
+        signalingCountry.emit('sendMessage', name, newMessage);  
+      }
+      
+
+    });
+  };
+
+
+  $scope.messageReceived_ReadyToCall = function(name, message) {
+    if (message.ready == true) {
+      
+      // if the other person is the caller
+      if (message.initializor == true) {
+
+        SearchService.stop();
+        signalingCountry.emit('busy');
+        signalingCountry.emit('sendMessage', name,{type:'shareProfile',initializor:false });
+
+      } else {
+        $state.go('app.countrycall', { isCalling: true, contactName: name });  
+      }
+    } else {
+
+      // add to blacklist
+      BlacklistService.add(name);
+
+      var alertPopup = $ionicPopup.alert({
+           title: 'Sorry!',
+           template: 'The other person ignored the call :('
+         });
+
+         alertPopup.then(function(res) {
+          SearchService.start({ countryCode: CountryService.getCallingCountryCode() });
+         });
+    }
+  };
 
 
   $scope.init = function() {
     changeTip();
     $interval(changeTip, tipsDelay);
     $interval(animateSearchingDots, 400);
+
+    SearchService.setCallbackFunctions($scope.found, 
+            $scope.messageReceived_TakeProfile,
+            $scope.messageReceived_ReadyToCall);
 
     SearchService.start( {countryCode: CountryService.getCallingCountryCode()} );
   };

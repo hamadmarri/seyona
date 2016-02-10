@@ -282,20 +282,19 @@ angular.module('phonertcdemo')
       
       intervalPromis = $interval(function() {
 
-          if (timeRemaining <= 0) {
-            $scope.end();
-          }
+        if (timeRemaining <= 0) {
+          $scope.end();
+        }
 
-          timeRemaining--;
+        timeRemaining--;
+      }, 1000);
+
+
+      if ($scope.isCalling) {
+        $timeout(function() {
+          $scope.answer();
         }, 1000);
-
-
-      // for debug auto answering
-      // if ($scope.isCalling) {
-      //   $timeout(function() {
-      //     $scope.answer();
-      //   }, 1000);
-      // }
+      }
 
     };
 

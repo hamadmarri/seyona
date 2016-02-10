@@ -7,21 +7,43 @@ angular.module('phonertcdemo')
     var waitBeforePick;
 
     var service = {
-      // onlineUsersCounter: onlineUsersCounter,
-      // currentName: ''
+      foundCallback: null,
+      takeProfileCallback: null,
+      readyToCallCallback: null
+    };
+
+
+    service.setCallbackFunctions = function(found, takeProfile, readyToCall) {
+      service.foundCallback = found;
+      service.takeProfileCallback = takeProfile;
+      service.readyToCallCallback = readyToCall;
     };
 
 
     
     service.tryCall = function(data) {
-      // alert('tryCall ' + waitBeforePick);
-
       signalingCountry.emit('find', data);
     };
 
 
     signalingCountry.on('not_found', function (countryPerson) {
-            // promiseTryCall = $timeout(function(){ $scope.tryCall(); }, $scope.waitBeforePick);
+    });
+
+
+    signalingCountry.on('found', function (countryPerson) {
+      service.foundCallback(countryPerson);
+    });
+
+
+    signalingCountry.on('messageReceived', function (name, message) {
+      switch (message.type) {
+        case 'takeProfile':
+          service.takeProfileCallback(name, message);
+          break;
+        case 'readyToCall':
+          service.readyToCallCallback(name, message);
+          break;
+      }
     });
 
 

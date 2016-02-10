@@ -227,6 +227,18 @@ angular.module('phonertcdemo', ['ionic',
           SearchService.stop();
           $state.go('app.countrycall', { isCalling: false, contactName: name });
           break;
+
+        case 'shareProfile':
+
+          var newMessage = {
+            type: 'takeProfile',
+            profile: ProfileService.profile,
+            initializor: !message.initializor
+          };
+
+          signalingCountry.emit('sendMessage', name, newMessage);
+
+          break;
       }
     });
 

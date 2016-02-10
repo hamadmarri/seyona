@@ -2,12 +2,13 @@ angular.module('phonertcdemo')
 
 .controller('SearchingInterestsCtrl', function ($scope, $state, $timeout, $interval, 
     signalingInterests, ContactsServiceForInterests, InterestsService, InterestsSearchService, 
-    ProfileService, $ionicPopup, CountryService, BlacklistService) {
+    ProfileService, $ionicPopup, CountryService, BlacklistService, SoundService) {
 
 
   var tipsDelay = 21000;
   $scope.dots = ".";
   $scope.searchingMargin = ((window.innerWidth / 2) - 130) + "px";
+
 
   $scope.online = function() { 
     return ContactsServiceForInterests.onlineUsersCounter; 
@@ -124,8 +125,14 @@ angular.module('phonertcdemo')
 
   };
 
+  
 
   $scope.messageReceived_TakeProfile = function(name, message) {
+
+    
+    SoundService.startPhoneRinging();
+
+
     var profile = message.profile;
     var template = "";
 
@@ -163,8 +170,14 @@ angular.module('phonertcdemo')
     confirmPopup.then(function(res) {
       var isReady = false;
 
+
+      SoundService.stopPhoneRinging();
+
+
       if(res) {
         isReady = true;
+        
+        SoundService.pickupPhone();
       } else {
 
         // add to blacklist
