@@ -11,7 +11,7 @@
       <div class="item" ng-show="usernameError">
         <span style="color: red;">Alphabet only, min is 2 max is 25 characters</span>
       </div>
-      
+
       <label class="item item-input">
         <input type="text" placeholder="Your Name" ng-model="user.username">
       </label>
@@ -33,8 +33,9 @@
 
 
 
-      <img id="photo" style="height: auto; width: auto; max-width: 62%; max-height: 62%;"
-      ng-click="getPhoto()">
+      <img id="myphoto" 
+        style="display: block; margin-left: auto; margin-right: auto;height: auto; width:auto; max-width: 150px; max-height: 150px;"
+        ng-click="getPhoto()">
 
       <button ng-if="photoPicked==false" ng-click="getPhoto()" class="item button button-block button-dark icon-right ion-images ubuntu">
         Choose Photo

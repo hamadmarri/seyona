@@ -8,7 +8,6 @@ angular.module('phonertcdemo')
     var service = {};
 
     var countris = [
-      {name: 'Saudi Arabia', code: 'SA', flag: '0230', online: 0, welcome: "احلى يا سعودي! منور والله"},
       {name: 'Afghanistan', code: 'AF', flag: '0035', online: 0, welcome: "Wow! you're from Afghanistan!"},
       {name: 'Albania', code: 'AL', flag: '0038', online: 0, welcome: "Wow! you're from Albania!"},
       {name: 'Algeria', code: 'DZ', flag: '0096', online: 0, welcome: "Wow! you're from Algeria!"},
@@ -169,6 +168,7 @@ angular.module('phonertcdemo')
      {name: 'Samoa', code: 'WS', flag: '0282', online: 0, welcome: "Wow! you're from Samoa!"},
      {name: 'San Marino', code: 'SM', flag: '0241', online: 0, welcome: "Wow! you're from San Marino!"},
      {name: 'Sao Tome and Princ.', code: 'ST', flag: '0246', online: 0, welcome: "Wow! you're from Sao Tome and Princ.!"},
+     {name: 'Saudi Arabia', code: 'SA', flag: '0230', online: 0, welcome: "احلى يا سعودي! منور والله"},
      {name: 'Senegal', code: 'SN', flag: '0242', online: 0, welcome: "Wow! you're from Senegal!"},
      {name: 'Serbia', code: 'RS', flag: '0227', online: 0, welcome: "Wow! you're from Serbia!"},
      {name: 'Seychelles', code: 'SC', flag: '0232', online: 0, welcome: "Wow! you're from Seychelles!"},

@@ -1,4 +1,4 @@
-<ion-view title="Profile" hide-back-button="false" hide-nav-bar="false" ng-init="init()">
+<ion-view title="Profile" hide-back-button="true" hide-nav-bar="false" ng-init="init()">
   
 
   <ion-nav-bar class="bar bar-header bar-dark">
@@ -45,6 +45,10 @@
         
           <img ng-if="countryFlag!=undefined" ng-src="emoji/{{countryFlag}}.svg">
         </label>
+
+        <div ng-if="countryFlag!=undefined" style="text-align: center;" class="item">
+          <span class="ubuntu">{{welcomeMsg}}</span>
+        </div>
 
     
       <div ng-if="!editAge" class="item item-button-right">

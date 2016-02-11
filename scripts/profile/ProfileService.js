@@ -1,5 +1,5 @@
 angular.module('phonertcdemo')
-.factory('ProfileService', function (FileService) {
+.factory('ProfileService', function (FileService, CountryService) {
 
   var profile = {
     username: "",
@@ -34,11 +34,20 @@ angular.module('phonertcdemo')
       } else {
         if (read != "") {
           service.profile = angular.fromJson(read);
+
+          CountryService.setMyCountry(CountryService.find(service.profile.countryCode));
         }
         service.status = "done";
       }
       
      }, 500);
+  };
+
+
+
+  service.save = function() {
+    FileService.write(angular.toJson(service.profile));
+    CountryService.setMyCountry(CountryService.find(service.profile.countryCode));
   };
 
 

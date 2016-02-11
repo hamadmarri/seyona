@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 
   .controller('SignupCtrl', function ($scope, $state, $ionicPopup, ENV, FileService, 
-    ProfileService, CountryService) {
+    ProfileService, CountryService, $rootScope, $ionicLoading) {
     
 
     $scope.countries = CountryService.getCountries();
@@ -9,10 +9,13 @@ angular.module('phonertcdemo')
     $scope.photoPicked = false;
     $scope.usernameError = false;
 
+
     $scope.user = {
       username: "",
-      image:"",
-      countryCode: ""
+      image: "",
+      countryCode: "",
+      age: "",
+      gender: ""
     };
 
 
@@ -40,12 +43,15 @@ angular.module('phonertcdemo')
 
 
       function onSuccess(imageData) {
-        var image = $("#photo")[0];
+        var image = $("#myphoto")[0];
         image.src = "data:image/jpeg;base64," + imageData;
 
         $scope.user.image = image.src;
 
+        ProfileService.profile.image = $scope.user.image;
+
         // alert($scope.user.image.length);
+
         $scope.photoPicked = true;
 
         $scope.$apply();
@@ -81,19 +87,26 @@ angular.module('phonertcdemo')
           return;
       }
 
-      alert($scope.user.username);
-      alert($scope.user.countryCode);
-      alert($scope.user.image);
 
 
-      FileService.write(angular.toJson($scope.user));
+      // FileService.write(angular.toJson($scope.user));
+
+      $ionicLoading.show();
+
+      ProfileService.profile.username = $scope.user.username;
+      ProfileService.profile.countryCode = $scope.user.countryCode;
+
+      ProfileService.save();
 
       setTimeout(function() {
-        ProfileService.load();
+        $ionicLoading.hide();
         $state.go("app.showprofile");
-      }, 1000);
+      }, 3000);
       
     };
 
+
+
+    $rootScope.$viewHistory.backView = null;
 
   });

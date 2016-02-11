@@ -1,6 +1,7 @@
 angular.module('phonertcdemo')
 
-  .controller('ShowProfileCtrl', function ($scope, $state, ProfileService, FileService, CountryService) {
+  .controller('ShowProfileCtrl', function ($scope, $state, ProfileService, CountryService,
+   $ionicLoading, $ionicPopup) {
 
 
     $scope.editUsername = false;
@@ -8,9 +9,11 @@ angular.module('phonertcdemo')
     $scope.editGender = false;
     $scope.countries = CountryService.getCountries();
     $scope.countryFlag = undefined;
+    $scope.welcomeMsg = "";
 
 
-    $scope.read = "";
+    $scope.oldUsername = "";
+
     $scope.user = {
       username: "",
       image: "",
@@ -20,31 +23,32 @@ angular.module('phonertcdemo')
     };
 
     $scope.init = function() {
-      // $scope.read = "";
 
 
+      $ionicLoading.show();
 
-      if (ProfileService.profile.username == "") {
+      $scope.user = ProfileService.profile;
 
-        // alert("if");
+      $scope.oldUsername = ProfileService.profile.username;
 
-        setTimeout(function() {
-          FileService.read();
-          $scope.doReading();  
-        }, 1000);
-        
-      
-      } else {
-        // alert("else");
+      setTimeout(function() {
+          var image = $("#myphoto")[0];
+          image.src = ProfileService.profile.image;
+          
+          
+          if ($scope.user.image == "") {
+            image.src = "logo.svg";
+          }
 
 
-        $scope.user = ProfileService.profile;
+          $scope.countryFlag = CountryService.getMyCountry().flag;
+          $scope.welcomeMsg = CountryService.getMyCountry().welcome;
 
-        if ($scope.user.countryCode != undefined) {
-          $scope.countryFlag = CountryService.find($scope.user.countryCode).flag;
-        }
+          $scope.$apply();
 
-      }
+          $ionicLoading.hide();
+
+        }, 3000);
       
     };
 
@@ -74,8 +78,10 @@ angular.module('phonertcdemo')
         image.src = "data:image/jpeg;base64," + imageData;
 
         $scope.user.image = image.src;
-        FileService.write(angular.toJson($scope.user));
+        
+        // FileService.write(angular.toJson($scope.user));
         ProfileService.profile = $scope.user;
+        ProfileService.save();
 
         $scope.$apply();
       }
@@ -93,19 +99,57 @@ angular.module('phonertcdemo')
             document.getElementById("usernameInput").focus(); 
         }, 500);
       } else {
-        FileService.write(angular.toJson($scope.user));
-        ProfileService.profile = $scope.user;
+
+        $scope.user.username = $scope.user.username.trim();
+
+        if ($scope.user.username.length < 2 || $scope.user.username.length > 25) {
+
+          $scope.editUsername = true;
+          $scope.user.username = $scope.oldUsername;
+
+          $scope.showUsernameError();
+
+          return;
+        }
+
+        var matches = $scope.user.username.match(/^[a-zA-Z]+$/);
+        if (matches == null) {
+
+          $scope.editUsername = true;
+          $scope.user.username = $scope.oldUsername;
+
+          $scope.showUsernameError();
+          return;
+        }
+
+
+        // ProfileService.profile = $scope.user;
+        ProfileService.save();
       }
     };
 
 
+    $scope.showUsernameError = function() {
+      var alertPopup = $ionicPopup.alert({
+           title: 'Usernmae Error',
+           template: 'username must be alphabet only, min is 2 max is 25 characters'
+         });
+
+         alertPopup.then(function(res) {
+         });
+    };
+
 
     $scope.setCountry = function() {
       // alert($scope.user.countryCode);
-      $scope.countryFlag = CountryService.find($scope.user.countryCode).flag;
 
-      FileService.write(angular.toJson($scope.user));
-      ProfileService.profile = $scope.user;
+      CountryService.setMyCountry(CountryService.find(ProfileService.profile.countryCode));
+      $scope.countryFlag = CountryService.getMyCountry().flag;
+      $scope.welcomeMsg = CountryService.getMyCountry().welcome;
+
+      // FileService.write(angular.toJson($scope.user));
+      // ProfileService.profile = $scope.user;
+      ProfileService.save();
     };
 
 
@@ -117,8 +161,9 @@ angular.module('phonertcdemo')
             document.getElementById("ageInput").focus(); 
         }, 500);
       } else {
-        FileService.write(angular.toJson($scope.user));
-        ProfileService.profile = $scope.user;
+        // FileService.write(angular.toJson($scope.user));
+        // ProfileService.profile = $scope.user;
+        ProfileService.save();
       }
     };
 
@@ -127,52 +172,19 @@ angular.module('phonertcdemo')
       $scope.editGender = b;
       
       if (b == false) {
-        FileService.write(angular.toJson($scope.user));
-        ProfileService.profile = $scope.user;
+        // FileService.write(angular.toJson($scope.user));
+        // ProfileService.profile = $scope.user;
+        ProfileService.save();
       }
 
     };
 
-    $scope.doReading = function() {
-      setTimeout(function() { 
-        $scope.read = FileService.error + FileService.data;
-
-
-        if ($scope.read == "") {
-          $scope.doReading();
-        } else {
-
-          $scope.user = angular.fromJson($scope.read);
-
-          var image = $("#myphoto")[0];
-          image.src = $scope.user.image;
-          
-          if ($scope.user.image == "") {
-            image.src = "logo.svg";
-          }
-
-          // if ($scope.user.countryCode == undefined) {
-          //   $scope.user.countryCode = "SA";
-          //   $scope.user.countryCode = CountryService.find($scope.user.countryCode).flag;
-          // }
-          
-
-          // $scope.user.age = "31";
-          // $scope.user.gender = "M";
-
-          if ($scope.user.countryCode != undefined) {
-            $scope.countryFlag = CountryService.find($scope.user.countryCode).flag;
-          }
-
-          $scope.$apply();
-        }
-        
-       }, 500);
-    };
 
 
     $scope.goBack = function() {
       $state.go('app.home');
     };
+
+
 
   });
