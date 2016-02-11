@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 
   .controller('PickOtherCountryCtrl', function ($scope, $state, $interval,
-     $timeout, signalingCountry, CountryService, ContactsServiceForCountry) {
+     $timeout, signalingCountry, CountryService, ContactsServiceForCountry, AdService) {
  
     $scope.countries = CountryService.getCountries();
     $scope.limit = 21;
@@ -35,23 +35,11 @@ angular.module('phonertcdemo')
     });
 
 
-    // for logout
-    $scope.logout = function() {
-
-      var countryPerson = {
-        name: ContactsServiceForCountry.currentName,
-        countryCode: $scope.myCountry.code
-      };
-      
-      signalingCountry.emit('logout', countryPerson);
-
-      $state.go('app.pickmycountry');
-    };
-
 
     $scope.pickCountry = function(c) {
       CountryService.setCallingCountryCode(c.code);
       
+      AdService.runAdBanner();
       $state.go('app.searchingcountry');
     };
 
@@ -59,6 +47,7 @@ angular.module('phonertcdemo')
 
     $scope.init = function() {
       $scope.login();
+      AdService.removeBanner();
     };
 
 
