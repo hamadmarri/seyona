@@ -4,15 +4,16 @@ angular.module('phonertcdemo')
   	var blackList = [];
 
   	var service = {
+      blackList: blackList
     };
 
 
     service.add = function(name) {
-		blackList.push(name);
+		  service.blackList.push(name);
     };
 
     service.isInBlacklist = function(name) {
-    	var index = blackList.indexOf(name); 
+    	var index = service.blackList.indexOf(name); 
     	return (index != -1);
     };
 

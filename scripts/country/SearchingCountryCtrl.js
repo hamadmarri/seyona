@@ -133,12 +133,7 @@ angular.module('phonertcdemo')
 
   };
 
-  // signalingCountry.on('found', function (countryPerson) {
-  //     ContactsServiceForCountry.callingCountryPerson = CountryService.find(countryPerson.countryCode);
 
-  //     SearchService.stop();
-  //     $state.go('app.countrycall', { isCalling: true, contactName: countryPerson.name }); 
-  // });
 
   $scope.messageReceived_TakeProfile = function(name, message) {
 
@@ -194,7 +189,12 @@ angular.module('phonertcdemo')
         // add to blacklist
         BlacklistService.add(name);
 
-        SearchService.start({ countryCode: CountryService.getCallingCountryCode() });
+        var query = {
+          countryCode: CountryService.getCallingCountryCode(),
+          blackList: BlacklistService.blackList
+        };
+
+        SearchService.start(query);
       }
 
 
@@ -239,7 +239,12 @@ angular.module('phonertcdemo')
          });
 
          alertPopup.then(function(res) {
-          SearchService.start({ countryCode: CountryService.getCallingCountryCode() });
+            var query = {
+              countryCode: CountryService.getCallingCountryCode(),
+              blackList: BlacklistService.blackList
+            };
+
+            SearchService.start(query);
          });
     }
   };
@@ -254,7 +259,12 @@ angular.module('phonertcdemo')
             $scope.messageReceived_TakeProfile,
             $scope.messageReceived_ReadyToCall);
 
-    SearchService.start( {countryCode: CountryService.getCallingCountryCode()} );
+    var query = {
+      countryCode: CountryService.getCallingCountryCode(),
+      blackList: BlacklistService.blackList
+    };
+
+    SearchService.start(query);
   };
 
   

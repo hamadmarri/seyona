@@ -183,7 +183,12 @@ angular.module('phonertcdemo')
         // add to blacklist
         BlacklistService.add(name);
 
-        InterestsSearchService.start({ interests: InterestsService.myInterests });
+        var query = {
+          interests: InterestsService.myInterests,
+          blackList: BlacklistService.blackList
+        };
+
+        InterestsSearchService.start(query);
       }
 
 
@@ -229,7 +234,12 @@ angular.module('phonertcdemo')
          });
 
          alertPopup.then(function(res) {
-          InterestsSearchService.start({ interests: InterestsService.myInterests });
+            var query = {
+              interests: InterestsService.myInterests,
+              blackList: BlacklistService.blackList
+            };
+
+            InterestsSearchService.start(query);
          });
     }
   };
@@ -245,7 +255,14 @@ angular.module('phonertcdemo')
             $scope.messageReceived_TakeProfile,
             $scope.messageReceived_ReadyToCall);
 
-    InterestsSearchService.start({ interests: InterestsService.myInterests });
+
+    var query = {
+      interests: InterestsService.myInterests,
+      blackList: BlacklistService.blackList
+    };
+
+    InterestsSearchService.start(query);
+
   };
 
   

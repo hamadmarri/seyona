@@ -28,19 +28,25 @@ angular.module('phonertcdemo', ['ionic',
       .state('app.takepicture', {
         url: '/takepicture',
         controller: 'TakePictureCtrl',
-        templateUrl: 'templates/takepicture.html'
+        templateUrl: 'templates/face/takepicture.html'
       })
 
       .state('app.positiveOrNegative', {
         url: '/positiveornegative',
         controller: 'PositiveOrNegativeCtrl',
-        templateUrl: 'templates/positiveornegative.html'
+        templateUrl: 'templates/face/positiveornegative.html'
       })
 
       .state('app.search', {
         url: '/search',
         controller: 'SearchCtrl',
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/face/search.html'
+      })
+
+      .state('app.call', {
+        url: '/call/:contactName?isCalling',
+        controller: 'CallCtrl',
+        templateUrl: 'templates/face/call.html'
       })
 
 
@@ -140,11 +146,6 @@ angular.module('phonertcdemo', ['ionic',
         url: '/contacts',
         controller: 'ContactsCtrl',
         templateUrl: 'templates/contacts.html'
-      })
-      .state('app.call', {
-        url: '/call/:contactName?isCalling',
-        controller: 'CallCtrl',
-        templateUrl: 'templates/call.html'
       });
 
 
