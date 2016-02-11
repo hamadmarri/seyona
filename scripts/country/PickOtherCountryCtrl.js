@@ -6,7 +6,7 @@ angular.module('phonertcdemo')
     $scope.countries = CountryService.getCountries();
     $scope.limit = 21;
     $scope.myCountry = CountryService.getMyCountry();
-
+    $scope.loginName = "a" + Math.floor(Math.random() * 1000000000);
 
 
 
@@ -16,6 +16,23 @@ angular.module('phonertcdemo')
       $scope.$broadcast('scroll.infiniteScrollComplete');
     };
 
+
+    $scope.login = function () {
+      var countryPerson = {
+        name: $scope.loginName,
+        countryCode: $scope.myCountry.code,
+        status: 1, // busy
+        callsCount: 0
+      };
+
+      signalingCountry.emit('login', countryPerson );
+    };
+
+
+    signalingCountry.on('login_successful', function (users) {
+      signalingCountry.emit('busy');
+      ContactsServiceForCountry.setOnlineUsers(users, $scope.loginName);
+    });
 
 
     // for logout
@@ -34,7 +51,6 @@ angular.module('phonertcdemo')
 
     $scope.pickCountry = function(c) {
       CountryService.setCallingCountryCode(c.code);
-      // alert(CountryService.getCallingCountryCode());
       
       $state.go('app.searchingcountry');
     };
@@ -42,12 +58,13 @@ angular.module('phonertcdemo')
 
 
     $scope.init = function() {
-      signalingCountry.emit('busy');
+      $scope.login();
     };
 
 
     $scope.goBack = function() {
-      $state.go('app.welcomecountry');
+      signalingCountry.emit('logout');
+      $state.go('app.home');
     };
 
   });
