@@ -1,10 +1,13 @@
 angular.module('phonertcdemo')
 
 .controller('SearchCtrl', function ($scope, $state, $timeout, $interval, ContactsService, 
-		SchedulingService, MatchService, ENV, DeleteService) {
+		SchedulingService, MatchService, ENV, DeleteService,
+		ProfileService, $ionicPopup, CountryService, BlacklistService, SoundService,
+		FaceSearchService, signaling) {
 
 
 
+	$scope.otherId;
 	$scope.waitBeforePick = 10000;
 	$scope.maxTryToCall = 55;
 	var tipsDelay = 21000;
@@ -141,7 +144,8 @@ angular.module('phonertcdemo')
 					$timeout($scope.pickRandom, $scope.waitBeforePick);
 
 				} else if (otherStatus == "SEARCHING") {
-					$scope.gotoCall(id, webrtcid);
+					// $scope.gotoCall(id, webrtcid);
+					$scope.found(id, webrtcid);
 
 				} else {
 					// not searching yet
@@ -155,6 +159,123 @@ angular.module('phonertcdemo')
 			}
 		});
 	};
+
+
+
+	$scope.found = function(id, webrtcid) {
+	
+		$scope.otherId = id;
+
+		if (!BlacklistService.isInBlacklist(webrtcid)) {
+			signaling.emit('sendMessage', webrtcid, { type: 'shareProfile', initializor: true });  
+		}
+
+	};
+
+
+	$scope.messageReceived_TakeProfile = function(name, message) {
+	  SoundService.startPhoneRinging();
+
+
+	  var profile = message.profile;
+	  var template = "";
+
+
+	  template += '<img id="myphoto" style="height: auto;' +
+	        'width: auto; max-width: 100px; max-height: 100px;" src="' + profile.image + '">';
+
+	  template += "<br>Name: " + profile.username;
+
+	  if (profile.countryCode != undefined) {
+	    var country = CountryService.find(profile.countryCode);
+	    template += '<br> <img ng-src="emoji/' + country.flag + '.svg">';
+	    template += '<br>' + country.name;
+	  }
+
+	  if (profile.age != undefined) {
+	    template += "<br>Age: " + profile.age;
+	  }
+	  
+	  if (profile.gender != undefined) {
+	    template += "<br>Gender: " + profile.gender;
+	  }
+
+	  var confirmPopup = $ionicPopup.confirm({
+	    // title: profile.username,
+	    template: template,
+	    cancelText: 'Nevermind',
+	    okText: 'Call'
+	  });
+
+	  // decide either call or search again
+	  confirmPopup.then(function(res) {
+	    var isReady = false;
+
+
+	    SoundService.stopPhoneRinging();
+
+
+	    if(res) {
+	      isReady = true;
+	      
+	      SoundService.pickupPhone();
+	    } else {
+
+	      // add to blacklist
+	      BlacklistService.add(name);
+
+	      $scope.setAsSearching();
+	      $scope.pickRandom();
+	    }
+
+
+	    var newMessage = {
+	      type: 'readyToCall',
+	      ready: isReady,
+	      initializor: !message.initializor
+	    };
+
+	    if (isReady) {
+	      signaling.emit('sendMessage', name, newMessage);  
+	    } else if (message.initializor == true) {
+	      signaling.emit('sendMessage', name, newMessage);  
+	    }
+	    
+
+	  });
+	};
+
+
+
+	$scope.messageReceived_ReadyToCall = function(name, message) {
+	  if (message.ready == true) {
+	    
+	    // if the other person is the caller
+	    if (message.initializor == true) {
+	      signaling.emit('sendMessage', name,{type:'shareProfile',initializor:false });
+
+	    } else {
+	      // $state.go('app.interestscall', { isCalling: true, contactName: name });  
+	      $scope.gotoCall($scope.otherId, name);
+	    }
+	  } else {
+
+	    // add to blacklist
+	    BlacklistService.add(name);
+
+	    var alertPopup = $ionicPopup.alert({
+	         title: 'Sorry!',
+	         template: 'The other person ignored the call :('
+	       });
+
+	       alertPopup.then(function(res) {
+	          $scope.setAsSearching();
+	          $scope.pickRandom();
+	       });
+	  }
+	};
+
+
 
 	$scope.gotoCall = function(id, webrtcid) {
 
@@ -283,5 +404,23 @@ angular.module('phonertcdemo')
 	$timeout($scope.loadMatches, 2000);
 
 	SchedulingService.updatewebrtcid();
+
+
+	FaceSearchService.setCallbackFunctions($scope.messageReceived_TakeProfile,
+	        $scope.messageReceived_ReadyToCall);
+
+
+	// $timeout(function() {
+
+	// 	var r = Math.floor(Math.random() * 10);
+
+	// 	signaling.emit('login', "a" + r);
+
+	// 	var otherName = prompt();
+
+	// 	$scope.found(0, otherName);
+		
+	// }, 5000);
+	
 
 });

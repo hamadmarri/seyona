@@ -9,14 +9,20 @@ angular.module('phonertcdemo')
     var ringingSoundSrc = "audio/PhoneRinging.mp3";
     var pickupSoundSrc = 'audio/phone-pick-up.mp3';
 
+    var ringingSound;
+    var pickupSound;
 
     if($ionicPlatform.is('android')){
         ringingSoundSrc = '/android_asset/www/' + ringingSoundSrc;
         pickupSoundSrc = '/android_asset/www/' + pickupSoundSrc;
     }
 
-    var ringingSound = new Media(ringingSoundSrc);
-    var pickupSound = new Media(pickupSoundSrc);
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    function onDeviceReady() {
+        ringingSound = new Media(ringingSoundSrc);
+        pickupSound = new Media(pickupSoundSrc);
+    }
 
 
     var service = {

@@ -149,8 +149,8 @@ angular.module('phonertcdemo', ['ionic',
       });
 
 
-    // $urlRouterProvider.otherwise('app/signup');
-    $urlRouterProvider.otherwise('app/home');
+    $urlRouterProvider.otherwise('app/search');
+    // $urlRouterProvider.otherwise('app/home');
 
   })
 
@@ -203,14 +203,27 @@ angular.module('phonertcdemo', ['ionic',
 
       switch (message.type) {
         case 'call':
+
           if ($state.current.name === 'app.call') { return; }
           
           MatchService.setCrrentCallingId(message.matchId);
           MatchService.setCurrentMatchPercent(message.percentage);
 
-          // alert(MatchService.getCrrentCallingId());
-
           $state.go('app.call', { isCalling: false, contactName: name });
+          break;
+
+        case 'shareProfile':
+
+          // alert("got shareProfile");
+
+          var newMessage = {
+            type: 'takeProfile',
+            profile: ProfileService.profile,
+            initializor: !message.initializor
+          };
+
+          signaling.emit('sendMessage', name, newMessage);
+
           break;
       }
     });
