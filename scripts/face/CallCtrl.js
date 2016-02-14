@@ -277,12 +277,19 @@ angular.module('phonertcdemo')
     AdService.removeBanner();
 
     intervalPromis = $interval(function() {
-        if (timeRemaining <= 0) {
-          $scope.end();
-        }
+      if (timeRemaining <= 0) {
+        $scope.end();
+      }
 
-        timeRemaining--;
+      timeRemaining--;
+    }, 1000);
+
+    if ($scope.isCalling) {
+      $timeout(function() {
+        $scope.answer();
       }, 1000);
+    }
+    
 
   };
 
