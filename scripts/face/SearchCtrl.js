@@ -413,7 +413,7 @@ angular.module('phonertcdemo')
 
 	$scope.back = function() {
 		DeleteService.deleteAllUserDataOnServer();
-		$state.go('app.positiveOrNegative');
+		$state.go('app.takepicture');
 	};
 
 
@@ -431,18 +431,5 @@ angular.module('phonertcdemo')
 	FaceSearchService.setCallbackFunctions($scope.messageReceived_TakeProfile,
 	        $scope.messageReceived_ReadyToCall);
 
-
-	// $timeout(function() {
-
-	// 	var r = Math.floor(Math.random() * 10);
-
-	// 	signaling.emit('login', "a" + r);
-
-	// 	var otherName = prompt();
-
-	// 	$scope.found(0, otherName);
-		
-	// }, 5000);
-	
 
 });

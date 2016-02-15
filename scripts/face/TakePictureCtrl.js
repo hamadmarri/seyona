@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 
 .controller('TakePictureCtrl', function($scope, $http, $state, $ionicPopup, $ionicPopover, $timeout,
-   signaling, ContactsService, MatchService, ENV) {
+   signaling, ContactsService, MatchService, ENV, FullScreenImageService) {
 
 
   // .fromTemplate() method
@@ -22,6 +22,15 @@ angular.module('phonertcdemo')
   $scope.showStatusTitleDots = "";
   $scope.loginName = "a" + Math.floor(Math.random() * 1000000000);
 
+
+  $scope.posOrNegList = [
+      { text: "Alike", value: "pos" },
+      { text: "Unalike", value: "neg" }
+    ];
+
+  $scope.posOrNeg = {
+    data: 'pos'
+  };
 
 
   $scope.goBack = function() {
@@ -82,10 +91,17 @@ angular.module('phonertcdemo')
   // ContactsService.setOnlineUsers(users, $scope.loginName);
   ContactsService.setOnlineUsers(users.length, $scope.loginName);
 
-  MatchService.setNegative(false);
+  if ($scope.posOrNeg.data == "pos") {
+    // alert(true);
+    MatchService.setNegative(false);
+  } else {
+    // alert(false);
+    MatchService.setNegative(true);
+  }
   
-  // $timeout(function(){$state.go('app.search');}, 2000);
-  $timeout(function(){$state.go('app.positiveOrNegative');}, 2000);
+  
+  $timeout(function(){$state.go('app.search');}, 2000);
+  // $timeout(function(){$state.go('app.positiveOrNegative');}, 2000);
 });
 
 
@@ -176,6 +192,7 @@ $scope.processingEffect = function() {
     var image = $("#photo")[0];
     image.src = "data:image/jpeg;base64," + imageData;
 
+    $scope.imageSrc = image.src;
     $scope.status = 1;
     $scope.$apply();
   }
@@ -188,6 +205,27 @@ $scope.processingEffect = function() {
 
 
 };
+
+
+
+$scope.openModal = function() {
+  FullScreenImageService.customTemp = '<div class="footerButton row">' +
+  '<div class="col-25"><button class="button' +
+      ' icon-right button-dark ion-camera ubuntu button-block" ng-click="getPhoto()">Edit</button></div>' +
+      '<div class="col-25 col-offset-50"><button class="button button-block">Close</button></div></div>';
+  FullScreenImageService.openModal($scope, $scope.imageSrc);
+};
+
+$scope.closeModal = function() {
+  FullScreenImageService.closeModal();
+};
+
+//Cleanup the modal when we're done with it!
+$scope.$on('$destroy', function() {
+  FullScreenImageService.removeModal();
+});
+
+
 
 
 })

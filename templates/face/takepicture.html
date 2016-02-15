@@ -1,4 +1,4 @@
-<ion-view  hide-back-button="false"> <!-- title="Take Picture" -->
+<ion-view  hide-back-button="false" title="Take a Photo"> <!-- title="Take Picture" -->
 
 	<ion-nav-bar class="bar bar-header bar-dark">
 	  <ion-nav-back-button class="button-clear ubuntu"
@@ -10,23 +10,38 @@
 
 	<ion-content>
 				
-		<!-- <img id="photo" style="max-height: 50%;"> -->
-		<img id="photo" style="height: auto; width: auto; max-width: 62%; max-height: 62%;">
+		
+		<div class="row">
+			<div class="col col-50">
+				<img id="photo" style="height: auto; width: auto; max-width: 100%; max-height: 200px;"
+		        ng-click="openModal()">
+			</div>
+			<div ng-if="status != 0" class="col col-50">
+				<ion-radio ng-repeat="item in posOrNegList"
+		                   ng-value="item.value"
+		                   ng-model="posOrNeg.data">
+		          {{ item.text }}
+		        </ion-radio>
+			</div>
+		</div>
 
-		<p id="takePictureDisc" ng-if="status == 0">Have a video call with your match by taking a photo, Seyona will read your face's features and find who looks like you!</p>
+		<!-- <p id="takePictureDisc" ng-if="status == 0">Have a video call with your match by taking a photo, Seyona will read your face's features and find who looks like you!</p> -->
 
 		<div style="text-align: center">
 
-			<button ng-if="status == 0" ng-click="getPhoto()" class="button button-size button-dark icon-right ion-camera ubuntu">
+			<!-- <button ng-if="status == 0" ng-click="getPhoto()" class="button button-size button-dark icon-right ion-camera ubuntu">
 				Take a Photo
-			</button>
+			</button> -->
 
-			<button ng-if="status != 0" ng-click="getPhoto()" class="button button-size icon-right ion-camera ubuntu">
+			<div style="margin-top: 40%;"></div>
+			<button ng-if="status == 0" ng-click="getPhoto()" class="button button-icon takePictureButton  icon ion-camera"></button>
+
+			<!-- <button ng-if="status != 0" ng-click="getPhoto()" class="button button-size icon-right ion-camera ubuntu">
 				Take another one
-			</button>
+			</button> -->
 
 			<!-- ng-if="status != 0" -->
-			<button ng-if="status != 0" ng-click="sendPhoto($event)" class="button button-size button-dark icon-right ion-arrow-right-c ubuntu">Use this photo</button>
+			<button ng-if="status != 0" ng-click="sendPhoto($event)" class="button button-size button-dark icon ion-arrow-right-c ubuntu"></button>
 		</div>
 
 		<script id="my-popover.html" type="text/ng-template">
