@@ -76,6 +76,8 @@
 
   </ion-content>
 
-  <button style="position:absolute; bottom:0px;" class="button button-block button-dark icon ion-arrow-right-c ubuntu" ng-disabled="myInterests.length == 0 && !showSearch" ng-if="myInterests.length > 0 || showSearch" ng-click="search()"></button>
-
+  <div style="margin-top: 300px;"></div>
+  <div style="text-align: center">
+    <button class="button button-icon largeCenteredButton icon ion-arrow-right-c" ng-disabled="myInterests.length == 0 && !showSearch" ng-if="myInterests.length > 0 || showSearch" ng-click="search()"></button>
+  </div>
 </ion-view>

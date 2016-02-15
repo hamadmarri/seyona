@@ -146,7 +146,7 @@
 	bottom: 0;
 }
 
-button.takePictureButton:before {
+button.largeCenteredButton:before {
 	/*position: absolute;*/
 	/*margin-left: auto; */
 	/*margin-top: 50%;*/
