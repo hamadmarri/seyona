@@ -211,8 +211,8 @@ $scope.processingEffect = function() {
 $scope.openModal = function() {
   FullScreenImageService.customTemp = '<div class="footerButton row">' +
   '<div class="col-25"><button class="button' +
-      ' icon-right button-dark ion-camera ubuntu button-block" ng-click="getPhoto()">Edit</button></div>' +
-      '<div class="col-25 col-offset-50"><button class="button button-block">Close</button></div></div>';
+      ' button-icon icon ion-edit" ng-click="getPhoto()"></button></div>' +
+      '<div class="col-25 col-offset-50"><button style="float: right;" class="button button-icon icon ion-close-circled"></button></div></div>';
   FullScreenImageService.openModal($scope, $scope.imageSrc);
 };
 
