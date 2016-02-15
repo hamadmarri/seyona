@@ -2,7 +2,7 @@ angular.module('phonertcdemo')
 
 .controller('SearchingInterestsCtrl', function ($scope, $state, $timeout, $interval, 
     signalingInterests, ContactsServiceForInterests, InterestsService, InterestsSearchService, 
-    ProfileService, $ionicPopup, CountryService, BlacklistService, SoundService) {
+    ProfileService, $ionicPopup, CountryService, BlacklistService, SoundService, FullScreenImageService) {
 
 
   var tipsDelay = 21000;
@@ -139,9 +139,15 @@ angular.module('phonertcdemo')
 
     signalingInterests.emit('busy');
 
+    if (profile.image == "") {
+      profile.image = "logo.svg";
+    }
+
+    $scope.profileImage = profile.image;
 
     template += '<img id="myphoto" style="height: auto;' +
-          'width: auto; max-width: 100px; max-height: 100px;" src="' + profile.image + '">';
+          'width: auto; max-width: 100px; max-height: 100px;" src="' + profile.image + 
+          '" ng-click="openModal()">';
 
     template += "<br>Name: " + profile.username;
 
@@ -163,7 +169,8 @@ angular.module('phonertcdemo')
       // title: profile.username,
       template: template,
       cancelText: 'Nevermind',
-      okText: 'Call'
+      okText: 'Call',
+      scope: $scope
     });
 
     // decide either call or search again
@@ -244,6 +251,19 @@ angular.module('phonertcdemo')
     }
   };
 
+
+  $scope.openModal = function() {
+    FullScreenImageService.openModal($scope, $scope.profileImage);
+  };
+
+  $scope.closeModal = function() {
+    FullScreenImageService.closeModal();
+  };
+
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    FullScreenImageService.removeModal();
+  });
 
 
   $scope.init = function() {

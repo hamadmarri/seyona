@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 
   .controller('ShowProfileCtrl', function ($scope, $state, ProfileService, CountryService,
-   $ionicLoading, $ionicPopup, $ionicModal) {
+   $ionicLoading, $ionicPopup, FullScreenImageService) {
 
 
     $scope.editUsername = false;
@@ -187,29 +187,17 @@ angular.module('phonertcdemo')
 
 
 
-
     $scope.openModal = function() {
-      var modalTemp = '<div class="modal image-modal transparent" ng-click="closeModal()">' +
-            '<ion-pane class="transparent">' +
-            '<img id="modalPhoto" src="' + ProfileService.profile.image + '" class="fullscreen-image"/>' +
-          '</ion-pane>' +
-        '</div>';
-
-      $scope.modal = $ionicModal.fromTemplate(modalTemp, {
-        scope: $scope,
-        animation: 'slide-in-up'
-      });
-
-      $scope.modal.show();
+      FullScreenImageService.openModal($scope, ProfileService.profile.image);
     };
 
     $scope.closeModal = function() {
-      $scope.modal.hide();
+      FullScreenImageService.closeModal();
     };
 
     //Cleanup the modal when we're done with it!
     $scope.$on('$destroy', function() {
-      $scope.modal.remove();
+      FullScreenImageService.removeModal();
     });
 
   });
