@@ -15,7 +15,8 @@
 
     
       <div class="item item-button-right">
-        <img id="myphoto" style="height: auto; width: auto; max-width: 100px; max-height: 100px;">
+        <img id="myphoto" style="height: auto; width: auto; max-width: 100px; max-height: 100px;"
+        ng-click="openModal()">
         <button class="button icon ion-edit" ng-click="getPhoto()"></button>
       </div>    
 
@@ -77,6 +78,20 @@
       </div>
 
     </div>
+
+
+
+
+
+
+
+   <script id="image-modal.html" type="text/ng-template">
+      <div class="modal image-modal transparent" ng-click="closeModal()">
+        <ion-pane class="transparent">
+          <img id="modalPhoto" class="fullscreen-image"/>
+        </ion-pane>
+      </div>
+   </script>
 
   </ion-content>
 
