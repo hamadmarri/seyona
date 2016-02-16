@@ -1,11 +1,13 @@
 angular.module('phonertcdemo')
-
 .controller('SearchCtrl', function ($scope, $state, $timeout, $interval, ContactsService, 
 		SchedulingService, MatchService, ENV, DeleteService,
 		ProfileService, $ionicPopup, CountryService, BlacklistService, SoundService,
 		FaceSearchService, signaling, FullScreenImageService) {
 
 
+	var changeTipPromise;
+	var animateSearchingDotsPromise;
+	var loadMatchesPromise;
 
 	$scope.otherId;
 	$scope.waitBeforePick = 10000;
@@ -36,7 +38,7 @@ angular.module('phonertcdemo')
 				// window.location.replace("error.html");
 			}
 		});
-	}
+	};
 
 	$scope.getMatches = function() {
 		return MatchService.getMatches();
@@ -72,7 +74,7 @@ angular.module('phonertcdemo')
 					}
 
 					if (MatchService.getMatches().length == 0) {
-						$timeout($scope.loadMatches, $scope.waitBeforePick);
+						loadMatchesPromise = $timeout($scope.loadMatches, $scope.waitBeforePick);
 						return;
 					} else {
 						$scope.pickRandom();
@@ -88,7 +90,7 @@ angular.module('phonertcdemo')
 		} else {
 			$scope.pickRandom();
 		}
-	}
+	};
 
 	$scope.pickRandom = function() {
 
@@ -120,7 +122,7 @@ angular.module('phonertcdemo')
 			MatchService.getMatches()[rand].username,
 			MatchService.getMatches()[rand].webrtcid
 		);
-	}
+	};
 
 
 
@@ -181,9 +183,9 @@ angular.module('phonertcdemo')
 	  var template = "";
 
 
-	  if (profile.image == "") {
-      profile.image = "logo.svg";
-    }
+	if (profile.image == "") {
+	  profile.image = "logo.svg";
+	}
 
     $scope.profileImage = profile.image;
 
@@ -263,7 +265,6 @@ angular.module('phonertcdemo')
 	      signaling.emit('sendMessage', name,{type:'shareProfile',initializor:false });
 
 	    } else {
-	      // $state.go('app.interestscall', { isCalling: true, contactName: name });  
 	      $scope.gotoCall($scope.otherId, name);
 	    }
 	  } else {
@@ -312,6 +313,8 @@ angular.module('phonertcdemo')
 				MatchService.setCrrentCallingId(id);
 
 				// $timeout(function() {
+					$scope.cancelPromises();
+
 					$state.go('app.call', { isCalling: true, contactName: webrtcid });	
 				// }, 10);
 				
@@ -413,23 +416,42 @@ angular.module('phonertcdemo')
 
 	$scope.back = function() {
 		DeleteService.deleteAllUserDataOnServer();
+
+		$scope.cancelPromises();
 		$state.go('app.takepicture');
 	};
 
 
 
-	changeTip();
-	$interval(changeTip, tipsDelay);
-	$interval(animateSearchingDots, 400);
 
-	$timeout($scope.setAsSearching, 1000);
-	$timeout($scope.loadMatches, 2000);
+	$scope.init = function() {
+		changeTip();
+		
+		changeTipPromise = $interval(changeTip, tipsDelay);
+		animateSearchingDotsPromise = $interval(animateSearchingDots, 400);
 
-	SchedulingService.updatewebrtcid();
+		$timeout($scope.setAsSearching, 1000);
+		loadMatchesPromise = $timeout($scope.loadMatches, 2000);
+
+		SchedulingService.updatewebrtcid();
+
+		FaceSearchService.setCallbackFunctions($scope.messageReceived_TakeProfile,
+		        $scope.messageReceived_ReadyToCall);
+	};
 
 
-	FaceSearchService.setCallbackFunctions($scope.messageReceived_TakeProfile,
-	        $scope.messageReceived_ReadyToCall);
+	$scope.cancelPromises = function() {
+		if (changeTipPromise) {
+			$interval.cancel(changeTipPromise);
+		}
 
+		if (animateSearchingDotsPromise) {
+			$interval.cancel(animateSearchingDotsPromise);
+		}
+
+		if (loadMatchesPromise) {
+			$timeout.cancel(loadMatchesPromise);
+		}
+	};
 
 });

@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 
 .controller('TakePictureCtrl', function($scope, $http, $state, $ionicPopup, $ionicPopover, $timeout,
-   signaling, ContactsService, MatchService, ENV, FullScreenImageService) {
+   signaling, ContactsService, MatchService, ENV, FullScreenImageService, $ionicLoading) {
 
 
   // .fromTemplate() method
@@ -165,30 +165,41 @@ $scope.processingEffect = function() {
 
   // $scope.status = 1;
 
-  navigator.camera.getPicture(onSuccess, onFail, 
-  {
-    destinationType: Camera.DestinationType.DATA_URL,
-    // encodingType: Camera.EncodingType.PNG,
-    // destinationType: destinationType.FILE_URI,
-    quality: 70,
-    // targetWidth: 320,
-    // targetHeight: 320,
-    // targetWidth: 720,
-    // targetHeight: 720,
-    // popoverOptions: CameraPopoverOptions,
-    saveToPhotoAlbum: false,
+  $ionicLoading.show();
 
-    targetWidth:320,
-    correctOrientation: true,
-    encodingType: Camera.EncodingType.JPEG,
 
-    cameraDirection: 1
+  setTimeout(function() {
+    navigator.camera.getPicture(onSuccess, onFail, 
+    {
+      destinationType: Camera.DestinationType.DATA_URL,
+      // encodingType: Camera.EncodingType.PNG,
+      // destinationType: destinationType.FILE_URI,
+      quality: 70,
+      // targetWidth: 320,
+      // targetHeight: 320,
+      // targetWidth: 720,
+      // targetHeight: 720,
+      // popoverOptions: CameraPopoverOptions,
+      saveToPhotoAlbum: false,
 
-    // sourceType: Camera.PictureSourceType.PHOTOLIBRARY
-  });
+      targetWidth:320,
+      correctOrientation: true,
+      encodingType: Camera.EncodingType.JPEG,
+
+      cameraDirection: 1
+
+      // sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+    });
+    
+  }, 500);
+
+
+
 
 
   function onSuccess(imageData) {
+    $ionicLoading.hide();
+
     var image = $("#photo")[0];
     image.src = "data:image/jpeg;base64," + imageData;
 
@@ -198,12 +209,13 @@ $scope.processingEffect = function() {
   }
 
   function onFail(message) {
+    $ionicLoading.hide();
     // $scope.status = 0;
     // $scope.$apply();
     // alert('Failed because: ' + message);
   }
 
-
+ 
 };
 
 
