@@ -192,7 +192,7 @@ angular.module('phonertcdemo')
     $scope.profileImage = profile.image;
 
     template += '<img id="myphoto" style="height: auto;' +
-          'width: auto; max-width: 100px; max-height: 100px;" src="' + profile.image + 
+          'width: auto; max-width: 100px; max-height: 100px;" src="' + profile.faceImage + 
           '" ng-click="openModal()">';
 
 	  template += "<br>Name: " + profile.username;

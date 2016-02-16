@@ -6,7 +6,8 @@ angular.module('phonertcdemo')
     image: "",
     countryCode: "",
     age: "",
-    gender: ""
+    gender: "",
+    faceImage: ""
   };
 
   var service = {

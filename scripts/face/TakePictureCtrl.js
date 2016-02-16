@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 
 .controller('TakePictureCtrl', function($scope, $http, $state, $ionicPopup, $ionicPopover, $timeout,
-   signaling, ContactsService, MatchService, ENV, FullScreenImageService, $ionicLoading) {
+   signaling, ContactsService, MatchService, ENV, FullScreenImageService, $ionicLoading, ProfileService) {
 
 
   // .fromTemplate() method
@@ -204,6 +204,9 @@ $scope.processingEffect = function() {
     image.src = "data:image/jpeg;base64," + imageData;
 
     $scope.imageSrc = image.src;
+    
+    ProfileService.faceImage = image.src;
+
     $scope.status = 1;
     $scope.$apply();
   }
