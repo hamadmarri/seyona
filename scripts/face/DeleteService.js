@@ -14,7 +14,8 @@ angular.module('phonertcdemo')
           method : "GET",
           url : ENV.apiEndpoint + "/people/deletemedisconnected",
           success : function(data, textStatus, jQxhr) {
-            signaling.disconnect();
+            // signaling.disconnect();
+            signaling.emit('logout');
           },
           error : function(jqXhr, textStatus, errorThrown) {
             // console.log(errorThrown);
