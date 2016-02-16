@@ -205,7 +205,7 @@ $scope.processingEffect = function() {
 
     $scope.imageSrc = image.src;
     
-    ProfileService.faceImage = image.src;
+    ProfileService.profile.faceImage = image.src;
 
     $scope.status = 1;
     $scope.$apply();

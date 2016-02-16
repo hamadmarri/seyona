@@ -185,11 +185,11 @@ angular.module('phonertcdemo')
 	  var template = "";
 
 
-	if (profile.image == "") {
-	  profile.image = "logo.svg";
+	if (profile.faceImage == "") {
+	  profile.faceImage = "logo.svg";
 	}
 
-    $scope.profileImage = profile.image;
+    $scope.profileImage = profile.faceImage;
 
     template += '<img id="myphoto" style="height: auto;' +
           'width: auto; max-width: 100px; max-height: 100px;" src="' + profile.faceImage + 
