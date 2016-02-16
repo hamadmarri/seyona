@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 
   .controller('PickInterestsCtrl', function ($scope, $state, $timeout, InterestsService,
-   ContactsServiceForInterests, $ionicPopup, signalingInterests, $ionicLoading) {
+   ContactsServiceForInterests, $ionicPopup, signalingInterests) {
  
     $scope.interest = '';
     $scope.myInterests = [];
@@ -9,25 +9,26 @@ angular.module('phonertcdemo')
     var deletePromis;
     $scope.showSearch = false;
 
-    // $scope.games = false;
-    // $scope.heart = false;
-    // $scope.music = false;
-    // $scope.film = false;
-    // $scope.earth = false;
 
     $scope.categoryArray = [false, false, false, false, false];
 
 
+    $scope.toast = function(s) {
+      $('.toast').stop();
+      $('.toast').hide();
+      $('.toast').html(s);
+      $('.toast').fadeIn(400).delay(1000).fadeOut(400);
+    };
+
     $scope.showAdded = function(b, s) {
 
-      // alert($scope.categoryArray[b]);
 
-      
       if (!$scope.categoryArray[b]) {
-        $ionicLoading.show({ template: s + " is added", noBackdrop: true, duration: 1300 });  
+        $scope.toast(s + " is added");
       } else {
-        $ionicLoading.show({ template: s + " is removed", noBackdrop: true, duration: 1300 });  
+        $scope.toast(s + " is removed");
       }
+
 
       $scope.categoryArray[b] = !$scope.categoryArray[b];
 
@@ -43,7 +44,6 @@ angular.module('phonertcdemo')
       }
 
       
-
     };
     
 
@@ -57,15 +57,27 @@ angular.module('phonertcdemo')
     }; 
 
 
+
+    function isInArray(value) {
+      for (var i = 0; i < $scope.myInterests.length; i++) {
+        if ($scope.myInterests[i].value === value) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
     $scope.add = function(i) {
       i = i.trim();
 
-      if ($scope.myInterests.indexOf(i) != -1) {
+      if (isInArray(i)) {
         return;
       }
 
       if (i != '') {
         $scope.myInterests.push( { value: i, toDelete: false } );
+        $scope.toast(i + " is added");
       }
 
     };
@@ -93,7 +105,7 @@ angular.module('phonertcdemo')
 
 
     $scope.delete = function(item) {
-      var index;
+      var index = -1;
 
       for (var i = 0; i < $scope.myInterests.length; i++) {
         if ($scope.myInterests[i].value == item.value) {
@@ -105,6 +117,7 @@ angular.module('phonertcdemo')
 
       if (index > -1) {
           $scope.myInterests.splice(index, 1);
+          $scope.toast(item.value + " is removed");
       }
     };
 
