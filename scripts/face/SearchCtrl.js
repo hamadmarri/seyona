@@ -61,11 +61,13 @@ angular.module('phonertcdemo')
 				url : urlString,
 				success : function(data, textStatus, jQxhr) {
 
+					// alert("loadMatches success " + data);
+
 
 					MatchService.setMatches(data);
 
 
-					// alert("loadMatches success " + MatchService.getMatches());
+					// alert("setMatches success " + MatchService.getMatches());
 
 
 					// if stil null then exit, there must be an error
@@ -425,6 +427,7 @@ angular.module('phonertcdemo')
 
 
 	$scope.init = function() {
+
 		changeTip();
 		
 		changeTipPromise = $interval(changeTip, tipsDelay);

@@ -1,5 +1,5 @@
 angular.module('phonertcdemo')
-  .factory('DeleteService', function ($http, ENV, signaling) {
+  .factory('DeleteService', function ($http, ENV, signaling, MatchService) {
     
     var service = {};
 
@@ -16,6 +16,7 @@ angular.module('phonertcdemo')
           success : function(data, textStatus, jQxhr) {
             // signaling.disconnect();
             signaling.emit('logout');
+            MatchService.setMatches(null);
           },
           error : function(jqXhr, textStatus, errorThrown) {
             // console.log(errorThrown);
