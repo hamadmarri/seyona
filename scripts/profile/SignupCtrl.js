@@ -1,7 +1,7 @@
 angular.module('phonertcdemo')
 
   .controller('SignupCtrl', function ($scope, $state, $ionicPopup, ENV, FileService, 
-    ProfileService, CountryService, $rootScope, $ionicLoading) {
+    ProfileService, CountryService, $rootScope, $ionicLoading, AdService) {
     
 
     $scope.countries = CountryService.getCountries();
@@ -109,4 +109,10 @@ angular.module('phonertcdemo')
 
     $rootScope.$viewHistory.backView = null;
 
+
+    $scope.init = function() {
+      AdService.removeBanner();
+    };
+
+    
   });

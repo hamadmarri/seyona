@@ -150,7 +150,7 @@ angular.module('phonertcdemo', ['ionic',
 
 
     // $urlRouterProvider.otherwise('app/takepicture');
-    $urlRouterProvider.otherwise('app/home');
+    // $urlRouterProvider.otherwise('app/home');
 
   })
 
@@ -185,12 +185,12 @@ angular.module('phonertcdemo', ['ionic',
           if (ProfileService.profile.username == "") {
             $state.go('app.signup');
           } 
-          // else {
-          //   $state.go('app.showprofile');
-          // }
+          else {
+            $state.go('app.home');
+          }
         }
         
-       }, 350);
+       }, 100);
     }
 
   })
