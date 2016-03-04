@@ -25,12 +25,14 @@
   <ion-content > <!-- has-header="true" -->
 
       <div class="list" >
-        <a class="item item-avatar" 
+        <a class="item item-avatar item-button-right" 
             ng-click="pickCountry(c)"
             ng-repeat="c in countries | orderBy:['-online', 'name'] | filter: search | limitTo: limit">
           <img ng-src="emoji/{{c.flag}}.svg">
           <h2 class="ubuntu">{{c.name}}</h2>
            <p class="ubuntu">{{c.code}}, <span class="positive"><strong>{{c.online | number}}</strong></span> online</p>
+
+           <button class="button button-dark ubuntu" ng-click="pickCountry(c)">Choose</button>
         </a>
       </div>  
 
